@@ -38,6 +38,13 @@ h1.title{
   filter:drop-shadow(0 2px 0 rgba(255,255,255,.75));
 }
 .subtitle{text-align:center; font-size:17px; font-weight:600; color:#5b2a86; margin:0 0 10px;}
+.home-h{
+  text-align:center; margin:2px 0 0; font-size:clamp(24px,6.5vw,32px); font-weight:700; line-height:1.1;
+  background:linear-gradient(180deg,#ff7eb3,#a55eea);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(255,255,255,.75));
+}
+.home-sub{text-align:center; font-size:14.5px; font-weight:600; color:#5b2a86; margin:1px 0 2px;}
 .mascot-row{display:flex; align-items:flex-end; gap:10px; margin:8px 2px;}
 .appu{font-size:64px; line-height:1; animation:bob 2.6s ease-in-out infinite; filter:drop-shadow(0 4px 4px rgba(38,50,94,.25)); position:relative;}
 .appu .acc{position:absolute; font-size:30px; top:-16px; right:-8px;}
@@ -110,10 +117,18 @@ h1.title{
 .confirm-box{background:#fffbe9;border:3px dashed #f7b731;border-radius:18px;padding:12px 14px;font-weight:700;margin:10px 0;}
 .heart-btn{background:#ffe9f3 !important;color:#d6336c !important;}
 .bubble{
-  background:#fff; border-radius:20px; border:3px solid #ffe08a; padding:10px 14px;
-  font-size:16.5px; font-weight:600; position:relative; box-shadow:0 4px 0 rgba(38,50,94,.12); flex:1;
+  position:relative; flex:1; padding:20px 24px 27px;
+  font-size:16.5px; font-weight:600; line-height:1.45;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20320%20184%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M%2056.0%2C16.0%20C%2059.5%2C14.7%2061.6%2C14.2%2065.2%2C13.6%20C%2068.7%2C13.1%2072.6%2C12.5%2077.2%2C12.5%20C%2081.7%2C12.6%2087.2%2C13.1%2092.5%2C13.8%20C%2097.8%2C14.6%20103.8%2C16.0%20109.0%2C17.1%20C%20114.3%2C18.2%20119.5%2C19.8%20124.1%2C20.4%20C%20128.6%2C21.1%20132.4%2C21.5%20136.3%2C21.0%20C%20140.2%2C20.6%20143.5%2C19.2%20147.4%2C17.9%20C%20151.4%2C16.6%20155.5%2C14.3%20160.0%2C13.0%20C%20164.5%2C11.8%20169.7%2C10.5%20174.3%2C10.3%20C%20179.0%2C10.0%20183.9%2C10.8%20188.0%2C11.7%20C%20192.2%2C12.5%20195.7%2C14.4%20199.3%2C15.6%20C%20202.8%2C16.9%20205.6%2C18.4%20209.1%2C19.1%20C%20212.7%2C19.8%20216.2%2C20.1%20220.5%2C19.9%20C%20224.8%2C19.8%20229.7%2C18.9%20235.0%2C18.2%20C%20240.2%2C17.4%20246.3%2C16.2%20251.9%2C15.4%20C%20257.5%2C14.7%20263.2%2C13.2%20268.5%2C13.6%20C%20273.9%2C13.9%20280.3%2C14.9%20284.2%2C17.7%20C%20288.2%2C20.5%20291.0%2C25.5%20292.3%2C30.3%20C%20293.5%2C35.1%20292.1%2C41.6%20291.5%2C46.5%20C%20290.8%2C51.4%20288.7%2C55.3%20288.3%2C59.6%20C%20287.8%2C63.8%20288.1%2C67.8%20289.0%2C72.0%20C%20289.8%2C76.2%20291.6%2C80.5%20293.1%2C84.9%20C%20294.6%2C89.4%20297.4%2C93.8%20297.8%2C98.7%20C%20298.2%2C103.7%20298.2%2C110.3%20295.7%2C114.8%20C%20293.2%2C119.3%20288.1%2C123.5%20282.7%2C125.6%20C%20277.3%2C127.8%20269.4%2C127.7%20263.4%2C127.7%20C%20257.4%2C127.7%20251.8%2C125.9%20246.8%2C125.4%20C%20241.8%2C124.9%20237.3%2C124.5%20233.3%2C124.6%20C%20229.3%2C124.7%20226.2%2C125.4%20222.9%2C126.2%20C%20219.6%2C127.0%20216.9%2C128.5%20213.5%2C129.6%20C%20210.0%2C130.7%20206.4%2C132.1%20202.2%2C132.6%20C%20198.0%2C133.2%20193.0%2C133.3%20188.2%2C132.8%20C%20183.4%2C132.2%20178.0%2C130.7%20173.3%2C129.3%20C%20168.6%2C127.9%20164.2%2C125.7%20160.0%2C124.5%20C%20155.8%2C123.3%20152.4%2C122.3%20148.4%2C122.2%20C%20144.3%2C122.1%20140.4%2C123.0%20135.8%2C124.0%20C%20131.3%2C125.0%20126.0%2C126.9%20120.9%2C128.2%20C%20115.7%2C129.4%20109.9%2C130.8%20104.8%2C131.4%20C%2099.8%2C132.0%2091.8%2C131.8%2090.5%2C131.9%20C%2089.2%2C132.0%2098.8%2C127.0%2097.0%2C132.0%20C%2095.2%2C137.0%2084.8%2C162.3%2080.0%2C162.0%20C%2075.2%2C161.7%2068.1%2C135.4%2068.0%2C130.0%20C%2067.9%2C124.6%2079.0%2C130.3%2079.4%2C129.9%20C%2079.8%2C129.4%2073.6%2C127.8%2070.5%2C127.1%20C%2067.4%2C126.4%2064.9%2C126.3%2060.8%2C125.4%20C%2056.7%2C124.5%2050.9%2C123.9%2046.0%2C121.8%20C%2041.2%2C119.6%2035.6%2C116.3%2031.7%2C112.5%20C%2027.9%2C108.6%2024.8%2C103.1%2022.9%2C98.6%20C%2021.0%2C94.1%2020.4%2C90.0%2020.1%2C85.6%20C%2019.9%2C81.1%2020.4%2C76.4%2021.3%2C72.0%20C%2022.3%2C67.6%2024.3%2C63.2%2025.8%2C59.0%20C%2027.2%2C54.8%2028.6%2C51.2%2030.3%2C46.8%20C%2031.9%2C42.5%2033.4%2C37.0%2035.7%2C32.8%20C%2038.0%2C28.6%2040.9%2C24.2%2044.2%2C21.4%20C%2047.6%2C18.6%2052.5%2C17.3%2056.0%2C16.0%20Z%27%20fill%3D%27%23ffffff%27%20stroke%3D%27%234a2b5c%27%20stroke-width%3D%272.5%27%20vector-effect%3D%27non-scaling-stroke%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E");
+  background-size:100% 100%; background-repeat:no-repeat;
+  filter:drop-shadow(0 6px 10px rgba(38,50,94,.16));
 }
-.bubble:before{content:""; position:absolute; left:-11px; bottom:16px; border:6px solid transparent; border-right:9px solid #ffe08a;}
+.bubble.tc{
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20320%20184%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M%2056.0%2C16.0%20C%2059.5%2C14.7%2061.6%2C14.2%2065.2%2C13.6%20C%2068.7%2C13.1%2072.6%2C12.5%2077.2%2C12.5%20C%2081.7%2C12.6%2087.2%2C13.1%2092.5%2C13.8%20C%2097.8%2C14.6%20103.8%2C16.0%20109.0%2C17.1%20C%20114.3%2C18.2%20119.5%2C19.8%20124.1%2C20.4%20C%20128.6%2C21.1%20132.4%2C21.5%20136.3%2C21.0%20C%20140.2%2C20.6%20143.5%2C19.2%20147.4%2C17.9%20C%20151.4%2C16.6%20155.5%2C14.3%20160.0%2C13.0%20C%20164.5%2C11.8%20169.7%2C10.5%20174.3%2C10.3%20C%20179.0%2C10.0%20183.9%2C10.8%20188.0%2C11.7%20C%20192.2%2C12.5%20195.7%2C14.4%20199.3%2C15.6%20C%20202.8%2C16.9%20205.6%2C18.4%20209.1%2C19.1%20C%20212.7%2C19.8%20216.2%2C20.1%20220.5%2C19.9%20C%20224.8%2C19.8%20229.7%2C18.9%20235.0%2C18.2%20C%20240.2%2C17.4%20246.3%2C16.2%20251.9%2C15.4%20C%20257.5%2C14.7%20263.2%2C13.2%20268.5%2C13.6%20C%20273.9%2C13.9%20280.3%2C14.9%20284.2%2C17.7%20C%20288.2%2C20.5%20291.0%2C25.5%20292.3%2C30.3%20C%20293.5%2C35.1%20292.1%2C41.6%20291.5%2C46.5%20C%20290.8%2C51.4%20288.7%2C55.3%20288.3%2C59.6%20C%20287.8%2C63.8%20288.1%2C67.8%20289.0%2C72.0%20C%20289.8%2C76.2%20291.6%2C80.5%20293.1%2C84.9%20C%20294.6%2C89.4%20297.4%2C93.8%20297.8%2C98.7%20C%20298.2%2C103.7%20298.2%2C110.3%20295.7%2C114.8%20C%20293.2%2C119.3%20288.1%2C123.5%20282.7%2C125.6%20C%20277.3%2C127.8%20269.4%2C127.7%20263.4%2C127.7%20C%20257.4%2C127.7%20251.8%2C125.9%20246.8%2C125.4%20C%20241.8%2C124.9%20237.3%2C124.5%20233.3%2C124.6%20C%20229.3%2C124.7%20226.2%2C125.4%20222.9%2C126.2%20C%20219.6%2C127.0%20216.9%2C128.5%20213.5%2C129.6%20C%20210.0%2C130.7%20206.4%2C132.1%20202.2%2C132.6%20C%20198.0%2C133.2%20193.0%2C133.3%20188.2%2C132.8%20C%20183.4%2C132.2%20175.8%2C129.4%20173.3%2C129.3%20C%20170.8%2C129.2%20175.9%2C126.6%20173.0%2C132.0%20C%20170.1%2C137.4%20160.8%2C162.3%20156.0%2C162.0%20C%20151.2%2C161.7%20143.3%2C136.3%20144.0%2C130.0%20C%20144.7%2C123.7%20159.3%2C125.8%20160.0%2C124.5%20C%20160.7%2C123.2%20152.4%2C122.3%20148.4%2C122.2%20C%20144.3%2C122.1%20140.4%2C123.0%20135.8%2C124.0%20C%20131.3%2C125.0%20126.0%2C126.9%20120.9%2C128.2%20C%20115.7%2C129.4%20109.9%2C130.8%20104.8%2C131.4%20C%2099.8%2C132.0%2094.8%2C132.1%2090.5%2C131.9%20C%2086.3%2C131.6%2082.8%2C130.6%2079.4%2C129.9%20C%2076.1%2C129.1%2073.6%2C127.8%2070.5%2C127.1%20C%2067.4%2C126.4%2064.9%2C126.3%2060.8%2C125.4%20C%2056.7%2C124.5%2050.9%2C123.9%2046.0%2C121.8%20C%2041.2%2C119.6%2035.6%2C116.3%2031.7%2C112.5%20C%2027.9%2C108.6%2024.8%2C103.1%2022.9%2C98.6%20C%2021.0%2C94.1%2020.4%2C90.0%2020.1%2C85.6%20C%2019.9%2C81.1%2020.4%2C76.4%2021.3%2C72.0%20C%2022.3%2C67.6%2024.3%2C63.2%2025.8%2C59.0%20C%2027.2%2C54.8%2028.6%2C51.2%2030.3%2C46.8%20C%2031.9%2C42.5%2033.4%2C37.0%2035.7%2C32.8%20C%2038.0%2C28.6%2040.9%2C24.2%2044.2%2C21.4%20C%2047.6%2C18.6%2052.5%2C17.3%2056.0%2C16.0%20Z%27%20fill%3D%27%23ffffff%27%20stroke%3D%27%234a2b5c%27%20stroke-width%3D%272.5%27%20vector-effect%3D%27non-scaling-stroke%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E");
+}
+.stage-row{align-items:center;}
+.stage-row .cast{width:118px; min-width:118px; flex-shrink:0;}
+.stage-row .bubble{font-size:17px; padding:22px 26px 30px;}
 .card{
   background:var(--card); border-radius:var(--radius); padding:16px; margin:12px 0;
   box-shadow:0 6px 0 rgba(38,50,94,.13), 0 12px 24px rgba(38,50,94,.10);
@@ -487,7 +502,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <section class="screen" id="scr-access">
   <h1 class="title">Sreshta's<br>Learning World</h1>
   <p class="subtitle">Learn • Think • Shine ✨</p>
-  <div class="mascot-row">
+  <div class="mascot-row stage-row">
     <div class="cast" data-cast="mimi" data-grow="1"></div>
     <div class="bubble">Hi! I'm <b>Mimi</b>, your bunny friend! Pick who is playing today and let's go on a learning adventure! 🌈</div>
   </div>
@@ -537,7 +552,9 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 
 <!-- ============ CHILD HOME ============ -->
 <section class="screen" id="scr-home">
-  <div class="mascot-row">
+  <h2 class="home-h" id="homeTitle">Sreshta's Home</h2>
+  <p class="home-sub">Learn • Think • Shine ✨</p>
+  <div class="mascot-row stage-row">
     <div class="cast" data-cast="mimi" data-grow="1"></div>
     <div class="bubble" id="homeBubble">Welcome!</div>
   </div>
@@ -667,7 +684,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
   <div class="card center">
     <div class="big-emoji" id="phaseEmoji">🌟</div>
     <div style="font-size:23px; font-weight:700;" id="phaseTitle">Super!</div>
-    <p style="font-weight:600; font-size:16.5px;" id="phaseText"></p>
+    <p class="bubble tc" style="font-weight:600; font-size:16.5px; margin:12px 0;" id="phaseText"></p>
     <button class="btn pink" id="phaseNext">Continue ➜</button>
   </div>
 </section>
@@ -691,7 +708,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
     <div class="big-emoji" id="examEmoji">🏆</div>
     <div style="font-size:23px; font-weight:700;" id="examTitle">Exam Done!</div>
     <div class="score-big" id="examScore">0%</div>
-    <p style="font-weight:600; font-size:16.5px;" id="examDetail"></p>
+    <p class="bubble tc" style="font-weight:600; font-size:16.5px; margin:12px 0;" id="examDetail"></p>
     <div class="family-line"><span class="cast cast-mini" data-cast="mimi"></span><span>Your family is proud of you!<br><span class="mut" style="font-size:13.5px;">Nanna &amp; Amma are cheering for you 💛</span></span></div>
     <div class="stat-grid" style="text-align:center;">
       <div class="stat"><div class="v" id="examSums">–</div><div class="k">Sums score</div></div>
@@ -818,7 +835,7 @@ function gradeRank(g){ return GRADES.indexOf(g); }
 function ri(a,b){ return a + Math.floor(Math.random()*(b-a+1)); }
 function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
-function num(n){ return (""+n).replace(/\B(?=(\d{3})+(?!\d))/g,","); }
+function num(n){ n = Number(n); if(!isFinite(n)) n = 0; return (""+n).replace(/\B(?=(\d{3})+(?!\d))/g,","); }
 function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function todayStr(ts){ var d=new Date(ts||Date.now()); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
@@ -3783,14 +3800,14 @@ function migrateProfile(old){
   if(!old) return null;
   if(old.v===PROFILE_V && old.topics) { /* already v5 — safe defaults merge */
     var base = newProfile(old.name||"Player");
-    Object.keys(base).forEach(function(k){ if(old[k]===undefined) old[k]=base[k]; });
+    Object.keys(base).forEach(function(k){ if(old[k]===undefined || old[k]===null) old[k]=base[k]; });
     ensureLookShape(old);
     old.v = PROFILE_V; return old;
   }
   if(old.v===4 && old.topics) { /* v4 → v5: keep EVERYTHING — coins, stars, XP, letters, wardrobe and worn state all carry over; Mimi simply becomes the star who wears it all */
     var p4 = old;
     var base4 = newProfile(old.name||"Player");
-    Object.keys(base4).forEach(function(k){ if(p4[k]===undefined) p4[k]=base4[k]; });
+    Object.keys(base4).forEach(function(k){ if(p4[k]===undefined || p4[k]===null) p4[k]=base4[k]; });
     applyArtSwapMigration(p4);
     ensureLookShape(p4);
     p4.v = PROFILE_V;
@@ -3799,7 +3816,7 @@ function migrateProfile(old){
   if(old.v===3 && old.topics) { /* v3 → v5: keep EVERYTHING, swap only the doll art (hair → head items) */
     var p3 = old;
     var base3 = newProfile(old.name||"Player");
-    Object.keys(base3).forEach(function(k){ if(p3[k]===undefined) p3[k]=base3[k]; });
+    Object.keys(base3).forEach(function(k){ if(p3[k]===undefined || p3[k]===null) p3[k]=base3[k]; });
     applyArtSwapMigration(p3);
     ensureLookShape(p3);
     p3.v = PROFILE_V;
@@ -3808,7 +3825,7 @@ function migrateProfile(old){
   if(old.v===2 && old.topics) { /* v2 → v5: keep EVERYTHING, map the old shop, then the art swap */
     var p2 = old;
     var base2 = newProfile(old.name||"Player");
-    Object.keys(base2).forEach(function(k){ if(p2[k]===undefined) p2[k]=base2[k]; });
+    Object.keys(base2).forEach(function(k){ if(p2[k]===undefined || p2[k]===null) p2[k]=base2[k]; });
     ensureLookShape(p2);
     applyShopMigration(p2, (old.purchases||[]).slice());
     applyArtSwapMigration(p2);
@@ -3818,7 +3835,7 @@ function migrateProfile(old){
   }
   var p = newProfile(old.name||"Player");
   /* Phase 1 scalar fields */
-  ["stars","coins","badges","badgeDates","rituals","bestStreak","createdAt","lastPlayed"].forEach(function(k){ if(old[k]!==undefined) p[k]=old[k]; });
+  ["stars","coins","badges","badgeDates","rituals","bestStreak","createdAt","lastPlayed"].forEach(function(k){ if(old[k]!==undefined && old[k]!==null) p[k]=old[k]; });
   if(old.pracStats) p.pracStats = { a:old.pracStats.a||0, c:old.pracStats.c||0 };
   if(old.thinkStats) p.thinkStats = { a:old.thinkStats.a||0, c:old.thinkStats.c||0 };
   if(old.playDays) p.playDays = old.playDays.slice();
@@ -3870,6 +3887,7 @@ var LEVELS = [
 ];
 var PASS_MARK = 70;
 function levelOf(xp){
+  xp = Math.max(0, Number(xp)||0);
   var cur = LEVELS[0], next = null;
   for(var i=0;i<LEVELS.length;i++){ if(xp>=LEVELS[i].xp) cur=LEVELS[i]; else { next=LEVELS[i]; break; } }
   return { cur:cur, next:next, into: xp-cur.xp, span: next? next.xp-cur.xp : 0 };
@@ -4513,7 +4531,7 @@ function renderNannaHome(){
   }
   if(p.pendingNanna){
     var pend = p.pendingNanna, gift = pend.giftItemId? boutiqueItem(pend.giftItemId) : null;
-    html += "<div class='card nanna-moment center'><div style='display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;'><span class='cast cast-med' data-cast='mimi'></span><div style='text-align:left; max-width:420px;'><div style='font-weight:800; font-size:19px;'>💌 A letter from Nanna!</div><div class='bubble' style='margin-top:6px;'>"+(pend.text? esc(pend.text) : "Nanna sent you a surprise!")+"</div></div></div>"
+    html += "<div class='card nanna-moment center'><div style='display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;'><span class='cast cast-med' data-cast='mimi'></span><div style='text-align:left; max-width:420px;'><div style='font-weight:800; font-size:19px;'>💌 A letter from Nanna!</div><div class='bubble tc' style='margin-top:6px;'>"+(pend.text? esc(pend.text) : "Nanna sent you a surprise!")+"</div></div></div>"
       + (gift? "<p style='font-weight:700;'>🎁 A gift is wrapped inside: <b>"+esc(gift.name)+"</b>!</p>" : "")
       + "<button class='btn pink' id='btnOpenNanna'>"+(gift? "Open my surprise! 🎁" : "Thank you, Nanna! 💛")+"</button></div>";
   }
@@ -4554,6 +4572,7 @@ function renderWishHome(){
 function renderHome(){
   var p = P(); if(!p) return;
   var lv = levelOf(p.xp), gr = gradeOf(p);
+  el("homeTitle").textContent = (p.name||"Player")+"'s Home";
   el("homeBubble").innerHTML = "Hi <b>"+esc(p.name)+"</b>! 🌈 " + (APP.isGuest? "Guest stars — just for fun!" : "Ready to learn, think and shine today?");
   el("ringLv").textContent = "Level "+lv.cur.n;
   el("ringName").textContent = lv.cur.name;
