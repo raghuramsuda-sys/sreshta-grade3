@@ -456,6 +456,30 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 .sel{border:2px solid #dfe5f5; border-radius:10px; padding:7px 9px; font-family:inherit; font-weight:700; font-size:15px; background:#fff; margin:2px;}
 .due-box{background:#fff3d6; border:3px solid #f7b731; border-radius:18px; padding:12px 14px; font-weight:700; margin:10px 0;}
 .pillars{display:grid; grid-template-columns:1fr 1fr; gap:9px;}
+/* ---- Dashboard drill-down ---- */
+.dash-cards{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:12px 0;}
+.dcard{display:flex; align-items:center; gap:10px; background:#fff; border:none; border-radius:18px; padding:12px; text-align:left; box-shadow:0 4px 0 rgba(38,50,94,.08); font-family:inherit; cursor:pointer; width:100%;}
+.dcard-tx{flex:1; display:flex; flex-direction:column; gap:2px; min-width:0;}
+.dcard-t{font-weight:800; font-size:15.5px; color:#22315e;}
+.dcard-s{font-size:12.5px; font-weight:600; color:#5a68a0; line-height:1.35;}
+.dcard-go{font-size:22px; color:#b9a8e8; font-weight:800; flex:none;}
+.drow{display:flex; align-items:center; gap:10px; width:100%; background:#fff; border:none; border-radius:14px; padding:11px 13px; margin:6px 0; text-align:left; box-shadow:0 3px 0 rgba(38,50,94,.07); font-family:inherit; cursor:pointer;}
+.drow-main{flex:1; display:flex; flex-direction:column; gap:1px; min-width:0;}
+.drow-t{font-weight:700; font-size:15px; color:#22315e;}
+.drow-s{font-size:12.5px; font-weight:600; color:#5a68a0; line-height:1.4;}
+.pbar{height:9px; background:#eef2ff; border-radius:99px; overflow:hidden; margin-top:5px;}
+.pbar>span{display:block; height:100%; background:linear-gradient(90deg,#ff7eb3,#a55eea); border-radius:99px;}
+.chips{display:flex; gap:7px; flex-wrap:wrap; margin:6px 0 10px;}
+.chip{border:2px solid #dfe5f5; background:#fff; border-radius:99px; padding:6px 13px; font-family:inherit; font-weight:700; font-size:13.5px; cursor:pointer; color:#5a68a0;}
+.chip.on{background:#6d28a8; border-color:#6d28a8; color:#fff;}
+.tag{display:inline-block; background:#eef2ff; color:#5a68a0; border-radius:99px; padding:1px 9px; font-size:11.5px; font-weight:800; margin-right:6px; vertical-align:1px;}
+.kv{display:flex; justify-content:space-between; gap:12px; padding:6px 0; border-bottom:2px solid #eef2ff; font-size:14.5px;}
+.kv:last-child{border-bottom:none;}
+.kv b{color:#22315e; flex:none;}
+.kv span{color:#5a68a0; font-weight:600; text-align:right;}
+.evrow{display:flex; justify-content:space-between; gap:10px; padding:6px 0; border-bottom:2px solid #eef2ff; font-size:14.5px; font-weight:600;}
+.evrow:last-child{border-bottom:none;}
+.evrow .evd{color:#8a94b8; font-size:12.5px; flex:none;}
 .pillar .p-t{font-weight:800; font-size:16px;}
 .pillar .p-v{font-weight:700; margin:2px 0;}
 .pillar .p-s{font-size:13px; color:#5a68a0; font-weight:600;}
@@ -797,6 +821,102 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
   <p class="subtitle" id="dashWho">Sreshta's progress</p>
   <div id="dashBody"></div>
   <footer class="note">Phase 2 (Full Maths): progress is still saved on THIS device (localStorage). Cloud sync + Google parent login are the next phase — so check progress on the phone she plays on.</footer>
+</section>
+
+<!-- ============ DASHBOARD DRILL SCREENS ============ -->
+<section class="screen dash" id="scr-dashsubjects">
+  <h1 class="title" style="font-size:29px;">📚 Subjects</h1>
+  <div id="dashSubjectsBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashsubject">
+  <h1 class="title" style="font-size:29px;" id="dashSubjectTitle">Subject</h1>
+  <div id="dashSubjectBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashunit">
+  <h1 class="title" style="font-size:29px;" id="dashUnitTitle">Unit</h1>
+  <div id="dashUnitBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashlesson">
+  <h1 class="title" style="font-size:29px;" id="dashLessonTitle">Lesson</h1>
+  <div id="dashLessonBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashperf">
+  <h1 class="title" style="font-size:29px;">📈 Performance</h1>
+  <div id="dashPerfBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashexams">
+  <h1 class="title" style="font-size:29px;">🧪 Exam History</h1>
+  <div id="dashExamsBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashexam">
+  <h1 class="title" style="font-size:29px;" id="dashExamTitle">Exam Detail</h1>
+  <div id="dashExamBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashtricky">
+  <h1 class="title" style="font-size:29px;">🍀 Tricky Questions</h1>
+  <div id="dashTrickyBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashtrickyd">
+  <h1 class="title" style="font-size:29px;">🍀 Tricky Question</h1>
+  <div id="dashTrickyDBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashweak">
+  <h1 class="title" style="font-size:29px;">🎯 Weak Spots &amp; Confusions</h1>
+  <div id="dashWeakBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashpillars">
+  <h1 class="title" style="font-size:29px;">🌟 All-Rounder</h1>
+  <div id="dashPillarsBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashpillar">
+  <h1 class="title" style="font-size:29px;" id="dashPillarTitle">Pillar</h1>
+  <div id="dashPillarBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashrewards">
+  <h1 class="title" style="font-size:29px;">🎁 Rewards Centre</h1>
+  <div id="dashRewardsBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashpurch">
+  <h1 class="title" style="font-size:29px;">🛍️ Boutique Purchases</h1>
+  <div id="dashPurchBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashledger">
+  <h1 class="title" style="font-size:29px;">🪙 Coin Ledger</h1>
+  <div id="dashLedgerBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashnanna">
+  <h1 class="title" style="font-size:29px;"><span class="icon-tile sm t-pink">💌</span> Nanna's Corner</h1>
+  <div id="dashNannaBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashcontrols">
+  <h1 class="title" style="font-size:29px;">⚙️ Controls</h1>
+  <div id="dashControlsBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashreport">
+  <h1 class="title" style="font-size:29px;">🖨️ Monthly Report</h1>
+  <div id="dashReportBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashguests">
+  <h1 class="title" style="font-size:29px;">👧 Guests on this device</h1>
+  <div id="dashGuestsBody"></div>
 </section>
 
 </div>
@@ -4223,6 +4343,25 @@ function navCrumbFor(scr){
     case "pin": return "Sign In";
     case "guest": return "Guest";
     case "dash": return "Parents › Dashboard";
+    case "dashsubjects": return "Parents › Subjects";
+    case "dashsubject": { var e1 = dashSubject(DASH().subj); return "Parents › " + (e1? e1.name : "Subject"); }
+    case "dashunit": { var e2 = dashSubject(DASH().subj); var un2 = e2? dashCall(e2, "units", [dashProfile()], []).filter(function(x){ return x.id===DASH().unit; })[0] : null; return "Parents › " + (e2? e2.name : "Subject") + (un2? " › " + un2.name : ""); }
+    case "dashlesson": { var e3 = dashSubject(DASH().subj); var un3 = e3? dashCall(e3, "units", [dashProfile()], []).filter(function(x){ return x.id===DASH().unit; })[0] : null; var le3 = (e3 && DASH().unit)? dashCall(e3, "lessons", [dashProfile(), DASH().unit], []).filter(function(x){ return x.id===DASH().lesson; })[0] : null; return "Parents › " + (e3? e3.name : "Subject") + (un3? " › " + un3.name : "") + (le3? " › " + le3.name : ""); }
+    case "dashperf": return "Parents › Performance";
+    case "dashexams": return "Parents › Performance › Exam History";
+    case "dashexam": return "Parents › Performance › Exam Detail";
+    case "dashtricky": return "Parents › Performance › Tricky Questions";
+    case "dashtrickyd": return "Parents › Performance › Tricky Detail";
+    case "dashweak": return "Parents › Performance › Weak Spots";
+    case "dashpillars": return "Parents › All-Rounder";
+    case "dashpillar": { var pl4 = DASH_PILLARS.filter(function(x){ return x.key===DASH().pillar; })[0]; return "Parents › All-Rounder" + (pl4? " › " + pl4.name : ""); }
+    case "dashrewards": return "Parents › Rewards Centre";
+    case "dashpurch": return "Parents › Rewards › Purchases";
+    case "dashledger": return "Parents › Rewards › Coin Ledger";
+    case "dashnanna": return "Parents › Nanna's Corner";
+    case "dashcontrols": return "Parents › Controls";
+    case "dashreport": return "Parents › Monthly Report";
+    case "dashguests": return "Parents › Guests";
     default: return "";
   }
 }
@@ -4233,7 +4372,7 @@ function updateNav(scr){
   if(crumb) crumb.textContent = navCrumbFor(scr);
   var back = bar.querySelector(".nav-back"), home = bar.querySelector(".nav-home");
   if(back) back.textContent = scr==="dash"? "← Exit" : "← Back";
-  if(home) home.style.display = (scr==="home" || scr==="dash")? "none" : "";
+  if(home) home.style.display = (scr==="home" || scr.indexOf("dash")===0)? "none" : "";
 }
 function goHomeNav(){
   if(P()){ renderHome(); show("home"); }
@@ -4313,6 +4452,15 @@ function navBack(){
     case "ritual": goHomeNav(); return;
     case "shop": goHomeNav(); return;
     case "bubble": renderShop(); show("shop"); return;
+    case "dashsubjects": case "dashperf": case "dashpillars": case "dashrewards": case "dashnanna": case "dashcontrols": case "dashreport": case "dashguests": renderDashboard(); show("dash"); return;
+    case "dashsubject": openDashSubjects(); return;
+    case "dashunit": openDashSubject(DASH().subj); return;
+    case "dashlesson": openDashUnit(DASH().subj, DASH().unit); return;
+    case "dashexams": case "dashtricky": case "dashweak": openDashPerf(); return;
+    case "dashexam": openDashExams(DASH().examSubj); return;
+    case "dashtrickyd": openDashTricky(); return;
+    case "dashpillar": openDashPillars(); return;
+    case "dashpurch": case "dashledger": openDashRewards(); return;
     case "dash": show("access"); return;
     default: goHomeNav(); return;
   }
@@ -5031,6 +5179,9 @@ function subScorePct(s, kind){
   return examScore(letters).pct;
 }
 
+function examReviewData(s){
+  return (s.results||[]).map(function(r){ return { q:String(r.q.q||"").slice(0,160), chosen:r.chosen||"", answer:r.q.answer||"", res:r.res, tag:r.q.kind||"sums" }; });
+}
 /* ============ TOPIC FLOW ============ */
 function startTry3(){
   var td = TOP[APP.tid], st = td.steps[APP.flowStep!=null? APP.flowStep : APP.stepIx];
@@ -5194,7 +5345,7 @@ function finishTopicExam(ctx, s){
   var letters = lettersOf(s), perSub = perSubOf(s);
   var ev = evaluateTopicExam(p, tid, letters, perSub);
   var sc = ev.score;
-  t.examHistory.push({ pct:sc.pct, score:sc.score, wrong:sc.wrong, date:todayStr(), kind:"topic", testOut:!!ctx.testOut });
+  t.examHistory.push({ pct:sc.pct, score:sc.score, wrong:sc.wrong, date:todayStr(), kind:"topic", testOut:!!ctx.testOut, sums:subScorePct(s, "sums"), think:subScorePct(s, "thinking"), review:examReviewData(s) });
   if(ev.needsFix){
     t.status = "fix"; t.fixStep = ev.fixStep; t.fixPct = sc.pct;
   } else if(ev.passed){
@@ -5245,7 +5396,7 @@ function finishChapterExam(ctx, s){
   cs.attempts = (cs.attempts||0)+1;
   var ev = evaluateChapterExam(p, cid, lettersOf(s));
   var sc = ev.score;
-  cs.history.push({ pct:sc.pct, score:sc.score, wrong:sc.wrong, date:todayStr(), kind:"chapter" });
+  cs.history.push({ pct:sc.pct, score:sc.score, wrong:sc.wrong, date:todayStr(), kind:"chapter", sums:subScorePct(s, "sums"), think:subScorePct(s, "thinking"), review:examReviewData(s) });
   if(ev.passed){
     var firstPass = !cs.mastered;
     cs.mastered = true;
@@ -5584,133 +5735,730 @@ function dashProfile(){
 function statGrid(items){
   return "<div class='stat-grid'>" + items.map(function(it){ return "<div class='stat'><div class='v'>"+it[1]+"</div><div class='k'>"+it[0]+"</div></div>"; }).join("") + "</div>";
 }
-function renderDashboard(){
-  var p = dashProfile();
-  el("dashWho").textContent = APP.isGuest===false && P() && P().slug!=="sreshta"? "Viewing: Sreshta's progress (dashboard always shows Sreshta)" : "Sreshta's progress · saved on this device";
-  var lv = levelOf(p.xp), gr = gradeOf(p);
-  var topicsDone = FLAT_TOPICS.filter(function(tid){ var t=p.topics[tid]; return t && t.mastered; }).length;
-  var chapsDone = CHAPTERS.filter(function(ch){ return isChapterMastered(p, ch.id); }).length;
-  var due = rewardDue(p);
-  var html = "";
-  if(due.length){
-    html += "<div class='due-box'>🎁 <b>REWARD DUE!</b> "+due.map(function(r){ return "Level "+r.level+": "+esc(r.emoji||"")+" "+esc(r.text); }).join(" · ")
-      + due.map(function(r){ return " <button class='btn green small' data-given='"+r.level+"'>Given ✓</button>"; }).join("") + "</div>";
-  }
-  html += "<div class='dash-sec'><h3>🌟 Overview</h3>"
-    + statGrid([["Level", lv.cur.n+" · "+lv.cur.name], ["XP", num(p.xp)], ["Grade", gr.label||"—"], ["Stars ⭐", num(p.stars)], ["Coins 🪙", num(p.coins)], ["Coins spent", num(p.coinsSpentTotal||0)], ["Topics mastered", topicsDone+" / "+FLAT_TOPICS.length], ["Chapters done", chapsDone+" / 12"], ["Syllabus cover", Math.round(topicsDone/FLAT_TOPICS.length*100)+"%"], ["Days played", p.playDays.length], ["Think accuracy", (p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"%" : "—")], ["Tricky pending", p.trickyBank.length]])
-    + (p.baseline? "<p class='mut' style='font-size:14px;'>🗺️ <b>Baseline</b> ("+p.baseline.date+"): "+Object.keys(p.baseline.perChapter).map(function(cid){ var v=p.baseline.perChapter[cid]; return chapterById(cid).name+" "+v.c+"/"+v.a; }).join(" · ")+"<br>Suggested Test-Out: <b>"+((p.baseline.suggested||[]).map(function(cid){ return chapterById(cid).name; }).join(", ")||"none yet")+"</b></p>" : "<p class='mut' style='font-size:14px;'>🗺️ Baseline Adventure not taken yet — it appears on her Maths screen.</p>")
-    + "</div>";
-  /* Subjects map */
-  html += "<div class='dash-sec'><h3>🗺️ Subjects Map — Maths</h3>";
-  CHAPTERS.forEach(function(ch, ix){
-    var cs = p.chapters[ch.id] || defaultChapterState();
-    html += "<div class='dchap'><b>"+ch.icon+" Ch "+(ix+1)+" "+esc(ch.name)+"</b> <span class='mut'>"+(cs.mastered? "🏆 Chapter exam "+cs.bestPct+"% · Badge "+(p.chapterBadges[ch.id]||"—") : isChapterOpen(p, ch.id)? "open" : "locked")+"</span>"
-      + (cs.bestPct>0? " <label style='font-size:13.5px;'><input type='checkbox' data-honest='"+ch.id+"' "+(cs.honest? "checked":"")+"> She did this herself</label>" : "")
-      + "<div class='dtopics'>" + ch.topics.map(function(tid){ var t=p.topics[tid]; var st = t && t.mastered? "✅" : t && t.status==="revise"? "↺" : t && t.status==="fix"? "🛠️" : isTopicUnlocked(p, tid)? "🟡" : "🔒"; return "<span title='"+esc(TOP[tid].name)+"'>"+st+" "+esc(TOP[tid].name)+(t && t.bestExamPct? " ("+t.bestExamPct+"%)":"")+"</span>"; }).join("") + "</div></div>";
-  });
-  html += "<p class='mut' style='font-size:13.5px;'>Other subjects (English, Science/EVS, Social Studies, Computer, 2nd Language) are placeholder worlds — they open after Maths, in the same shell.</p></div>";
-  /* Deep performance */
-  html += "<div class='dash-sec'><h3>🔬 Deep Performance</h3><div class='tscroll'><table class='dtab'><tr><th>Topic</th><th>Best %</th><th>Exams</th><th>Sums</th><th>Think</th><th>✗ in exams</th></tr>";
-  FLAT_TOPICS.forEach(function(tid){
-    var t = p.topics[tid]; if(!t) return;
-    var neg = (t.examHistory||[]).reduce(function(s,e){ return s+(e.wrong||0); }, 0);
-    var sumsAcc = t.prac.a? Math.round(t.prac.c/t.prac.a*100)+"%" : "—";
-    var thinkAcc = t.think.a? Math.round(t.think.c/t.think.a*100)+"%" : "—";
-    html += "<tr><td>"+esc(TOP[tid].name)+"</td><td>"+(t.bestExamPct||"—")+"</td><td>"+(t.exams||0)+"</td><td>"+sumsAcc+"</td><td>"+thinkAcc+"</td><td>"+neg+"</td></tr>";
-  });
-  html += "</table></div>";
-  /* subtopic rollup (weakest first) */
-  var subs = Object.keys(p.subStats).map(function(k){ var v=p.subStats[k]; var parts=k.split("|"); return { tid:parts[0], sub:parts[1], a:v.a, c:v.c, acc: v.a? v.c/v.a : 1 }; }).filter(function(x){ return x.a>0; }).sort(function(a,b){ return a.acc-b.acc; });
-  html += "<p style='margin:10px 0 4px;'><b>Per-subtopic accuracy (weakest first):</b></p><div class='tscroll'><table class='dtab'><tr><th>Topic</th><th>Subtopic</th><th>Correct</th><th>Accuracy</th></tr>"
-    + subs.slice(0,20).map(function(x){ var td=TOP[x.tid]; var st=td? td.steps.filter(function(s){ return s.sub===x.sub; })[0] : null; return "<tr><td>"+esc(td? td.name : x.tid)+"</td><td>"+esc(st? st.name : x.sub)+"</td><td>"+x.c+"/"+x.a+"</td><td>"+Math.round(x.acc*100)+"%</td></tr>"; }).join("") + "</table></div>";
-  var confusions = subs.filter(function(x){ return x.a>=3 && x.acc<0.6; });
-  html += "<p style='margin:10px 0 4px;'><b>Confusions to revisit:</b> "+(confusions.length? confusions.map(function(x){ var td=TOP[x.tid]; var st=td? td.steps.filter(function(s){ return s.sub===x.sub; })[0] : null; return esc((st? st.name : x.sub))+" ("+Math.round(x.acc*100)+"% of "+x.a+")"; }).join(" · ") : "none yet 🌟")+"</p>";
-  /* exam history */
-  var history = [];
-  FLAT_TOPICS.forEach(function(tid){ var t=p.topics[tid]; if(t) (t.examHistory||[]).forEach(function(e){ history.push({ name:TOP[tid].name, e:e }); }); });
-  CHAPTERS.forEach(function(ch){ var cs=p.chapters[ch.id]; if(cs) (cs.history||[]).forEach(function(e){ history.push({ name:ch.name+" (Chapter)", e:e }); }); });
-  html += "<p style='margin:10px 0 4px;'><b>Exam history:</b> "+(history.length? history.slice(-12).reverse().map(function(h){ return esc(h.name)+": "+h.e.pct+"% ("+h.e.date+")"; }).join(" · ") : "no exams yet")+"</p>";
-  html += "<p style='margin:6px 0 4px;'><b>Warm-up confirmations:</b> pending: "+(p.pendingConfirm||[]).map(function(pc){ return esc(TOP[pc.tid]? TOP[pc.tid].name : pc.tid)+" ("+pc.done+"/3)"; }).join(", ")+" — outcomes: "+((p.confirmLog||[]).slice(-5).map(function(c){ return esc(TOP[c.tid]? TOP[c.tid].name : c.tid)+": "+c.c+"✓/"+c.w+"✗"+(c.reopened? " → Revise" : ""); }).join(" · ")||"none")+"</p>";
-  var reviseList = FLAT_TOPICS.filter(function(tid){ var t=p.topics[tid]; return t && (t.status==="revise" || t.status==="fix"); });
-  html += "<p style='margin:6px 0 4px;'><b>Revise / Fix-It list:</b> "+(reviseList.length? reviseList.map(function(tid){ return esc(TOP[tid].name)+" ("+p.topics[tid].status+")"; }).join(" · ") : "none 🌟")+"</p></div>";
-  /* All-Rounder pillars */
-  var examsPassed = FLAT_TOPICS.reduce(function(s,tid){ var t=p.topics[tid]; return s+((t && t.mastered)?1:0); }, 0) + CHAPTERS.reduce(function(s,ch){ var cs=p.chapters[ch.id]; return s+((cs && cs.mastered)?1:0); }, 0);
-  var testOuts = FLAT_TOPICS.reduce(function(s,tid){ var t=p.topics[tid]; return s+((t && t.testedOut)?1:0); }, 0);
-  html += "<div class='dash-sec'><h3>🌈 All-Rounder Pillars</h3><div class='pillars'>"
-    + "<div class='pillar'><div class='p-t'>🧠 Analytical</div><div class='p-v'>"+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"% thinking accuracy" : "—")+"</div><div class='p-s'>Tricky cleared: "+(p.trickyCleared||0)+" · Mistake-finds: "+(p.mistakeFinderCount||0)+"</div></div>"
-    + "<div class='pillar'><div class='p-t'>💪 Confidence</div><div class='p-v'>"+examsPassed+" exams passed</div><div class='p-s'>Test-outs: "+testOuts+" · Rituals shown: "+(p.rituals||0)+"</div></div>"
-    + "<div class='pillar'><div class='p-t'>🌟 Personality</div><div class='p-v'>"+p.badges.length+" trait badges</div><div class='p-s'>"+(p.badges.length? p.badges.map(function(bid){ var b=TRAIT_BADGES.filter(function(x){ return x.id===bid; })[0]; return b? esc(b.name)+" ("+(p.badgeDates[bid]||"")+")" : bid; }).join(" · ") : "none yet")+"</div></div>"
-    + "<div class='pillar'><div class='p-t'>🗣️ Communication</div><div class='p-v'>"+(p.teach.count||0)+" Teach-Nanna questions</div><div class='p-s'>Closing rituals shown to Amma: "+(p.rituals||0)+"</div></div>"
-    + "</div></div>";
-  /* Rewards centre */
-  var ladder = loadLadder();
-  html += "<div class='dash-sec'><h3>🎁 Rewards Centre</h3><p class='mut' style='font-size:14px; margin:4px 0;'>Set each level's reward (rows with empty text stay hidden from her). Defaults are only ideas — nothing shows until you type it.</p>";
-  ladder.forEach(function(row, i){
-    html += "<div class='lad-row'><span class='lad-lv'>Level "+row.level+" · "+(row.grade==="Any"? "any grade" : row.grade+"+")+"</span><input class='lad-em' id='lad-em-"+i+"' value='"+esc(row.emoji||"")+"' maxlength='4'><input class='lad-tx' id='lad-tx-"+i+"' value='"+esc(row.text||"")+"' placeholder='Not set by parents yet — type the reward'><select class='sel' id='lad-gr-"+i+"'>"+["Any","Bronze","Silver","Gold","Diamond"].map(function(g){ return "<option value='"+g+"' "+(row.grade===g? "selected":"")+">"+g+"+</option>"; }).join("")+"</select></div>";
-  });
-  html += "<button class='btn green small' id='btnLadderSave'>💾 Save Ladder</button>"
-    + "<p style='margin:10px 0 4px;'><b>Rewards given:</b> "+((p.rewardsGiven||[]).length? p.rewardsGiven.map(function(r){ return "L"+r.level+" "+esc(r.text||"")+" ("+r.date+")"; }).join(" · ") : "none yet")+"</p>"
-    + "<p style='margin:6px 0 4px;'><b>Coin ledger (recent):</b> "+(p.coinLedger.slice(-8).reverse().map(function(e){ return (e.amt>0? "+":"")+e.amt+" "+esc(e.what)+" ("+e.date+")"; }).join(" · ")||"—")+"</p>"
-    + "<p style='margin:6px 0 4px;'><b>Mimi's Boutique purchases:</b> "+((p.purchases||[]).length? p.purchases.map(function(id){ var it=boutiqueItem(id); return it? esc(it.name) : id; }).join(" · ") : "none yet")+"</p>"
-    + "<p style='margin:6px 0 4px;'><b>Wardrobe:</b> "+((p.wardrobe||[]).length? p.wardrobe.map(function(id){ var it=boutiqueItem(id); return it? esc(it.name)+" ("+slotLabel(it.slot)+(p.itemSources[id]==="gift"? ", 🎁 gift" : p.itemSources[id]==="treasure"? ", 🏆 treasure" : p.itemSources[id]==="shop (updated)"? ", updated" : "")+")" : id; }).join(" · ") : "starter look only")+"</p>"
-    + "<p style='margin:6px 0 4px;'><b>Wishlist:</b> "+(function(){ var wi = wishlistInfo(p); return wi? esc(wi.item.name)+" — "+wi.item.price+" 🪙 ("+(wi.owned? "owned already" : wi.gap>0? wi.gap+" coins to go" : "affordable now!")+")" : "none"; })()+"</p>"
-    + "<p style='margin:6px 0 4px;'><b>Treasures earned:</b> "+((p.treasures||[]).length? p.treasures.map(function(id){ var it=boutiqueItem(id); return it? it.icon+" "+esc(it.name) : id; }).join(" · ") : "none yet")+"</p></div>";
-  /* Nanna's Corner */
-  ensureLookShape(p);
-  var giftOpts = "<option value=''>— no gift —</option>" + BOUTIQUE_ITEMS.concat(MIMI_ITEMS).filter(function(it){ return !it.treasure; }).map(function(it){ return "<option value='"+it.id+"'>"+it.icon+" "+esc(it.name)+(it.consumable? " (treat — Mimi munches it)" : it.price? " ("+it.price+" 🪙 value)" : " (starter)")+"</option>"; }).join("");
-  html += "<div class='dash-sec'><h3><span class='icon-tile sm t-pink'>💌</span> Nanna's Corner</h3>"
-    + "<p class='mut' style='font-size:14px; margin:4px 0;'>A real message from Nanna — it appears once on her Home, exactly as typed (Mimi never invents messages — she only shows your exact words). An optional gift from the Boutique goes straight into her wardrobe, free, marked 'Gift from Nanna'. Saving again replaces an unopened surprise.</p>"
-    + (p.pendingNanna? "<p style='font-size:14.5px;'><b>Waiting to be opened:</b> &ldquo;"+esc(p.pendingNanna.text||"(gift only)")+"&rdquo;"+(p.pendingNanna.giftItemId? " 🎁 "+esc((boutiqueItem(p.pendingNanna.giftItemId)||{}).name||"") : "")+" · saved "+esc(p.pendingNanna.date||"")+" · status: <b>unread</b></p>" : "<p class='mut' style='font-size:14px;'>No surprise waiting right now.</p>")
-    + "<textarea id='nannaText' maxlength='140' rows='2' style='width:100%; font-size:15px; padding:8px; border-radius:10px; border:2px solid #d9d3f5;' placeholder='A short message from Nanna (max 140 letters)'></textarea>"
-    + "<p style='margin:8px 0;'><b>Gift (optional):</b> <select class='sel' id='nannaGift'>"+giftOpts+"</select> <button class='btn pink small' id='btnNannaSave'>💌 Save for Sreshta</button></p>"
-    + "<p style='margin:6px 0 4px;'><b>Letters history:</b> "+((p.nannaLetters||[]).length? p.nannaLetters.slice().reverse().map(function(L){ return "&ldquo;"+esc(L.text||"(gift only)")+"&rdquo;"+(L.giftName? " 🎁 "+esc(L.giftName) : "")+" · "+esc(L.date||"")+" · "+(L.read? "read ✓" : "unread"); }).join("<br>") : "none yet")+"</p></div>";
-  /* Paper bridge + Teach */
-  html += "<div class='dash-sec'><h3>✍️ Paper Bridge & 📞 Teach Nanna</h3><p style='font-size:14.5px; margin:4px 0;'>"
-    + CHAPTERS.map(function(ch){ var pp = p.paper[ch.id]; return esc(ch.name)+": "+(pp && pp.done? "✅ done "+pp.date : "—"); }).join("<br>")+"</p>"
-    + "<p class='mut' style='font-size:14px;'>Teach Nanna sessions: <b>"+(p.teach.count||0)+"</b>"+((p.teach.sessions||[]).length? " · latest: "+esc(p.teach.sessions[p.teach.sessions.length-1].q||"")+" ("+p.teach.sessions[p.teach.sessions.length-1].date+")" : "")+"</p></div>";
-  /* Controls */
-  var players = lsGet("players")||[];
-  var guests = players.filter(function(s){ return s.indexOf("guest-")===0; });
-  html += "<div class='dash-sec'><h3>🎛️ Controls</h3>"
-    + "<p style='margin:4px 0;'><b>⭐ Now in Class:</b> <select class='sel' id='ctlClass'><option value=''>— none —</option>"+FLAT_TOPICS.map(function(tid){ return "<option value='"+tid+"' "+(lsGet("nowClass")===tid? "selected":"")+">"+esc(chapterById(CHAPTER_OF[tid]).name)+" · "+esc(TOP[tid].name)+"</option>"; }).join("")+"</select> <button class='btn teal small' id='btnClassSet'>Set</button></p>"
-    + "<p style='margin:8px 0;'><button class='btn blue small' id='btnBaseReset'>🗺️ Reset Baseline (allow a retake)</button> <button class='btn purple small' id='btnReport'>🖨️ Monthly Report (print)</button></p>"
-    + "<p style='margin:8px 0;'><b>Guests on this device:</b> "+(guests.length? guests.map(function(g){ var gp=loadProfile(g); return "<span style='display:inline-flex; align-items:center; gap:6px; margin:2px 10px 2px 0;'><span class='icon-tile sm t-teal'>🧸</span><span><b>"+esc(gp? gp.name : g)+"</b> (⭐ "+(gp? gp.stars:0)+", Lv "+(gp? levelOf(gp.xp).cur.n : 1)+") <button class='btn grey small' data-delguest='"+g+"'>Remove</button></span></span>"; }).join("") : "none")+"</p>"
-    + "<p style='margin:8px 0;'><button class='btn orange small' id='btnResetS'>⚠️ Reset Sreshta's Progress</button> <span class='mut' style='font-size:13.5px;' id='resetHint'>Two taps — first tap arms it.</span></p></div>";
-  el("dashBody").innerHTML = html;
-  wireDashboard(p);
+/* ============ PARENT DASHBOARD — DRILL-DOWN, REGISTRY-DRIVEN (ALL SUBJECTS) ============
+   Step 0 Overview → Step 1 area screens → Step 2 lists → Step 3 detail (deepest).
+   Every screen below Overview is parameterised by subject via DASH_SUBJECTS:
+   a subject registers display labels + data accessors; renderers consume ONLY
+   those accessor shapes, so new subjects plug in without dashboard changes. */
+var DASH_SUBJECTS = [];
+function dashRegisterSubject(def){
+  if(!def || !def.id) return null;
+  for(var i=0;i<DASH_SUBJECTS.length;i++){ if(DASH_SUBJECTS[i].id===def.id){ DASH_SUBJECTS[i]=def; return def; } }
+  DASH_SUBJECTS.push(def); return def;
 }
-function wireDashboard(p){
-  var given = el("dashBody").querySelectorAll("[data-given]");
+function dashSubject(id){
+  for(var i=0;i<DASH_SUBJECTS.length;i++) if(DASH_SUBJECTS[i].id===id) return DASH_SUBJECTS[i];
+  return null;
+}
+function dashCall(entry, fn, args, fallback){
+  var f = entry && entry[fn];
+  if(typeof f!=="function") return fallback;
+  try{ var r = f.apply(null, args||[]); return (r===undefined || r===null)? fallback : r; }
+  catch(e){ return fallback; }
+}
+function DASH(){
+  if(!APP.dash) APP.dash = { subj:null, unit:null, lesson:null, examSubj:"all", examRef:null, trickyKey:null, pillar:null };
+  return APP.dash;
+}
+function dashLiveSubjects(){ return DASH_SUBJECTS.filter(function(s){ return s.live; }); }
+
+/* ---------- shared small builders ---------- */
+function dashEnc(s){ return encodeURIComponent(String(s==null? "" : s)); }
+function dashRow(nav, titleHtml, subHtml){
+  return "<button class='drow' data-dnav='"+nav+"'><span class='drow-main'><span class='drow-t'>"+titleHtml+"</span>"
+    + (subHtml? "<span class='drow-s'>"+subHtml+"</span>" : "") + "</span><span class='dcard-go'>›</span></button>";
+}
+function dashAreaCard(icon, tint, title, summary, nav){
+  return "<button class='dcard' data-dnav='"+nav+"'><span class='icon-tile "+tint+"'>"+icon+"</span><span class='dcard-tx'><span class='dcard-t'>"+title+"</span><span class='dcard-s'>"+esc(summary)+"</span></span><span class='dcard-go'>›</span></button>";
+}
+function dashTag(entry){ return "<span class='tag'>"+entry.icon+" "+esc(entry.name)+"</span>"; }
+function dashExamGrade(pct){
+  for(var i=0;i<GRADES.length;i++) if(pct>=GRADES[i].min) return GRADES[i].label;
+  return "Bronze";
+}
+function dashDueBox(due){
+  return "<div class='due-box'>🎁 <b>REWARD DUE!</b> "+due.map(function(r){ return "Level "+r.level+": "+esc(r.emoji||"")+" "+esc(r.text); }).join(" · ")
+    + due.map(function(r){ return " <button class='btn green small' data-given='"+r.level+"'>Given ✓</button>"; }).join("") + "</div>";
+}
+function wireGivenButtons(root, p){
+  if(!root) return;
+  var given = root.querySelectorAll("[data-given]");
   for(var i=0;i<given.length;i++) given[i].addEventListener("click", function(){
     var lvl = parseInt(this.getAttribute("data-given"),10);
     var row = loadLadder().filter(function(r){ return r.level===lvl; })[0];
     p.rewardsGiven.push({ level:lvl, text:row? row.text : "", date:todayStr() });
     saveProfile(p); renderDashboard(); toast("🎁 Reward marked Given!");
   });
-  var hon = el("dashBody").querySelectorAll("[data-honest]");
-  for(var j=0;j<hon.length;j++) hon[j].addEventListener("change", function(){
+}
+
+/* ================= MATHS ACCESSORS (first plugged-in subject) ================= */
+function mathsProgress(p){
+  var done = FLAT_TOPICS.filter(function(tid){ var t=p.topics[tid]; return t && t.mastered; }).length;
+  var unitsDone = CHAPTERS.filter(function(ch){ return isChapterMastered(p, ch.id); }).length;
+  return { done:done, total:FLAT_TOPICS.length, pct: FLAT_TOPICS.length? Math.round(done/FLAT_TOPICS.length*100) : 0, unitsDone:unitsDone, unitsTotal:CHAPTERS.length };
+}
+function mathsUnits(p){
+  return CHAPTERS.map(function(ch, ix){
+    var cs = p.chapters[ch.id] || defaultChapterState();
+    var done = ch.topics.filter(function(tid){ var t=p.topics[tid]; return t && t.mastered; }).length;
+    var status = cs.mastered? "🏆 Chapter exam "+cs.bestPct+"% · Badge "+((p.chapterBadges||{})[ch.id]||"—")
+      : isChapterOpen(p, ch.id)? "open" : "locked";
+    var pp = (p.paper||{})[ch.id];
+    return { id:ch.id, name:ch.name, icon:ch.icon, ix:ix+1, lessonsDone:done, lessonsTotal:ch.topics.length,
+      mastered:!!cs.mastered, examPct:cs.bestPct||0, attempts:cs.attempts||0, honest:!!cs.honest,
+      statusText:status, paperText:(pp && pp.done)? ("✍️ Paper Bridge: ✅ done "+pp.date) : "✍️ Paper Bridge: —" };
+  });
+}
+function mathsLessons(p, cid){
+  var ch = chapterById(cid); if(!ch) return [];
+  return ch.topics.map(function(tid){
+    var t = p.topics[tid];
+    var status = !t? (isTopicUnlocked(p, tid)? "open" : "locked")
+      : t.mastered? "mastered" : t.status==="revise"? "revise" : t.status==="fix"? "fix"
+      : (t.stepsDone>0 || t.stage>0 || t.exams>0)? "progress" : (isTopicUnlocked(p, tid)? "open" : "locked");
+    return { id:tid, name:TOP[tid].name, icon:TOP[tid].icon||"🔹", status:status,
+      bestPct: t? (t.bestExamPct||0) : 0, attempts: t? (t.exams||0) : 0 };
+  });
+}
+var DASH_STATUS_ICON = { mastered:"✅", progress:"🟡", revise:"↺", fix:"🛠️", open:"🟡", locked:"🔒" };
+function mathsLessonDetail(p, cid, tid){
+  var td = TOP[tid]; if(!td) return null;
+  var t = p.topics[tid] || defaultTopicState();
+  var lastExam = (t.examHistory||[]).length? t.examHistory[t.examHistory.length-1] : null;
+  var neg = (t.examHistory||[]).reduce(function(s,e){ return s+(e.wrong||0); }, 0);
+  var statusTxt = t.mastered? "✅ Mastered" : t.status==="revise"? "↺ Revise" : t.status==="fix"? "🛠️ Fix-It" : (t.stepsDone>0||t.stage>0)? "🟡 In progress" : "Not started";
+  var rows = [
+    ["Status", statusTxt],
+    ["Learning steps", t.stepsDone+" of "+td.steps.length+" done"],
+    ["Mixed Practice", t.stage>=1? "done ✓" : "not yet"],
+    ["Think", t.stage>=2? "done ✓" : "not yet"],
+    ["Best Topic Exam", t.bestExamPct? t.bestExamPct+"%" : "—"],
+    ["Exam attempts", String(t.exams||0)],
+    ["Last exam", lastExam? (lastExam.pct+"% · "+lastExam.date) : "—"],
+    ["XP from this topic", num(t.bestXP||0)],
+    ["Sums practice", t.prac.a? (t.prac.c+"/"+t.prac.a+" ("+Math.round(t.prac.c/t.prac.a*100)+"%)") : "—"],
+    ["Thinking practice", t.think.a? (t.think.c+"/"+t.think.a+" ("+Math.round(t.think.c/t.think.a*100)+"%)") : "—"],
+    ["Wrong in exams (✗)", String(neg)]
+  ];
+  if(t.testedOut) rows.push(["Test-Out", "skipped ahead by test-out ✓"]);
+  var tricky = (p.trickyBank||[]).filter(function(e){ return e.tid===tid; }).map(function(e){
+    return { key:e.key, q:e.q||"", streak:e.streak||0 };
+  });
+  return { name:td.name, icon:td.icon||"🔹", rows:rows, steps:td.steps.map(function(s){ return s.name; }), tricky:tricky };
+}
+function mathsExamRecords(p){
+  var out = [];
+  FLAT_TOPICS.forEach(function(tid){
+    var t = p.topics[tid]; if(!t) return;
+    (t.examHistory||[]).forEach(function(e, ix){
+      out.push({ ref:"topic:"+tid+":"+ix, title:TOP[tid].name, unitName:chapterById(CHAPTER_OF[tid]).name,
+        kindLabel:"Topic Exam"+(e.testOut? " · Test-Out" : ""), date:e.date||"", pct:e.pct, score:e.score,
+        wrong:e.wrong||0, sums:(e.sums===undefined? null : e.sums), think:(e.think===undefined? null : e.think),
+        review:e.review||null });
+    });
+  });
+  CHAPTERS.forEach(function(ch){
+    var cs = p.chapters[ch.id]; if(!cs) return;
+    (cs.history||[]).forEach(function(e, ix){
+      out.push({ ref:"chapter:"+ch.id+":"+ix, title:ch.name, unitName:ch.name, kindLabel:"Chapter Exam",
+        date:e.date||"", pct:e.pct, score:e.score, wrong:e.wrong||0,
+        sums:(e.sums===undefined? null : e.sums), think:(e.think===undefined? null : e.think), review:e.review||null });
+    });
+  });
+  return out;
+}
+function mathsTrickyItems(p){
+  return (p.trickyBank||[]).map(function(e){
+    var td = TOP[e.tid];
+    var st = td? td.steps.filter(function(s){ return s.sub===e.sub; })[0] : null;
+    return { key:e.key, q:e.q||"", lessonId:e.tid, lessonName: td? td.name : e.tid,
+      unitId: td? CHAPTER_OF[e.tid] : "", unitName: td? chapterById(CHAPTER_OF[e.tid]).name : "",
+      subName: st? st.name : (e.sub||""), kind:e.kind||"sums", thinkType:e.thinkType||"",
+      streak:e.streak||0, at:e.at||"" };
+  });
+}
+function mathsWeakSpots(p){
+  var subs = Object.keys(p.subStats||{}).map(function(k){
+    var v = p.subStats[k]; var parts = k.split("|");
+    return { tid:parts[0], sub:parts[1], a:v.a, c:v.c, acc: v.a? v.c/v.a : 1 };
+  }).filter(function(x){ return x.a>0; }).sort(function(a,b){ return a.acc-b.acc; });
+  return subs.map(function(x){
+    var td = TOP[x.tid];
+    var st = td? td.steps.filter(function(s){ return s.sub===x.sub; })[0] : null;
+    return { lessonId:x.tid, unitId:CHAPTER_OF[x.tid], lessonName: td? td.name : x.tid,
+      subName: st? st.name : x.sub, c:x.c, a:x.a, acc:Math.round(x.acc*100), confusion:(x.a>=3 && x.acc<0.6) };
+  });
+}
+function mathsPerfExtras(p){
+  var out = [];
+  var pend = (p.pendingConfirm||[]).map(function(pc){ return esc(TOP[pc.tid]? TOP[pc.tid].name : pc.tid)+" ("+pc.done+"/3)"; }).join(", ");
+  var outs = ((p.confirmLog||[]).slice(-5).map(function(c){ return esc(TOP[c.tid]? TOP[c.tid].name : c.tid)+": "+c.c+"✓/"+c.w+"✗"+(c.reopened? " → Revise" : ""); }).join(" · "));
+  out.push({ title:"🔁 Warm-up confirmations", text:"Pending: "+(pend||"none")+" — outcomes: "+(outs||"none") });
+  var reviseList = FLAT_TOPICS.filter(function(tid){ var t=p.topics[tid]; return t && (t.status==="revise" || t.status==="fix"); });
+  out.push({ title:"↺ Revise / Fix-It list", text: reviseList.length? reviseList.map(function(tid){ return esc(TOP[tid].name)+" ("+p.topics[tid].status+")"; }).join(" · ") : "none 🌟" });
+  return out;
+}
+function mathsEvidence(p){
+  var ev = { analytical:[], confidence:[], personality:[], communication:[] };
+  ev.analytical.push({ text:"Thinking accuracy: "+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"% ("+p.thinkStats.c+"/"+p.thinkStats.a+")" : "— yet") });
+  ev.analytical.push({ text:"Tricky question types cleared: "+(p.trickyCleared||0) });
+  ev.analytical.push({ text:"Find-the-Mistake finds: "+(p.mistakeFinderCount||0) });
+  FLAT_TOPICS.forEach(function(tid){
+    var t = p.topics[tid];
+    if(t && t.think.a>0) ev.analytical.push({ text:TOP[tid].name+" · thinking "+t.think.c+"/"+t.think.a+" ("+Math.round(t.think.c/t.think.a*100)+"%)" });
+  });
+  mathsExamRecords(p).forEach(function(r){
+    if(r.pct>=PASS_MARK) ev.confidence.push({ text:"Passed "+r.kindLabel+" — "+r.title+": "+r.pct+"%", date:r.date });
+  });
+  var testOuts = FLAT_TOPICS.reduce(function(s,tid){ var t=p.topics[tid]; return s+((t && t.testedOut)?1:0); }, 0);
+  ev.confidence.push({ text:"Test-outs taken: "+testOuts });
+  ev.confidence.push({ text:"Closing rituals shown to Amma: "+(p.rituals||0) });
+  (p.badges||[]).forEach(function(bid){
+    var b = TRAIT_BADGES.filter(function(x){ return x.id===bid; })[0];
+    ev.personality.push({ text:(b? b.name : bid)+" trait badge", date:(p.badgeDates||{})[bid]||"" });
+  });
+  (p.treasures||[]).forEach(function(id){ var it = boutiqueItem(id); ev.personality.push({ text:"🏆 Treasure earned: "+(it? it.name : id) }); });
+  CHAPTERS.forEach(function(ch){
+    var pp = (p.paper||{})[ch.id];
+    if(pp && pp.done) ev.personality.push({ text:"✍️ Paper Bridge — "+ch.name+": sums written on paper ✓", date:pp.date||"" });
+  });
+  ev.communication.push({ text:"Teach-Nanna questions created: "+(p.teach.count||0) });
+  ((p.teach||{}).sessions||[]).forEach(function(s){
+    ev.communication.push({ text:"Teach Nanna: “"+(s.q||"")+"”", date:s.date||"" });
+  });
+  ev.communication.push({ text:"Closing rituals shown to Amma: "+(p.rituals||0) });
+  return ev;
+}
+function mathsBaseline(p){
+  if(!p.baseline) return { taken:false };
+  var lines = Object.keys(p.baseline.perChapter||{}).map(function(cid){
+    var v = p.baseline.perChapter[cid]; return chapterById(cid).name+" "+v.c+"/"+v.a;
+  });
+  return { taken:true, date:p.baseline.date||"",
+    lines:lines,
+    suggested: ((p.baseline.suggested||[]).map(function(cid){ return chapterById(cid).name; }).join(", ") || "none yet") };
+}
+
+/* ---------- placeholder subjects (same shells, zero data) ---------- */
+function dashPlaceholderSubject(s){
+  return {
+    id:s.id, name:s.name, icon:s.icon, live:false, placeholder:true,
+    unitLabel:"Chapters", lessonLabel:"Topics", assessmentLabel:"Exams",
+    skeleton:(s.chapters||[]).map(function(nm){ return { name:nm }; }),
+    progress:function(){ return null; },
+    units:function(){ return []; },
+    lessons:function(){ return []; },
+    lessonDetail:function(){ return null; },
+    examRecords:function(){ return []; },
+    trickyItems:function(){ return []; },
+    weakSpots:function(){ return []; },
+    evidence:function(){ return { analytical:[], confidence:[], personality:[], communication:[] }; }
+  };
+}
+dashRegisterSubject({
+  id:"maths", name:"Maths", icon:"🔢", live:true,
+  unitLabel:"Chapters", lessonLabel:"Topics", assessmentLabel:"Exams",
+  progress:mathsProgress, units:mathsUnits, lessons:mathsLessons, lessonDetail:mathsLessonDetail,
+  examRecords:mathsExamRecords, trickyItems:mathsTrickyItems, weakSpots:mathsWeakSpots,
+  perfExtras:mathsPerfExtras, evidence:mathsEvidence, baseline:mathsBaseline
+});
+SUBJECTS.forEach(function(s){ if(s.id!=="maths") dashRegisterSubject(dashPlaceholderSubject(s)); });
+
+/* ================= STEP 0 — OVERVIEW ================= */
+function renderDashboard(){
+  var p = dashProfile();
+  APP.dash = { subj:null, unit:null, lesson:null, examSubj:"all", examRef:null, trickyKey:null, pillar:null };
+  el("dashWho").textContent = APP.isGuest===false && P() && P().slug!=="sreshta"? "Viewing: Sreshta's progress (dashboard always shows Sreshta)" : "Sreshta's progress · saved on this device";
+  var lv = levelOf(p.xp), gr = gradeOf(p);
+  var maths = dashSubject("maths");
+  var mp = dashCall(maths, "progress", [p], { done:0, total:62, pct:0, unitsDone:0, unitsTotal:12 });
+  var due = rewardDue(p);
+  var html = "";
+  if(due.length) html += dashDueBox(due);
+  /* glance */
+  html += "<div class='dash-sec'><h3>🌟 Overview</h3>"
+    + statGrid([["Level", lv.cur.n+" · "+lv.cur.name], ["XP", num(p.xp)], ["Grade", gr.label||"—"], ["Stars ⭐", num(p.stars)], ["Coins 🪙", num(p.coins)], ["Coins spent", num(p.coinsSpentTotal||0)], ["Topics mastered", mp.done+" / "+mp.total], ["Chapters done", mp.unitsDone+" / "+mp.unitsTotal], ["Syllabus cover", mp.pct+"%"], ["Days played", p.playDays.length], ["Think accuracy", (p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"%" : "—")], ["Tricky pending", (p.trickyBank||[]).length]])
+    + (p.baseline
+      ? "<p class='mut' style='font-size:14px;'>🗺️ <b>Baseline:</b> taken "+esc(p.baseline.date||"")+" · detail in ⚙️ Controls</p>"
+      : "<p class='mut' style='font-size:14px;'>🗺️ Baseline Adventure not taken yet — it appears on her Maths screen.</p>")
+    + "</div>";
+  /* per-subject strip */
+  html += "<div class='dash-sec'><h3>📚 Subjects</h3>";
+  DASH_SUBJECTS.forEach(function(entry){
+    var pr = dashCall(entry, "progress", [p], null);
+    if(entry.live && pr){
+      html += "<button class='drow' data-dnav='subject|"+dashEnc(entry.id)+"'><span class='icon-tile sm'>"+entry.icon+"</span><span class='drow-main'><span class='drow-t'>"+esc(entry.name)+"</span><span class='pbar'><span style='width:"+pr.pct+"%'></span></span></span><span class='drow-s'>"+pr.pct+"%</span><span class='dcard-go'>›</span></button>";
+    } else {
+      html += "<button class='drow' data-dnav='subject|"+dashEnc(entry.id)+"'><span class='icon-tile sm'>"+entry.icon+"</span><span class='drow-main'><span class='drow-t'>"+esc(entry.name)+"</span><span class='drow-s'>Coming soon — after Maths</span></span><span class='dcard-go'>›</span></button>";
+    }
+  });
+  html += "</div>";
+  /* area cards */
+  var totalExams = 0, lastExamLine = "", trickyTotal = 0, topWeak = null;
+  dashLiveSubjects().forEach(function(entry){
+    var recs = dashCall(entry, "examRecords", [p], []);
+    totalExams += recs.length;
+    if(recs.length){ var lr = recs[recs.length-1]; lastExamLine = entry.name+": "+lr.title+" "+lr.pct+"%"; }
+    trickyTotal += dashCall(entry, "trickyItems", [p], []).length;
+    var ws = dashCall(entry, "weakSpots", [p], []);
+    if(ws.length && !topWeak) topWeak = ws[0];
+  });
+  var ladderSet = loadLadder().filter(function(r){ return r.text; }).length;
+  var players = lsGet("players")||[];
+  var guestCount = players.filter(function(s){ return s.indexOf("guest-")===0; }).length;
+  var nc = lsGet("nowClass");
+  var examsPassed = FLAT_TOPICS.reduce(function(s,tid){ var t=p.topics[tid]; return s+((t && t.mastered)?1:0); }, 0)
+    + CHAPTERS.reduce(function(s,ch){ var cs=p.chapters[ch.id]; return s+((cs && cs.mastered)?1:0); }, 0);
+  html += "<div class='dash-cards'>"
+    + dashAreaCard("📚", "", "Subjects", "Maths · "+mp.unitsDone+"/"+mp.unitsTotal+" chapters done · "+(DASH_SUBJECTS.length-1)+" more coming", "subjects")
+    + dashAreaCard("📈", "", "Performance", totalExams+" assessments · "+trickyTotal+" tricky pending"+(topWeak? " · Weak: "+topWeak.subName+" "+topWeak.acc+"%" : ""), "perf")
+    + dashAreaCard("🌟", "", "All-Rounder", "🧠 "+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"%" : "—")+" thinking · 💪 "+examsPassed+" exams passed · 🌟 "+(p.badges||[]).length+" badges · 🗣️ "+(p.teach.count||0)+" Teach-Nanna", "pillars")
+    + dashAreaCard("🎁", "", "Rewards Centre", "Mimi's Boutique purchases: "+(p.purchases||[]).length+" · Ladder set "+ladderSet+"/"+loadLadder().length+(due.length? " · 🎁 REWARD DUE" : ""), "rewards")
+    + dashAreaCard("✉️", "", "Nanna's Corner", p.pendingNanna? "💌 A letter is waiting to be opened" : "💌 "+(p.nannaLetters||[]).length+" letters sent · none waiting", "nanna")
+    + dashAreaCard("⚙️", "", "Controls", nc? ("Now in Class: "+(TOP[nc]? TOP[nc].name : nc)) : "Now in Class, baseline & resets", "controls")
+    + dashAreaCard("🖨️", "", "Monthly Report", "View & print this month's report", "report")
+    + dashAreaCard("🧸", "", "Guests on this device", guestCount? (guestCount+" guest"+(guestCount>1? "s" : "")+" on this device") : "No guests yet", "guests")
+    + "</div>";
+  el("dashBody").innerHTML = html;
+  wireGivenButtons(el("dashBody"), p);
+}
+
+/* ================= STEP 1 — SUBJECTS LIST ================= */
+function openDashSubjects(){
+  var p = dashProfile();
+  DASH().subj = null;
+  var html = "<div class='dash-sec'><h3>📚 All Subjects</h3>";
+  DASH_SUBJECTS.forEach(function(entry){
+    var pr = dashCall(entry, "progress", [p], null);
+    var subjDef = SUBJECTS.filter(function(s){ return s.id===entry.id; })[0];
+    var line = entry.live && pr
+      ? pr.unitsDone+"/"+pr.unitsTotal+" "+entry.unitLabel.toLowerCase()+" · "+pr.done+"/"+pr.total+" "+entry.lessonLabel.toLowerCase()+" · "+pr.pct+"%"
+      : "Coming soon — after Maths · "+(subjDef? subjDef.tag : "");
+    html += dashRow("subject|"+dashEnc(entry.id), entry.icon+" "+esc(entry.name), esc(line));
+  });
+  html += "</div>";
+  el("dashSubjectsBody").innerHTML = html;
+  show("dashsubjects");
+}
+
+/* ================= STEP 2 — SUBJECT (units list) ================= */
+function openDashSubject(sid){
+  var p = dashProfile();
+  var entry = dashSubject(sid); if(!entry){ openDashSubjects(); return; }
+  DASH().subj = sid; DASH().unit = null;
+  el("dashSubjectTitle").textContent = entry.icon+" "+entry.name;
+  var html = "";
+  if(!entry.live){
+    html += "<div class='dash-sec'><h3>🌱 Coming soon — after Maths</h3>"
+      + "<p class='mut' style='font-size:14px;'>This world opens after Maths, in the same shell. Its "+entry.unitLabel.toLowerCase()+" are planned:</p>"
+      + (entry.skeleton||[]).map(function(u){ return "<div class='drow' style='cursor:default;'><span class='drow-main'><span class='drow-t'>🔒 "+esc(u.name)+"</span></span></div>"; }).join("")
+      + "</div>";
+  } else {
+    var pr = dashCall(entry, "progress", [p], { done:0, total:0, pct:0, unitsDone:0, unitsTotal:0 });
+    html += "<div class='dash-sec'><h3>"+entry.icon+" "+esc(entry.name)+" — "+entry.unitLabel+"</h3>"
+      + statGrid([["Progress", pr.pct+"%"], [entry.unitLabel+" done", pr.unitsDone+" / "+pr.unitsTotal], [entry.lessonLabel+" done", pr.done+" / "+pr.total]])
+      + dashCall(entry, "units", [p], []).map(function(u){
+          return dashRow("unit|"+dashEnc(sid)+"|"+dashEnc(u.id),
+            esc(u.icon||"")+" "+(u.ix? "Ch "+u.ix+" · " : "")+esc(u.name),
+            esc(u.lessonsDone+"/"+u.lessonsTotal+" "+entry.lessonLabel.toLowerCase()+" · "+u.statusText));
+        }).join("")
+      + "</div>";
+  }
+  el("dashSubjectBody").innerHTML = html;
+  show("dashsubject");
+}
+
+/* ================= STEP 3 — UNIT (lessons list) ================= */
+function openDashUnit(sid, uid){
+  var p = dashProfile();
+  var entry = dashSubject(sid); if(!entry){ openDashSubjects(); return; }
+  DASH().subj = sid; DASH().unit = uid; DASH().lesson = null;
+  var units = dashCall(entry, "units", [p], []);
+  var u = units.filter(function(x){ return x.id===uid; })[0];
+  el("dashUnitTitle").textContent = entry.icon+" "+(u? u.name : entry.name);
+  var html = "";
+  if(!entry.live || !u){
+    html += "<div class='dash-sec'><h3>🌱 Coming soon — after Maths</h3><p class='mut' style='font-size:14px;'>This "+entry.unitLabel.slice(0,-1).toLowerCase()+" opens after Maths.</p></div>";
+  } else {
+    html += "<div class='dash-sec'><h3>"+esc(u.icon||"")+" "+esc(u.name)+"</h3>"
+      + "<div class='kv'><b>"+entry.assessmentLabel.slice(0,-1)+" (chapter)</b><span>"+esc(u.statusText)+"</span></div>"
+      + "<div class='kv'><b>Attempts</b><span>"+u.attempts+"</span></div>"
+      + (u.examPct>0? "<div class='kv'><b>Honesty check</b><span><label style='font-size:13.5px;'><input type='checkbox' data-honest='"+esc(u.id)+"' "+(u.honest? "checked":"")+"> She did this herself</label></span></div>" : "")
+      + "<div class='kv'><b>Paper</b><span>"+esc(u.paperText||"")+"</span></div>"
+      + "</div>";
+    html += "<div class='dash-sec'><h3>"+entry.lessonLabel+"</h3>"
+      + dashCall(entry, "lessons", [p, uid], []).map(function(l){
+          return dashRow("lesson|"+dashEnc(sid)+"|"+dashEnc(uid)+"|"+dashEnc(l.id),
+            (DASH_STATUS_ICON[l.status]||"")+" "+esc(l.name),
+            esc((l.bestPct? "Best exam "+l.bestPct+"%" : "No exam yet")+" · "+l.attempts+" attempt"+(l.attempts===1? "" : "s")));
+        }).join("")
+      + "</div>";
+  }
+  el("dashUnitBody").innerHTML = html;
+  var hon = el("dashUnitBody").querySelectorAll("[data-honest]");
+  for(var i=0;i<hon.length;i++) hon[i].addEventListener("change", function(){
     var cs = chapterState(p, this.getAttribute("data-honest")); cs.honest = this.checked; saveProfile(p);
   });
+  show("dashunit");
+}
+
+/* ================= STEP 3 — LESSON DETAIL (terminal) ================= */
+function openDashLesson(sid, uid, lid){
+  var p = dashProfile();
+  var entry = dashSubject(sid); if(!entry){ openDashSubjects(); return; }
+  DASH().subj = sid; DASH().unit = uid; DASH().lesson = lid;
+  var det = dashCall(entry, "lessonDetail", [p, uid, lid], null);
+  el("dashLessonTitle").textContent = entry.icon+" "+(det? det.name : "Lesson");
+  var html = "";
+  if(!det){
+    html += "<div class='dash-sec'><p class='mut'>🌱 Coming soon — after Maths.</p></div>";
+  } else {
+    html += "<div class='dash-sec'><h3>"+esc(det.icon||"")+" "+esc(det.name)+"</h3>"
+      + (det.rows||[]).map(function(r){ return "<div class='kv'><b>"+esc(r[0])+"</b><span>"+esc(r[1])+"</span></div>"; }).join("")
+      + "</div>";
+    if(det.steps && det.steps.length){
+      html += "<div class='dash-sec'><h3>📖 Learning steps</h3><p style='font-size:14.5px; margin:4px 0;'>"+det.steps.map(function(s, i){ return (i+1)+". "+esc(s); }).join("<br>")+"</p></div>";
+    }
+    if(det.tricky && det.tricky.length){
+      html += "<div class='dash-sec'><h3>🍀 Tricky questions from this "+entry.lessonLabel.slice(0,-1).toLowerCase()+"</h3>"
+        + det.tricky.map(function(t){
+            return dashRow("trickyd|"+dashEnc(sid)+"|"+dashEnc(t.key), "🍀 "+esc(t.q.length>70? t.q.slice(0,70)+"…" : t.q), "Streak "+t.streak+"/2 — tap for detail");
+          }).join("") + "</div>";
+    }
+  }
+  el("dashLessonBody").innerHTML = html;
+  show("dashlesson");
+}
+
+/* ================= STEP 1 — PERFORMANCE HUB (cross-subject) ================= */
+function openDashPerf(){
+  var p = dashProfile();
+  var totalExams = 0, pctSum = 0, trickyTotal = 0;
+  dashLiveSubjects().forEach(function(entry){
+    var recs = dashCall(entry, "examRecords", [p], []);
+    totalExams += recs.length;
+    recs.forEach(function(r){ pctSum += r.pct||0; });
+    trickyTotal += dashCall(entry, "trickyItems", [p], []).length;
+  });
+  var html = "<div class='dash-sec'><h3>📈 All Subjects — Combined</h3>"
+    + statGrid([["Total assessments", String(totalExams)], ["Average score", totalExams? Math.round(pctSum/totalExams)+"%" : "—"], ["Tricky pending", String(trickyTotal)], ["Live subjects", String(dashLiveSubjects().length)]])
+    + "</div>";
+  DASH_SUBJECTS.forEach(function(entry){
+    if(!entry.live){
+      html += "<div class='dash-sec'><h3>"+entry.icon+" "+esc(entry.name)+"</h3><p class='mut' style='font-size:14px;'>Coming soon — after Maths.</p></div>";
+      return;
+    }
+    var recs = dashCall(entry, "examRecords", [p], []);
+    var last = recs.length? recs[recs.length-1] : null;
+    var tricky = dashCall(entry, "trickyItems", [p], []);
+    var weak = dashCall(entry, "weakSpots", [p], []);
+    html += "<div class='dash-sec'><h3>"+entry.icon+" "+esc(entry.name)+"</h3>"
+      + dashRow("exams|"+dashEnc(entry.id), "🧪 Exam History", esc(recs.length? (recs.length+" "+entry.assessmentLabel.toLowerCase()+" · last: "+last.title+" "+last.pct+"% ("+last.date+")") : "No "+entry.assessmentLabel.toLowerCase()+" yet"))
+      + dashRow("tricky", "🍀 Tricky Questions", esc(tricky.length? tricky.length+" pending in the bank" : "Bank is clear 🌟"))
+      + dashRow("weak", "🎯 Weak Spots & Confusions", esc(weak.length? ("Weakest: "+weak[0].subName+" "+weak[0].acc+"% · "+weak.filter(function(w){ return w.confusion; }).length+" confusions") : "No weak spots yet 🌟"));
+    var extras = dashCall(entry, "perfExtras", [p], []);
+    extras.forEach(function(x){
+      html += "<p style='margin:10px 0 4px;'><b>"+esc(x.title)+":</b> <span style='font-weight:600;'>"+x.text+"</span></p>";
+    });
+    html += "</div>";
+  });
+  el("dashPerfBody").innerHTML = html;
+  show("dashperf");
+}
+
+/* ================= STEP 2 — EXAM HISTORY (filterable) ================= */
+function openDashExams(filterSid){
+  var p = dashProfile();
+  var f = filterSid || DASH().examSubj || "all";
+  DASH().examSubj = f;
+  var chips = "<div class='chips'><button class='chip"+(f==="all"? " on" : "")+"' data-dnav='exams|all'>All</button>"
+    + dashLiveSubjects().map(function(entry){
+        return "<button class='chip"+(f===entry.id? " on" : "")+"' data-dnav='exams|"+dashEnc(entry.id)+"'>"+entry.icon+" "+esc(entry.name)+"</button>";
+      }).join("") + "</div>";
+  var rows = [];
+  DASH_SUBJECTS.forEach(function(entry){
+    if(!entry.live) return;
+    if(f!=="all" && f!==entry.id) return;
+    dashCall(entry, "examRecords", [p], []).forEach(function(r){
+      rows.push({ entry:entry, r:r });
+    });
+  });
+  rows.sort(function(a,b){ return (b.r.date||"").localeCompare(a.r.date||""); });
+  var html = chips;
+  if(!rows.length){
+    html += "<div class='dash-sec'><p class='mut' style='font-size:14.5px;'>No exams yet — exam results will appear here.</p></div>";
+  } else {
+    html += "<div class='dash-sec'>"
+      + rows.map(function(x){
+          var r = x.r;
+          var sub = r.date+" · "+dashExamGrade(r.pct)+" · "+r.pct+"%"
+            + ((r.sums!=null || r.think!=null)? " · Sums "+(r.sums==null? "—" : r.sums+"%")+" · Think "+(r.think==null? "—" : r.think+"%") : "")
+            + (r.wrong? " · ✗ "+r.wrong : "");
+          return dashRow("exam|"+dashEnc(x.entry.id)+"|"+dashEnc(r.ref),
+            dashTag(x.entry)+esc(r.title), esc(r.kindLabel+" · "+sub));
+        }).join("") + "</div>";
+  }
+  el("dashExamsBody").innerHTML = html;
+  show("dashexams");
+}
+
+/* ================= STEP 3 — EXAM DETAIL (terminal, generic) ================= */
+function openDashExam(sid, ref){
+  var p = dashProfile();
+  var entry = dashSubject(sid); if(!entry){ openDashExams("all"); return; }
+  DASH().subj = sid; DASH().examRef = ref;
+  var rec = dashCall(entry, "examRecords", [p], []).filter(function(r){ return String(r.ref)===String(ref); })[0];
+  el("dashExamTitle").textContent = "🧪 Exam Detail";
+  var html = "";
+  if(!rec){
+    html += "<div class='dash-sec'><p class='mut'>That exam record could not be found.</p></div>";
+  } else {
+    html += "<div class='dash-sec'><h3>"+dashTag(entry)+esc(rec.title)+"</h3>"
+      + "<p class='mut' style='font-size:13.5px; margin:2px 0 8px;'>"+esc(rec.kindLabel)+(rec.unitName? " · "+esc(rec.unitName) : "")+" · "+esc(rec.date||"")+"</p>"
+      + statGrid([["Score", rec.pct+"%"], ["Grade", dashExamGrade(rec.pct)], ["Points", String(rec.score==null? "—" : rec.score)], ["Wrong ✗", String(rec.wrong||0)], ["Negative marks", "−"+((rec.wrong||0)*2)], ["Result", rec.pct>=PASS_MARK? "Passed ✓" : "Not yet"]])
+      + ((rec.sums!=null || rec.think!=null)? "<div class='kv'><b>Sums</b><span>"+(rec.sums==null? "—" : rec.sums+"%")+"</span></div><div class='kv'><b>Thinking</b><span>"+(rec.think==null? "—" : rec.think+"%")+"</span></div>" : "")
+      + "</div>";
+    if(rec.review && rec.review.length){
+      var byTag = {};
+      rec.review.forEach(function(r){ var tg = r.tag||"—"; if(!byTag[tg]) byTag[tg] = { a:0, c:0 }; byTag[tg].a++; if(r.res==="c") byTag[tg].c++; });
+      var tagLine = Object.keys(byTag).map(function(tg){ return tg+": "+byTag[tg].c+"/"+byTag[tg].a; }).join(" · ");
+      html += "<div class='dash-sec'><h3>🔍 Question by question</h3>"
+        + "<p class='mut' style='font-size:13.5px; margin:2px 0 8px;'>Skills — "+esc(tagLine)+"</p>"
+        + rec.review.map(function(r, i){
+            var mark = r.res==="c"? "✅" : r.res==="s"? "⏭ Skipped" : "❌";
+            return "<div class='rev-card'><div class='rev-q'>"+(i+1)+". "+esc(r.q)+"</div>"
+              + "<div class='rev-a'>"+mark+" Her answer: <b>"+esc(r.chosen||"—")+"</b> · Correct: <b>"+esc(r.answer||"")+"</b>"+(r.tag? " <span class='tag'>"+esc(r.tag)+"</span>" : "")+"</div></div>";
+          }).join("") + "</div>";
+    } else {
+      html += "<div class='dash-sec'><p class='mut' style='font-size:14px;'>Question-by-question detail is saved for exams taken from now on — this earlier exam kept only its score.</p></div>";
+    }
+  }
+  el("dashExamBody").innerHTML = html;
+  show("dashexam");
+}
+
+/* ================= STEP 2 — TRICKY QUESTIONS (grouped by subject) ================= */
+function openDashTricky(){
+  var p = dashProfile();
+  var html = "";
+  DASH_SUBJECTS.forEach(function(entry){
+    if(!entry.live) return;
+    var items = dashCall(entry, "trickyItems", [p], []);
+    html += "<div class='dash-sec'><h3>"+entry.icon+" "+esc(entry.name)+"</h3>";
+    if(!items.length) html += "<p class='mut' style='font-size:14px;'>Bank is clear 🌟</p>";
+    html += items.map(function(t){
+      return dashRow("trickyd|"+dashEnc(entry.id)+"|"+dashEnc(t.key),
+        "🍀 "+esc(t.q.length>72? t.q.slice(0,72)+"…" : t.q),
+        esc(t.lessonName+" · streak "+t.streak+"/2 · since "+(t.at||"—")));
+    }).join("") + "</div>";
+  });
+  el("dashTrickyBody").innerHTML = html;
+  show("dashtricky");
+}
+
+/* ================= STEP 3 — TRICKY DETAIL (terminal) ================= */
+function openDashTrickyDetail(sid, key){
+  var p = dashProfile();
+  var entry = dashSubject(sid); if(!entry){ openDashTricky(); return; }
+  DASH().subj = sid; DASH().trickyKey = key;
+  var t = dashCall(entry, "trickyItems", [p], []).filter(function(x){ return String(x.key)===String(key); })[0];
+  var html = "";
+  if(!t){
+    html += "<div class='dash-sec'><p class='mut'>That tricky question is no longer in the bank (it may have been cleared 🌟).</p></div>";
+  } else {
+    html += "<div class='dash-sec'><h3>"+dashTag(entry)+"Tricky Question</h3>"
+      + "<p style='font-size:16px; font-weight:700;'>"+esc(t.q)+"</p>"
+      + "<div class='kv'><b>"+entry.lessonLabel.slice(0,-1)+"</b><span>"+esc(t.lessonName)+"</span></div>"
+      + (t.unitName? "<div class='kv'><b>"+entry.unitLabel.slice(0,-1)+"</b><span>"+esc(t.unitName)+"</span></div>" : "")
+      + (t.subName? "<div class='kv'><b>Subtopic</b><span>"+esc(t.subName)+"</span></div>" : "")
+      + "<div class='kv'><b>Type</b><span>"+esc(t.kind)+(t.thinkType? " · "+esc(t.thinkType) : "")+"</span></div>"
+      + "<div class='kv'><b>Added to the bank</b><span>"+esc(t.at||"—")+" (after a wrong answer)</span></div>"
+      + "<div class='kv'><b>Correct streak</b><span>"+t.streak+" / 2</span></div>"
+      + "<div class='kv'><b>Status</b><span>"+(t.streak>=1? "Halfway clear — one more correct clears it" : "Waiting for Tricky Practice")+"</span></div>"
+      + "<p class='mut' style='font-size:13.5px;'>How it clears: she meets this question type in 🍀 Tricky Practice (first 5 bank entries each session); two correct in a row and it leaves the bank for good.</p>"
+      + "</div>";
+  }
+  el("dashTrickyDBody").innerHTML = html;
+  show("dashtrickyd");
+}
+
+/* ================= STEP 2 — WEAK SPOTS (grouped by subject) ================= */
+function openDashWeak(){
+  var p = dashProfile();
+  var html = "";
+  DASH_SUBJECTS.forEach(function(entry){
+    if(!entry.live) return;
+    var weak = dashCall(entry, "weakSpots", [p], []);
+    html += "<div class='dash-sec'><h3>"+entry.icon+" "+esc(entry.name)+"</h3>";
+    if(!weak.length) html += "<p class='mut' style='font-size:14px;'>No weak spots yet 🌟</p>";
+    html += weak.slice(0,20).map(function(w){
+      return dashRow("lesson|"+dashEnc(entry.id)+"|"+dashEnc(w.unitId)+"|"+dashEnc(w.lessonId),
+        esc(w.subName)+(w.confusion? " ⚠️" : ""),
+        esc(w.lessonName+" · "+w.c+"/"+w.a+" correct · "+w.acc+"%"+(w.confusion? " · confusion to revisit" : "")));
+    }).join("") + "</div>";
+  });
+  el("dashWeakBody").innerHTML = html;
+  show("dashweak");
+}
+
+/* ================= STEP 1/2 — ALL-ROUNDER ================= */
+var DASH_PILLARS = [
+  { key:"analytical", icon:"🧠", name:"Analytical" },
+  { key:"confidence", icon:"💪", name:"Confidence" },
+  { key:"personality", icon:"🌟", name:"Personality" },
+  { key:"communication", icon:"🗣️", name:"Communication" }
+];
+function openDashPillars(){
+  var p = dashProfile();
+  var examsPassed = FLAT_TOPICS.reduce(function(s,tid){ var t=p.topics[tid]; return s+((t && t.mastered)?1:0); }, 0)
+    + CHAPTERS.reduce(function(s,ch){ var cs=p.chapters[ch.id]; return s+((cs && cs.mastered)?1:0); }, 0);
+  var testOuts = FLAT_TOPICS.reduce(function(s,tid){ var t=p.topics[tid]; return s+((t && t.testedOut)?1:0); }, 0);
+  var vals = {
+    analytical: [(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"% thinking accuracy" : "—"), "Tricky cleared: "+(p.trickyCleared||0)+" · Mistake-finds: "+(p.mistakeFinderCount||0)],
+    confidence: [examsPassed+" exams passed", "Test-outs: "+testOuts+" · Rituals shown: "+(p.rituals||0)],
+    personality: [(p.badges||[]).length+" trait badges", (p.badges||[]).length? p.badges.map(function(bid){ var b=TRAIT_BADGES.filter(function(x){ return x.id===bid; })[0]; return b? esc(b.name)+" ("+(p.badgeDates[bid]||"")+")" : bid; }).join(" · ") : "none yet"],
+    communication: [(p.teach.count||0)+" Teach-Nanna questions", "Closing rituals shown to Amma: "+(p.rituals||0)]
+  };
+  var html = "<div class='dash-sec'><h3>🌈 All-Rounder Pillars</h3><div class='pillars'>"
+    + DASH_PILLARS.map(function(pl){
+        return "<button class='pillar' style='text-align:left; font-family:inherit; cursor:pointer; border:none; width:100%;' data-dnav='pillar|"+pl.key+"'><div class='p-t'>"+pl.icon+" "+pl.name+"</div><div class='p-v'>"+esc(vals[pl.key][0])+"</div><div class='p-s'>"+vals[pl.key][1]+"</div><div class='p-s'>Tap for evidence ›</div></button>";
+      }).join("")
+    + "</div></div>";
+  el("dashPillarsBody").innerHTML = html;
+  show("dashpillars");
+}
+function openDashPillar(key){
+  var p = dashProfile();
+  var pl = DASH_PILLARS.filter(function(x){ return x.key===key; })[0];
+  if(!pl){ openDashPillars(); return; }
+  DASH().pillar = key;
+  el("dashPillarTitle").textContent = pl.icon+" "+pl.name;
+  var html = "";
+  DASH_SUBJECTS.forEach(function(entry){
+    html += "<div class='dash-sec'><h3>"+dashTag(entry)+esc(entry.name)+"</h3>";
+    if(!entry.live){ html += "<p class='mut' style='font-size:14px;'>Coming soon — after Maths.</p></div>"; return; }
+    var ev = dashCall(entry, "evidence", [p], null);
+    var list = (ev && ev[key]) || [];
+    if(!list.length) html += "<p class='mut' style='font-size:14px;'>No evidence yet.</p>";
+    html += list.map(function(e){
+      return "<div class='evrow'><span>"+esc(e.text)+"</span>"+(e.date? "<span class='evd'>"+esc(e.date)+"</span>" : "")+"</div>";
+    }).join("") + "</div>";
+  });
+  el("dashPillarBody").innerHTML = html;
+  show("dashpillar");
+}
+
+/* ================= STEP 1 — REWARDS CENTRE (platform-global wallet) ================= */
+function openDashRewards(){
+  var p = dashProfile();
+  var due = rewardDue(p);
+  var html = "";
+  if(due.length) html += dashDueBox(due);
+  var ladder = loadLadder();
+  html += "<div class='dash-sec'><h3>🎁 Reward Ladder</h3><p class='mut' style='font-size:14px; margin:4px 0;'>Set each level's reward (rows with empty text stay hidden from her). Defaults are only ideas — nothing shows until you type it.</p>";
+  ladder.forEach(function(row, i){
+    html += "<div class='lad-row'><span class='lad-lv'>Level "+row.level+" · "+(row.grade==="Any"? "any grade" : row.grade+"+")+"</span><input class='lad-em' id='lad-em-"+i+"' value='"+esc(row.emoji||"")+"' maxlength='4'><input class='lad-tx' id='lad-tx-"+i+"' value='"+esc(row.text||"")+"' placeholder='Not set by parents yet — type the reward'><select class='sel' id='lad-gr-"+i+"'>"+["Any","Bronze","Silver","Gold","Diamond"].map(function(g){ return "<option value='"+g+"' "+(row.grade===g? "selected":"")+">"+g+"+</option>"; }).join("")+"</select></div>";
+  });
+  html += "<button class='btn green small' id='btnLadderSave'>💾 Save Ladder</button>"
+    + "<p style='margin:10px 0 4px;'><b>Rewards given:</b> "+((p.rewardsGiven||[]).length? p.rewardsGiven.map(function(r){ return "L"+r.level+" "+esc(r.text||"")+" ("+r.date+")"; }).join(" · ") : "none yet")+"</p></div>";
+  html += "<div class='dash-sec'><h3>🛍️ Mimi's Boutique & 🪙 Coins</h3>"
+    + dashRow("purchases", "🛍️ Boutique Purchases", esc((p.purchases||[]).length+" items bought"))
+    + dashRow("ledger", "🪙 Coin Ledger", esc((p.coinLedger||[]).length+" entries · balance "+num(p.coins)+" 🪙"))
+    + "<p style='margin:10px 0 4px;'><b>Wardrobe:</b> "+((p.wardrobe||[]).length? p.wardrobe.map(function(id){ var it=boutiqueItem(id); return it? esc(it.name)+" ("+slotLabel(it.slot)+(p.itemSources[id]==="gift"? ", 🎁 gift" : p.itemSources[id]==="treasure"? ", 🏆 treasure" : p.itemSources[id]==="shop (updated)"? ", updated" : "")+")" : id; }).join(" · ") : "starter look only")+"</p>"
+    + "<p style='margin:6px 0 4px;'><b>Wishlist:</b> "+(function(){ var wi = wishlistInfo(p); return wi? esc(wi.item.name)+" — "+wi.item.price+" 🪙 ("+(wi.owned? "owned already" : wi.gap>0? wi.gap+" coins to go" : "affordable now!")+")" : "none"; })()+"</p>"
+    + "<p style='margin:6px 0 4px;'><b>Treasures earned:</b> "+((p.treasures||[]).length? p.treasures.map(function(id){ var it=boutiqueItem(id); return it? it.icon+" "+esc(it.name) : id; }).join(" · ") : "none yet")+"</p></div>";
+  el("dashRewardsBody").innerHTML = html;
+  wireGivenButtons(el("dashRewardsBody"), p);
   var bl = el("btnLadderSave");
   if(bl) bl.addEventListener("click", function(){
-    var ladder = loadLadder();
-    ladder.forEach(function(row, ix){
+    var lad = loadLadder();
+    lad.forEach(function(row, ix){
       row.emoji = el("lad-em-"+ix).value; row.text = el("lad-tx-"+ix).value.trim(); row.grade = el("lad-gr-"+ix).value;
     });
-    saveLadder(ladder); toast("💾 Reward ladder saved!");
+    saveLadder(lad); toast("💾 Reward ladder saved!");
   });
+  show("dashrewards");
+}
+
+/* ================= STEP 2 — BOUTIQUE PURCHASES (terminal list) ================= */
+function openDashPurchases(){
+  var p = dashProfile();
+  var ledger = p.coinLedger||[];
+  function buyDate(name){
+    for(var i=ledger.length-1;i>=0;i--){ if(ledger[i].what==="Mimi's Boutique: "+name) return ledger[i].date||""; }
+    return "";
+  }
+  var html = "<div class='dash-sec'><h3>🛍️ Boutique Purchases</h3>";
+  if(!(p.purchases||[]).length) html += "<p class='mut' style='font-size:14.5px;'>No purchases yet.</p>";
+  html += (p.purchases||[]).map(function(id){
+    var it = boutiqueItem(id);
+    var name = it? it.name : id;
+    var src = p.itemSources[id]==="gift"? "🎁 Gift from Nanna" : p.itemSources[id]==="treasure"? "🏆 Treasure" : "Boutique";
+    var d = buyDate(name);
+    return "<div class='evrow'><span>"+(it? it.icon+" " : "")+esc(name)+" <span class='tag'>"+src+"</span></span><span class='evd'>"+(it? it.price+" 🪙" : "")+(d? " · "+esc(d) : "")+"</span></div>";
+  }).join("") + "</div>";
+  el("dashPurchBody").innerHTML = html;
+  show("dashpurch");
+}
+
+/* ================= STEP 2 — COIN LEDGER (terminal list) ================= */
+function openDashLedger(){
+  var p = dashProfile();
+  var html = "<div class='dash-sec'><h3>🪙 Coin Ledger</h3>"
+    + statGrid([["Coins now", num(p.coins)], ["Coins spent (total)", num(p.coinsSpentTotal||0)], ["Entries", String((p.coinLedger||[]).length)]])
+    + ((p.coinLedger||[]).length
+      ? (p.coinLedger||[]).slice().reverse().map(function(e){
+          return "<div class='evrow'><span>"+esc(e.what)+"</span><span class='evd' style='color:"+(e.amt>0? "#1d9e75" : "#e05252")+"; font-weight:800;'>"+(e.amt>0? "+" : "")+e.amt+" · "+esc(e.date||"")+"</span></div>";
+        }).join("")
+      : "<p class='mut' style='font-size:14.5px;'>No coin movements yet.</p>")
+    + "</div>";
+  el("dashLedgerBody").innerHTML = html;
+  show("dashledger");
+}
+
+/* ================= STEP 1 — NANNA'S CORNER (tool) ================= */
+function openDashNanna(){
+  var p = dashProfile();
+  ensureLookShape(p);
+  var giftOpts = "<option value=''>— no gift —</option>" + BOUTIQUE_ITEMS.concat(MIMI_ITEMS).filter(function(it){ return !it.treasure; }).map(function(it){ return "<option value='"+it.id+"'>"+it.icon+" "+esc(it.name)+(it.consumable? " (treat — Mimi munches it)" : it.price? " ("+it.price+" 🪙 value)" : " (starter)")+"</option>"; }).join("");
+  var html = "<div class='dash-sec'><h3><span class='icon-tile sm t-pink'>💌</span> Nanna's Corner</h3>"
+    + "<p class='mut' style='font-size:14px; margin:4px 0;'>A real message from Nanna — it appears once on her Home, exactly as typed (Mimi never invents messages — she only shows your exact words). An optional gift from the Boutique goes straight into her wardrobe, free, marked 'Gift from Nanna'. Saving again replaces an unopened surprise.</p>"
+    + (p.pendingNanna? "<p style='font-size:14.5px;'><b>Waiting to be opened:</b> &ldquo;"+esc(p.pendingNanna.text||"(gift only)")+"&rdquo;"+(p.pendingNanna.giftItemId? " 🎁 "+esc((boutiqueItem(p.pendingNanna.giftItemId)||{}).name||"") : "")+" · saved "+esc(p.pendingNanna.date||"")+" · status: <b>unread</b></p>" : "<p class='mut' style='font-size:14px;'>No surprise waiting right now.</p>")
+    + "<textarea id='nannaText' maxlength='140' rows='2' style='width:100%; font-size:15px; padding:8px; border-radius:10px; border:2px solid #d9d3f5;' placeholder='A short message from Nanna (max 140 letters)'></textarea>"
+    + "<p style='margin:8px 0;'><b>Gift (optional):</b> <select class='sel' id='nannaGift'>"+giftOpts+"</select> <button class='btn pink small' id='btnNannaSave'>💌 Save for Sreshta</button></p>"
+    + "<p style='margin:6px 0 4px;'><b>Letters history:</b> "+((p.nannaLetters||[]).length? p.nannaLetters.slice().reverse().map(function(L){ return "&ldquo;"+esc(L.text||"(gift only)")+"&rdquo;"+(L.giftName? " 🎁 "+esc(L.giftName) : "")+" · "+esc(L.date||"")+" · "+(L.read? "read ✓" : "unread"); }).join("<br>") : "none yet")+"</p></div>";
+  el("dashNannaBody").innerHTML = html;
   var bns = el("btnNannaSave");
   if(bns) bns.addEventListener("click", function(){
     var text = el("nannaText").value, gift = el("nannaGift").value;
-    if(queueNannaLetter(p, text, gift)){ saveProfile(p); renderDashboard(); toast("💌 Saved! It will appear on her Home on her next visit."); }
+    if(queueNannaLetter(p, text, gift)){ saveProfile(p); openDashNanna(); toast("💌 Saved! It will appear on her Home on her next visit."); }
     else toast("Type a message or pick a gift first!");
   });
+  show("dashnanna");
+}
+
+/* ================= STEP 1 — CONTROLS ================= */
+function openDashControls(){
+  var p = dashProfile();
+  var maths = dashSubject("maths");
+  var base = maths? dashCall(maths, "baseline", [p], null) : null;
+  var html = "<div class='dash-sec'><h3>🎛️ Controls</h3>"
+    + "<p style='margin:4px 0;'><b>⭐ Now in Class:</b> <select class='sel' id='ctlClass'><option value=''>— none —</option>"+FLAT_TOPICS.map(function(tid){ return "<option value='"+tid+"' "+(lsGet("nowClass")===tid? "selected":"")+">"+esc(chapterById(CHAPTER_OF[tid]).name)+" · "+esc(TOP[tid].name)+"</option>"; }).join("")+"</select> <button class='btn teal small' id='btnClassSet'>Set</button></p></div>";
+  html += "<div class='dash-sec'><h3>🗺️ Baseline Adventure</h3>"
+    + (base && base.taken
+      ? "<p style='font-size:14.5px; margin:4px 0;'><b>Taken "+esc(base.date)+":</b> "+base.lines.map(function(s){ return esc(s); }).join(" · ")+"<br>Suggested Test-Out: <b>"+esc(base.suggested)+"</b></p>"
+      : "<p class='mut' style='font-size:14px;'>Baseline Adventure not taken yet — it appears on her Maths screen.</p>")
+    + "<p style='margin:8px 0;'><button class='btn blue small' id='btnBaseReset'>🗺️ Reset Baseline (allow a retake)</button></p></div>";
+  html += "<div class='dash-sec'><h3>👧 Guests</h3>"
+    + dashRow("guests", "👧 Guests on this device", "Guest list & remove — guests never affect Sreshta's progress")
+    + "</div>";
+  html += "<div class='dash-sec'><h3>⚠️ Danger Zone</h3>"
+    + "<p style='margin:8px 0;'><button class='btn orange small' id='btnResetS'>⚠️ Reset Sreshta's Progress</button> <span class='mut' style='font-size:13.5px;' id='resetHint'>Two taps — first tap arms it.</span></p></div>";
+  el("dashControlsBody").innerHTML = html;
   var bcs = el("btnClassSet");
   if(bcs) bcs.addEventListener("click", function(){ var v = el("ctlClass").value; if(v) lsSet("nowClass", v); else { try{ localStorage.removeItem(LS_PREFIX+"nowClass"); }catch(e){} } toast("⭐ Now in Class updated!"); });
   var bbr = el("btnBaseReset");
-  if(bbr) bbr.addEventListener("click", function(){ p.baseline = null; saveProfile(p); renderDashboard(); toast("🗺️ Baseline cleared — she can take the Adventure again."); });
-  var brp = el("btnReport");
-  if(brp) brp.addEventListener("click", function(){ printMonthlyReport(p); });
+  if(bbr) bbr.addEventListener("click", function(){ p.baseline = null; saveProfile(p); openDashControls(); toast("🗺️ Baseline cleared — she can take the Adventure again."); });
   var brs = el("btnResetS");
   if(brs) brs.addEventListener("click", function(){
     if(!APP.resetArm){ APP.resetArm = true; el("resetHint").textContent = "Tap once more to ERASE all of Sreshta's progress on this device."; return; }
@@ -5720,21 +6468,17 @@ function wireDashboard(p){
     if(P() && P().slug==="sreshta") APP.profile = newProfile("Sreshta");
     renderDashboard(); toast("Progress reset.");
   });
-  var dg = el("dashBody").querySelectorAll("[data-delguest]");
-  for(var k=0;k<dg.length;k++) dg[k].addEventListener("click", function(){
-    var g = this.getAttribute("data-delguest");
-    try{ localStorage.removeItem(LS_PREFIX+"profile_"+g); }catch(e){}
-    lsSet("players", (lsGet("players")||[]).filter(function(s){ return s!==g; }));
-    renderDashboard();
-  });
+  show("dashcontrols");
 }
-function printMonthlyReport(p){
+
+/* ================= STEP 1 — MONTHLY REPORT ================= */
+function monthlyReportHTML(p){
   var lv = levelOf(p.xp), gr = gradeOf(p);
   var topicsDone = FLAT_TOPICS.filter(function(tid){ var t=p.topics[tid]; return t && t.mastered; }).length;
   var subs = Object.keys(p.subStats).map(function(k){ var v=p.subStats[k]; var parts=k.split("|"); return { tid:parts[0], sub:parts[1], a:v.a, c:v.c, acc: v.a? v.c/v.a : 1 }; }).filter(function(x){ return x.a>=2; }).sort(function(a,b){ return a.acc-b.acc; });
   var weak = subs.slice(0,3).map(function(x){ var td=TOP[x.tid]; var st=td? td.steps.filter(function(s){ return s.sub===x.sub; })[0] : null; return (st? st.name : x.sub)+" ("+Math.round(x.acc*100)+"%)"; });
   var baseLine = p.baseline? Object.keys(p.baseline.perChapter).map(function(cid){ var v=p.baseline.perChapter[cid]; return chapterById(cid).name+" "+v.c+"/"+v.a; }).join(" · ") : "not taken";
-  var html = "<div class='report'><h1>🌈 Sreshta — Monthly Learning Report</h1><p class='mut'>"+todayStr()+" · Grade 3 Maths · Sreshta's Learning World</p>"
+  return "<div class='report'><h1>🌈 Sreshta — Monthly Learning Report</h1><p class='mut'>"+todayStr()+" · Grade 3 Maths · Sreshta's Learning World</p>"
     + "<h3>Progress</h3><p>Level <b>"+lv.cur.n+" · "+lv.cur.name+"</b> ("+num(p.xp)+" XP) · Grade <b>"+(gr.label||"—")+"</b> · Topics mastered <b>"+topicsDone+" / "+FLAT_TOPICS.length+"</b> · Stars ⭐ "+num(p.stars)+" · Days played: "+p.playDays.length+"</p>"
     + "<h3>Growth vs Baseline</h3><p>Baseline: "+baseLine+"</p>"
     + "<h3>All-Rounder Pillars</h3><p>🧠 Analytical: "+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100) : 0)+"% thinking accuracy, "+(p.trickyCleared||0)+" tricky types cleared · 💪 Confidence: "+topicsDone+" topic exams passed, "+(p.rituals||0)+" rituals · 🌟 Personality: "+p.badges.length+" trait badges ("+p.badges.join(", ")+") · 🗣️ Communication: "+(p.teach.count||0)+" Teach-Nanna questions</p>"
@@ -5742,9 +6486,66 @@ function printMonthlyReport(p){
     + "<h3>Top 3 Weak Subtopics</h3><p>"+(weak.length? weak.join(" · ") : "Not enough data yet — keep playing!")+"</p>"
     + "<h3>Next Suggestions</h3><p>"+(weak.length? "Revisit the weak subtopics above in Mixed Practice, keep the Tricky Questions mode in the weekly mix, and try one Chapter Test-Out where the baseline was strong." : "Continue the chapter journey in order; take the Baseline Adventure if not done.")+"</p>"
     + "<p class='mut'>Generated on-device. Cloud sync arrives in the next phase.</p></div>";
-  el("printArea").innerHTML = html;
+}
+function printMonthlyReport(p){
+  el("printArea").innerHTML = monthlyReportHTML(p);
   try{ window.print(); }catch(e){ toast("Report ready below the dashboard."); }
 }
+function openDashReport(){
+  var p = dashProfile();
+  el("dashReportBody").innerHTML = "<div class='dash-sec'>"+monthlyReportHTML(p)
+    + "<p style='margin-top:10px;'><button class='btn purple small' id='btnReportPrint'>🖨️ Print / Save as PDF</button></p></div>";
+  el("btnReportPrint").addEventListener("click", function(){ printMonthlyReport(p); });
+  show("dashreport");
+}
+
+/* ================= STEP 1 — GUESTS ================= */
+function openDashGuests(){
+  var players = lsGet("players")||[];
+  var guests = players.filter(function(s){ return s.indexOf("guest-")===0; });
+  var html = "<div class='dash-sec'><h3>👧 Guests on this device</h3>"
+    + (guests.length? guests.map(function(g){ var gp=loadProfile(g); return "<span style='display:inline-flex; align-items:center; gap:6px; margin:2px 10px 2px 0;'><span class='icon-tile sm t-teal'>🧸</span><span><b>"+esc(gp? gp.name : g)+"</b> (⭐ "+(gp? gp.stars:0)+", Lv "+(gp? levelOf(gp.xp).cur.n : 1)+") <button class='btn grey small' data-delguest='"+g+"'>Remove</button></span></span>"; }).join("") : "<p class='mut' style='font-size:14.5px;'>No guests on this device.</p>")
+    + "</div>";
+  el("dashGuestsBody").innerHTML = html;
+  var dg = el("dashGuestsBody").querySelectorAll("[data-delguest]");
+  for(var k=0;k<dg.length;k++) dg[k].addEventListener("click", function(){
+    var g = this.getAttribute("data-delguest");
+    try{ localStorage.removeItem(LS_PREFIX+"profile_"+g); }catch(e){}
+    lsSet("players", (lsGet("players")||[]).filter(function(s){ return s!==g; }));
+    openDashGuests();
+  });
+  show("dashguests");
+}
+
+/* ================= DRILL NAVIGATION (delegated) ================= */
+function dashNavAction(nav){
+  var parts = String(nav||"").split("|").map(function(s){ return decodeURIComponent(s); });
+  var kind = parts[0];
+  if(kind==="subjects") openDashSubjects();
+  else if(kind==="subject") openDashSubject(parts[1]);
+  else if(kind==="unit") openDashUnit(parts[1], parts[2]);
+  else if(kind==="lesson") openDashLesson(parts[1], parts[2], parts[3]);
+  else if(kind==="perf") openDashPerf();
+  else if(kind==="exams") openDashExams(parts[1]||"all");
+  else if(kind==="exam") openDashExam(parts[1], parts[2]);
+  else if(kind==="tricky") openDashTricky();
+  else if(kind==="trickyd") openDashTrickyDetail(parts[1], parts[2]);
+  else if(kind==="weak") openDashWeak();
+  else if(kind==="pillars") openDashPillars();
+  else if(kind==="pillar") openDashPillar(parts[1]);
+  else if(kind==="rewards") openDashRewards();
+  else if(kind==="purchases") openDashPurchases();
+  else if(kind==="ledger") openDashLedger();
+  else if(kind==="nanna") openDashNanna();
+  else if(kind==="controls") openDashControls();
+  else if(kind==="report") openDashReport();
+  else if(kind==="guests") openDashGuests();
+}
+document.addEventListener("click", function(e){
+  var t = e.target;
+  var n = (t && t.closest)? t.closest("[data-dnav]") : null;
+  if(n){ dashNavAction(n.getAttribute("data-dnav")); }
+});
 
 /* ============ INIT & WIRING ============ */
 function buildPinPad(){
