@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sreshta's Learning World 🐘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#26325e; --card:#ffffff; --radius:26px;
+  --pink:#ff5d8f; --orange:#ff9f43; --yellow:#ffd32a; --green:#2ed573;
+  --blue:#3aa0ff; --purple:#a55eea; --teal:#1bc5bd; --red:#ff6b81;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Fredoka','Baloo 2','Comic Sans MS',system-ui,sans-serif;
+  color:var(--ink); min-height:100dvh; overflow-x:hidden;
+  background:linear-gradient(180deg,#7ec8ff 0%,#a8e0ff 30%,#d8f4ff 55%,#fff3c9 100%);
+  background-attachment:fixed;
+}
+.cloud{position:fixed; z-index:0; font-size:44px; opacity:.85; animation:drift linear infinite; pointer-events:none;}
+@keyframes drift{from{transform:translateX(-15vw)}to{transform:translateX(115vw)}}
+.starbg{position:fixed; z-index:0; animation:twinkle 2.4s ease-in-out infinite; pointer-events:none;}
+@keyframes twinkle{0%,100%{opacity:.25; transform:scale(.8)}50%{opacity:1; transform:scale(1.2)}}
+#app{position:relative; z-index:2; max-width:560px; margin:0 auto; padding:10px 12px 26px;}
+.screen{display:none;}
+.screen.on{display:block; animation:pop .35s ease;}
+@keyframes pop{from{opacity:0; transform:translateY(10px) scale(.985)}to{opacity:1; transform:none}}
+h1.title{
+  text-align:center; margin:6px 0 2px; font-size:clamp(30px,8.5vw,44px); font-weight:700; line-height:1.08;
+  background:linear-gradient(90deg,#ff5d8f,#ff9f43,#f7b731,#2ed573,#3aa0ff,#a55eea);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(255,255,255,.75));
+}
+.subtitle{text-align:center; font-size:17px; font-weight:600; color:#3b4a8f; margin:0 0 10px;}
+.mascot-row{display:flex; align-items:flex-end; gap:10px; margin:8px 2px;}
+.appu{font-size:64px; line-height:1; animation:bob 2.6s ease-in-out infinite; filter:drop-shadow(0 4px 4px rgba(38,50,94,.25));}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+.bubble{
+  background:#fff; border-radius:20px; border:3px solid #ffe08a; padding:10px 14px;
+  font-size:16.5px; font-weight:600; position:relative; box-shadow:0 4px 0 rgba(38,50,94,.12); flex:1;
+}
+.bubble:before{content:""; position:absolute; left:-11px; bottom:16px; border:6px solid transparent; border-right:9px solid #ffe08a;}
+.card{
+  background:var(--card); border-radius:var(--radius); padding:16px; margin:12px 0;
+  box-shadow:0 6px 0 rgba(38,50,94,.13), 0 12px 24px rgba(38,50,94,.10);
+  border:3px solid rgba(255,255,255,.9);
+}
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+  min-height:58px; padding:12px 16px; border:none; border-radius:20px; cursor:pointer;
+  font-family:inherit; font-size:19px; font-weight:700; color:#fff;
+  box-shadow:0 5px 0 rgba(38,50,94,.28); transition:transform .08s, box-shadow .08s; text-align:center;
+}
+.btn:active{transform:translateY(4px); box-shadow:0 1px 0 rgba(38,50,94,.28);}
+.btn.pink{background:linear-gradient(180deg,#ff7ba9,#ff5d8f);}
+.btn.blue{background:linear-gradient(180deg,#5db4ff,#3aa0ff);}
+.btn.green{background:linear-gradient(180deg,#4be38a,#2ed573);}
+.btn.purple{background:linear-gradient(180deg,#c07fff,#a55eea);}
+.btn.orange{background:linear-gradient(180deg,#ffb35c,#ff9f43);}
+.btn.grey{background:linear-gradient(180deg,#b8c2d9,#93a3c4);}
+.btn.small{min-height:46px; font-size:16px; border-radius:16px; width:auto; padding:8px 18px;}
+.btnrow{display:flex; gap:10px;} .btnrow .btn{flex:1;}
+.who-grid{display:grid; gap:12px;}
+.who-card{
+  display:flex; align-items:center; gap:14px; background:#fff; border-radius:24px; padding:14px 16px;
+  border:3px solid #eef2ff; box-shadow:0 6px 0 rgba(38,50,94,.13); cursor:pointer; text-align:left; width:100%;
+  font-family:inherit; color:var(--ink);
+}
+.who-card:active{transform:scale(.98);}
+.who-card .ava{font-size:46px;}
+.who-card .t1{font-size:21px; font-weight:700;}
+.who-card .t2{font-size:14.5px; font-weight:600; color:#5a68a0;}
+.pin-dots{display:flex; justify-content:center; gap:14px; margin:16px 0;}
+.pin-dots span{width:22px; height:22px; border-radius:50%; background:#e3e9ff; border:3px solid #b9c6f5; transition:.15s;}
+.pin-dots span.f{background:var(--yellow); border-color:#f7b731; transform:scale(1.15);}
+.pad{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; max-width:300px; margin:0 auto;}
+.pad button{
+  height:62px; border-radius:50%; border:none; font-family:inherit; font-size:26px; font-weight:700;
+  background:#fff; color:var(--ink); box-shadow:0 4px 0 rgba(38,50,94,.2); cursor:pointer;
+}
+.pad button:active{transform:translateY(3px); box-shadow:none; background:#fff3c9;}
+.shake{animation:shake .45s ease;}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+input.namein{
+  width:100%; font-family:inherit; font-size:20px; font-weight:600; padding:14px; border-radius:18px;
+  border:3px solid #b9c6f5; outline:none; text-align:center; color:var(--ink);
+}
+input.namein:focus{border-color:var(--pink);}
+/* HOME */
+.home-top{display:flex; gap:12px; align-items:stretch;}
+.level-ring{
+  width:118px; min-width:118px; border-radius:24px; color:#fff; text-align:center; padding:10px 6px;
+  background:conic-gradient(var(--yellow) calc(var(--p)*1%), rgba(255,255,255,.35) 0), linear-gradient(160deg,#a55eea,#3aa0ff);
+  box-shadow:0 6px 0 rgba(38,50,94,.22);
+}
+.level-ring .lv{font-size:15px; font-weight:700; opacity:.95;}
+.level-ring .lname{font-size:19px; font-weight:700; line-height:1.1;}
+.level-ring .xp{font-size:12.5px; font-weight:600; opacity:.95;}
+.counters{flex:1; display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.counter{
+  border-radius:20px; padding:10px; text-align:center; color:#fff; font-weight:700;
+  box-shadow:0 5px 0 rgba(38,50,94,.2);
+}
+.counter .num{font-size:26px; line-height:1;} .counter .lab{font-size:13.5px;}
+.c-stars{background:linear-gradient(160deg,#ffb35c,#ff8f1f);}
+.c-coins{background:linear-gradient(160deg,#ffd32a,#f7b731); color:#7a5200;}
+.c-xp{background:linear-gradient(160deg,#c07fff,#a55eea); grid-column:span 2;}
+.xpbar{height:12px; background:rgba(255,255,255,.45); border-radius:99px; margin-top:6px; overflow:hidden;}
+.xpbar i{display:block; height:100%; background:#fff; border-radius:99px; transition:width .6s ease;}
+.bump{animation:bump .5s ease;} @keyframes bump{30%{transform:scale(1.18) rotate(-2deg)}}
+.reward-card{
+  background:linear-gradient(120deg,#fff0f6,#fff8d6); border:3px dashed #ff9f43; border-radius:24px;
+  padding:14px; display:flex; gap:14px; align-items:center; box-shadow:0 6px 0 rgba(38,50,94,.12);
+}
+.reward-card .ric{font-size:52px; animation:bob 3s ease-in-out infinite;}
+.reward-card .rt{font-size:14px; font-weight:700; color:#e07b00; letter-spacing:.4px;}
+.reward-card .rn{font-size:20px; font-weight:700; color:var(--ink);}
+.badges{display:flex; gap:8px; flex-wrap:wrap;}
+.badge{
+  background:#fff; border:2.5px solid #ffe08a; border-radius:16px; padding:7px 11px; font-size:14px; font-weight:700;
+  box-shadow:0 3px 0 rgba(38,50,94,.12);
+}
+.badge.dim{opacity:.45; border-color:#dfe5f5; filter:grayscale(.7);}
+.subj-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.subj{
+  border-radius:24px; padding:16px 12px; text-align:center; cursor:pointer; border:none; font-family:inherit;
+  color:#fff; box-shadow:0 6px 0 rgba(38,50,94,.22); min-height:118px;
+}
+.subj:active{transform:scale(.97);}
+.subj .ic{font-size:42px;} .subj .nm{font-size:19px; font-weight:700; margin-top:2px;}
+.subj .st{font-size:13px; font-weight:600; background:rgba(255,255,255,.85); color:var(--ink); border-radius:99px; padding:2px 10px; display:inline-block; margin-top:6px;}
+.subj.soon{filter:saturate(.35) brightness(1.06); opacity:.78;}
+/* JOURNEY */
+.chap{
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:#fff; border:none; cursor:pointer;
+  border-radius:22px; padding:13px 14px; margin:9px 0; font-family:inherit; color:var(--ink);
+  box-shadow:0 5px 0 rgba(38,50,94,.14); border-left:12px solid var(--blue);
+}
+.chap .ic{font-size:34px;} .chap .nm{font-size:18.5px; font-weight:700;}
+.chap .ds{font-size:13.5px; font-weight:600; color:#5a68a0;}
+.chap.lock{opacity:.62; filter:saturate(.5);}
+.topic-row{
+  display:flex; align-items:center; gap:11px; background:#fff; border-radius:20px; padding:12px 13px; margin:8px 0;
+  box-shadow:0 4px 0 rgba(38,50,94,.12);
+}
+.topic-row .n{
+  width:34px; height:34px; min-width:34px; border-radius:50%; background:#eef2ff; display:flex; align-items:center;
+  justify-content:center; font-weight:700; font-size:16px; color:#3b4a8f;
+}
+.topic-row .tn{flex:1; font-weight:700; font-size:16.5px;}
+.tag{font-size:11.5px; font-weight:700; border-radius:99px; padding:3px 9px; white-space:nowrap;}
+.tag.play{background:#ffe9f3; color:#d6336c; border:2px solid #ffb3cd;}
+.tag.soon{background:#eef2ff; color:#5a68a0;}
+.tag.test{background:#fff6d8; color:#a87400; border:2px dashed #f7b731;}
+.tag.done{background:#e4fcec; color:#12924a; border:2px solid #8be3ae;}
+.dots{display:flex; gap:7px; justify-content:center; margin:8px 0;}
+.dots i{width:15px; height:15px; border-radius:50%; background:#dfe5f5;}
+.dots i.done{background:var(--green);} .dots i.now{background:var(--yellow); box-shadow:0 0 0 3px #ffe9a8;}
+/* LEARN + QUIZ */
+.learn-visual{
+  background:linear-gradient(180deg,#f4f9ff,#fffbe9); border:3px solid #ffe08a; border-radius:22px;
+  padding:14px; text-align:center; font-size:17px; font-weight:600;
+}
+.pv-chart{display:flex; justify-content:center; gap:8px; margin:10px 0; flex-wrap:wrap;}
+.pv-col{border-radius:14px; padding:8px 6px; min-width:70px; color:#fff; font-weight:700;}
+.pv-col .dig{font-size:30px; line-height:1;} .pv-col .pl{font-size:12px;} .pv-col .bl{font-size:15px; letter-spacing:1px;}
+.rule{
+  background:#e4fcec; border:2.5px dashed #2ed573; border-radius:16px; padding:10px 13px;
+  font-weight:700; font-size:16.5px; text-align:center; margin-top:12px; color:#0d7a3c;
+}
+.qz-head{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.qz-phase{font-weight:700; font-size:15px; background:#fff; border-radius:99px; padding:5px 13px; box-shadow:0 3px 0 rgba(38,50,94,.14);}
+.qz-count{font-weight:700; font-size:15px; color:#3b4a8f;}
+.q-card{background:#fff; border-radius:26px; padding:18px 16px; box-shadow:0 6px 0 rgba(38,50,94,.14); margin-top:10px;}
+.q-text{font-size:clamp(20px,5.6vw,25px); font-weight:700; line-height:1.35; text-align:center;}
+.q-visual{text-align:center; font-size:19px; margin-top:8px; font-weight:600;}
+.listen{
+  display:inline-flex; align-items:center; gap:6px; background:#eef6ff; border:2.5px solid #3aa0ff; color:#1668b4;
+  font-family:inherit; font-weight:700; font-size:15.5px; border-radius:99px; padding:7px 15px; cursor:pointer; margin-top:10px;
+}
+.opts{display:grid; gap:10px; margin-top:14px;}
+.opt{
+  min-height:56px; border-radius:18px; border:3px solid #dfe5f5; background:#fbfcff; font-family:inherit;
+  font-size:19px; font-weight:700; color:var(--ink); cursor:pointer; padding:10px; box-shadow:0 3px 0 rgba(38,50,94,.12);
+}
+.opt:active{transform:scale(.98);}
+.opt.good{background:#e4fcec; border-color:#2ed573;}
+.opt.bad{background:#ffe9ec; border-color:#ff6b81;}
+.opt:disabled{cursor:default; opacity:.92;}
+.explain{
+  margin-top:12px; background:#fff8d6; border:2.5px dashed #f7b731; border-radius:16px; padding:11px 13px;
+  font-weight:600; font-size:16px; display:none;
+}
+.explain.on{display:block; animation:pop .3s ease;}
+.big-emoji{font-size:74px; text-align:center; line-height:1.15;}
+.center{text-align:center;}
+.mut{color:#5a68a0; font-weight:600;}
+.score-big{font-size:52px; font-weight:700; text-align:center; line-height:1;}
+.review-item{background:#fff; border-radius:18px; padding:12px 14px; margin:9px 0; box-shadow:0 4px 0 rgba(38,50,94,.1); font-size:15.5px;}
+.review-item .rq{font-weight:700;}
+.review-item .rok{color:#12924a; font-weight:700;} .review-item .rno{color:#d6336c; font-weight:700;}
+.review-item .rex{color:#5a68a0; font-weight:600;}
+/* DASHBOARD */
+.dash h3{margin:16px 0 6px; font-size:19px;}
+.dash table{width:100%; border-collapse:collapse; font-size:14.5px; font-weight:600;}
+.dash td,.dash th{padding:6px 8px; border-bottom:2px solid #eef2ff; text-align:left;}
+.dash .mini{font-size:13.5px; color:#5a68a0; font-weight:600;}
+.stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:9px;}
+.stat{background:#f4f7ff; border-radius:16px; padding:10px; text-align:center;}
+.stat .v{font-size:23px; font-weight:700;} .stat .k{font-size:13px; color:#5a68a0; font-weight:700;}
+/* MODAL */
+.modal{position:fixed; inset:0; background:rgba(38,50,94,.55); z-index:50; display:none; align-items:flex-end; justify-content:center;}
+.modal.on{display:flex;}
+.modal .sheet{
+  background:#fff; width:100%; max-width:560px; max-height:82dvh; overflow:auto; border-radius:28px 28px 0 0;
+  padding:20px 18px 28px; animation:up .3s ease;
+}
+@keyframes up{from{transform:translateY(40px); opacity:0}to{transform:none; opacity:1}}
+.skel{opacity:.75;}
+.skel li{margin:7px 0; font-weight:600;}
+.confetti{position:fixed; top:-4dvh; z-index:99; pointer-events:none; animation:fall linear forwards; border-radius:3px;}
+@keyframes fall{to{transform:translateY(112dvh) rotate(720deg);}}
+.amma-mode{background:#fff; border-radius:26px; padding:26px 18px; text-align:center; border:4px solid var(--yellow); box-shadow:0 8px 0 rgba(38,50,94,.15);}
+.amma-mode .a1{font-size:24px; font-weight:700;} .amma-mode .a2{font-size:30px; font-weight:700; margin:10px 0;}
+.toast{
+  position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(90px); background:var(--ink); color:#fff;
+  font-weight:700; font-size:16px; border-radius:99px; padding:11px 20px; z-index:80; transition:.3s; max-width:92vw; text-align:center;
+}
+.toast.on{transform:translateX(-50%);}
+.linkbtn{background:none; border:none; font-family:inherit; font-weight:700; color:#1668b4; font-size:15.5px; cursor:pointer; text-decoration:underline;}
+footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600; margin-top:16px;}
+</style>
+</head>
+<body>
+<div id="fx"></div>
+<div id="app">
+
+<!-- ============ ACCESS ============ -->
+<section class="screen" id="scr-access">
+  <h1 class="title">Sreshta's<br>Learning World</h1>
+  <p class="subtitle">Learn • Think • Shine ✨</p>
+  <div class="mascot-row">
+    <div class="appu">🐘</div>
+    <div class="bubble">Hi! I'm <b>Appu</b>! Pick who is playing today and let's go on a learning adventure! 🌈</div>
+  </div>
+  <div id="continueBox"></div>
+  <div class="who-grid">
+    <button class="who-card" id="btnSreshta">
+      <span class="ava">👧</span>
+      <span><span class="t1">Sreshta</span><br><span class="t2">That's me! Tap and enter my PIN 🔐</span></span>
+    </button>
+    <button class="who-card" id="btnGuest">
+      <span class="ava">🧑‍🤝‍🧑</span>
+      <span><span class="t1">I am a Guest</span><br><span class="t2">Friends &amp; family — play with your own stars ⭐</span></span>
+    </button>
+    <button class="who-card" id="btnParents">
+      <span class="ava">👨‍👩‍👧</span>
+      <span><span class="t1">Parents</span><br><span class="t2">Amma &amp; Nanna — see the Dashboard 📊</span></span>
+    </button>
+  </div>
+  <footer class="note">A learning game made with love for Sreshta 💛</footer>
+</section>
+
+<!-- ============ PIN ============ -->
+<section class="screen" id="scr-pin">
+  <div class="mascot-row">
+    <div class="appu">🐘</div>
+    <div class="bubble" id="pinBubble">Enter your secret PIN!</div>
+  </div>
+  <div class="card" id="pinCard">
+    <div class="pin-dots" id="pinDots"><span></span><span></span><span></span><span></span></div>
+    <div class="pad" id="pinPad"></div>
+    <p class="center mut" id="pinMsg" style="min-height:22px;"></p>
+  </div>
+  <button class="btn grey" data-goto="access">⬅ Back</button>
+</section>
+
+<!-- ============ GUEST NAME ============ -->
+<section class="screen" id="scr-guest">
+  <div class="mascot-row">
+    <div class="appu">🐘</div>
+    <div class="bubble">Welcome, friend! What is your name? Your stars will be saved just for you! ⭐</div>
+  </div>
+  <div class="card">
+    <input class="namein" id="guestName" maxlength="20" placeholder="Type your name">
+    <div style="height:12px"></div>
+    <button class="btn green" id="guestGo">Let's Play! 🎮</button>
+  </div>
+  <button class="btn grey" data-goto="access">⬅ Back</button>
+</section>
+
+<!-- ============ CHILD HOME ============ -->
+<section class="screen" id="scr-home">
+  <div class="mascot-row">
+    <div class="appu">🐘</div>
+    <div class="bubble" id="homeBubble">Welcome!</div>
+  </div>
+  <div class="home-top">
+    <div class="level-ring" id="levelRing" style="--p:0">
+      <div class="lv" id="ringLv">Level 1</div>
+      <div class="lname" id="ringName">Explorer</div>
+      <div class="xp" id="ringXp">0 XP</div>
+    </div>
+    <div class="counters">
+      <div class="counter c-stars"><div class="num" id="cntStars">⭐ 0</div><div class="lab">My Stars</div></div>
+      <div class="counter c-coins"><div class="num" id="cntCoins">🪙 0</div><div class="lab">My Coins</div></div>
+      <div class="counter c-xp"><div class="lab" id="xpNextLab">Next level at 300 XP</div><div class="xpbar"><i id="xpFill" style="width:0%"></i></div></div>
+    </div>
+  </div>
+  <div style="height:12px"></div>
+  <div class="reward-card">
+    <div class="ric" id="rewardIc">🎁</div>
+    <div>
+      <div class="rt">🎯 MY NEXT REWARD — <span id="rewardAt">LEVEL 2</span></div>
+      <div class="rn" id="rewardName">Surprise Gift</div>
+      <div class="mut" style="font-size:13.5px;" id="rewardSub">Keep learning to reach it!</div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-weight:700; font-size:17px; margin-bottom:8px;">🏅 My Badges</div>
+    <div class="badges" id="badgeShelf"></div>
+  </div>
+  <div style="font-weight:700; font-size:19px; margin:14px 2px 4px;">🌍 My Subjects — tap one!</div>
+  <div class="subj-grid" id="subjGrid"></div>
+  <div style="height:10px"></div>
+  <div class="btnrow">
+    <button class="btn grey small" id="btnSwitch">🔄 Switch Player</button>
+    <button class="btn grey small" id="btnParentFromHome">👨‍👩‍👧 Parents</button>
+  </div>
+</section>
+
+<!-- ============ MATHS JOURNEY ============ -->
+<section class="screen" id="scr-maths">
+  <h1 class="title" style="font-size:30px;">🔢 Maths World</h1>
+  <p class="subtitle">Finish one chapter to open the next!</p>
+  <div id="chapList"></div>
+  <button class="btn grey" data-goto="home">⬅ My Home</button>
+</section>
+
+<!-- ============ CHAPTER 1 ============ -->
+<section class="screen" id="scr-chapter">
+  <h1 class="title" style="font-size:30px;">Chapter 1 · Numbers 🔢</h1>
+  <p class="subtitle">One topic is ready to play — a SAMPLE star topic! ⭐</p>
+  <div id="topicList"></div>
+  <button class="btn grey" data-goto="maths">⬅ Maths World</button>
+</section>
+
+<!-- ============ TOPIC START ============ -->
+<section class="screen" id="scr-topic">
+  <div class="mascot-row">
+    <div class="appu">🐘</div>
+    <div class="bubble">Today we learn <b>Place Value and Expanded Form</b>! 🎯</div>
+  </div>
+  <div class="card center">
+    <div class="big-emoji">🔢✨</div>
+    <div style="font-size:21px; font-weight:700;">You will learn:</div>
+    <p style="font-weight:600; font-size:16.5px; margin:8px 0;">
+      1️⃣ Place Value — what each digit is worth<br>
+      2️⃣ Face Value vs Place Value<br>
+      3️⃣ Expanded Form — opening up a number!
+    </p>
+    <div class="dots" id="topicDots"></div>
+    <div id="topicStatus" class="mut" style="margin-bottom:10px;"></div>
+    <button class="btn pink" id="btnStartTopic">Start the Adventure! 🚀</button>
+    <div style="height:8px"></div>
+    <button class="btn blue" id="btnExamOnly" style="display:none;">Go Straight to the Topic Exam 📝</button>
+  </div>
+  <button class="btn grey" data-goto="chapter">⬅ Topics</button>
+</section>
+
+<!-- ============ LEARN ============ -->
+<section class="screen" id="scr-learn">
+  <div class="qz-head">
+    <span class="qz-phase" id="learnPhase">📖 Learn</span>
+    <button class="listen" id="learnListen">🔊 Listen</button>
+  </div>
+  <div class="card">
+    <div style="font-size:21px; font-weight:700; text-align:center;" id="learnTitle"></div>
+    <div style="height:8px"></div>
+    <div class="learn-visual" id="learnVisual"></div>
+    <div class="rule" id="learnRule"></div>
+    <div style="height:14px"></div>
+    <button class="btn green" id="btnLearnNext">Got it! Let's Try ➜</button>
+  </div>
+</section>
+
+<!-- ============ QUIZ RUNNER ============ -->
+<section class="screen" id="scr-quiz">
+  <div class="qz-head">
+    <span class="qz-phase" id="qzPhase">✏️ Try 3</span>
+    <span class="qz-count" id="qzCount">1 / 3</span>
+  </div>
+  <div class="dots" id="qzDots"></div>
+  <div class="q-card">
+    <div class="q-text" id="qText"></div>
+    <div class="q-visual" id="qVisual"></div>
+    <div class="center"><button class="listen" id="qListen">🔊 Listen</button></div>
+    <div class="opts" id="qOpts"></div>
+    <div class="explain" id="qExplain"></div>
+    <div style="height:10px"></div>
+    <button class="btn green" id="qNext" style="display:none;">Next ➜</button>
+    <button class="btn orange" id="qSkip" style="display:none;">Skip this one ⏭</button>
+  </div>
+</section>
+
+<!-- ============ PHASE RESULT ============ -->
+<section class="screen" id="scr-phase">
+  <div class="card center">
+    <div class="big-emoji" id="phaseEmoji">🌟</div>
+    <div style="font-size:23px; font-weight:700;" id="phaseTitle">Super!</div>
+    <p style="font-weight:600; font-size:16.5px;" id="phaseText"></p>
+    <button class="btn pink" id="phaseNext">Continue ➜</button>
+  </div>
+</section>
+
+<!-- ============ EXAM INTRO ============ -->
+<section class="screen" id="scr-examintro">
+  <div class="mascot-row">
+    <div class="appu">🐘</div>
+    <div class="bubble">It's <b>Topic Exam</b> time! You are ready — believe in yourself! 💪</div>
+  </div>
+  <div class="card center">
+    <div class="big-emoji">📝🏆</div>
+    <p style="font-weight:600; font-size:16.5px;">
+      10 questions · No hints this time · Take your time, no hurry!<br>
+      Every correct answer: <b>+10 points</b> ⭐<br>
+      Careful: a wrong answer is <b>−2 points</b> — so check before you tap!<br>
+      Not sure? You can <b>Skip</b> — skipping never loses points.
+    </p>
+    <button class="btn purple" id="btnStartExam">Start My Exam 🚀</button>
+    <div style="height:8px"></div>
+    <button class="btn grey" data-goto="topic">Not yet — back</button>
+  </div>
+</section>
+
+<!-- ============ EXAM RESULT ============ -->
+<section class="screen" id="scr-examresult">
+  <div class="card center">
+    <div class="big-emoji" id="examEmoji">🏆</div>
+    <div style="font-size:23px; font-weight:700;" id="examTitle">Exam Done!</div>
+    <div class="score-big" id="examScore">0%</div>
+    <p style="font-weight:600; font-size:16.5px;" id="examDetail"></p>
+    <div class="stat-grid" style="text-align:center;">
+      <div class="stat"><div class="v" id="examSums">–</div><div class="k">Sums score</div></div>
+      <div class="stat"><div class="v" id="examThink">–</div><div class="k">Thinking score</div></div>
+    </div>
+    <p class="mut" id="examCareful"></p>
+  </div>
+  <div style="font-weight:700; font-size:18px; margin:6px 2px;">🔍 Let's look at every question:</div>
+  <div id="examReview"></div>
+  <button class="btn green" id="btnToRitual">Finish &amp; Celebrate 🎉</button>
+  <div style="height:8px"></div>
+  <button class="btn blue" id="btnRetryExam">Try the Exam Again 🔁</button>
+  <div style="height:8px"></div>
+  <button class="btn grey" data-goto="home">My Home</button>
+</section>
+
+<!-- ============ CLOSING RITUAL ============ -->
+<section class="screen" id="scr-ritual">
+  <div class="mascot-row">
+    <div class="appu">🐘</div>
+    <div class="bubble">What a super learning day! Show this to Amma! 💛</div>
+  </div>
+  <div class="amma-mode" id="ritualCard">
+    <div class="a1">🌟 Today I finished 🌟</div>
+    <div class="a2">Place Value and Expanded Form</div>
+    <div class="a1" id="ritualEarned">I earned ⭐ 0 and 🪙 0</div>
+    <div style="font-weight:600; font-size:17px; margin-top:8px;" id="ritualTricky">My tricky question was: —</div>
+  </div>
+  <div style="height:12px"></div>
+  <button class="btn pink" id="btnAmma">📣 Show Amma (Big)</button>
+  <div style="height:8px"></div>
+  <button class="btn green" data-goto="home">Back to My Home 🏠</button>
+</section>
+
+<!-- ============ DASHBOARD ============ -->
+<section class="screen dash" id="scr-dash">
+  <h1 class="title" style="font-size:29px;">📊 Parent Dashboard</h1>
+  <p class="subtitle" id="dashWho">Sreshta's progress</p>
+  <div id="dashBody"></div>
+  <button class="btn grey" data-goto="access">⬅ Exit Dashboard</button>
+  <footer class="note">Phase 1 Sample: progress is saved on THIS device (localStorage). Cloud sync + Google parent login arrive in Phase 2 — so check progress on the phone she plays on.</footer>
+</section>
+
+</div>
+
+<!-- SUBJECT MODAL -->
+<div class="modal" id="subjModal">
+  <div class="sheet">
+    <div style="font-size:22px; font-weight:700;" id="smTitle"></div>
+    <p class="mut" id="smSub"></p>
+    <ul class="skel" id="smList"></ul>
+    <button class="btn orange" id="smClose">This world opens after Maths! 🔒</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ================= CONSTANTS ================= */
+var CHILD_PIN = "2017";   /* Sreshta's PIN (her birth year) */
+var PARENT_PIN = "7392";  /* Parent Dashboard PIN */
+var LEVELS = [
+  {n:1,name:"Explorer",xp:0},{n:2,name:"Learner",xp:300},{n:3,name:"Thinker",xp:800},
+  {n:4,name:"Problem Solver",xp:1500},{n:5,name:"Star Performer",xp:2500},
+  {n:6,name:"Champion",xp:4000},{n:7,name:"Super Thinker",xp:6000}
+];
+var PASS_MARK = 70;
+var TOPIC_ID = "place-value-expanded";
+var CHAPTERS = [
+  {name:"Numbers", ic:"🔢", col:"#ff5d8f", ds:"Place value, Roman numerals & more"},
+  {name:"Addition", ic:"➕", col:"#ff9f43", ds:"Adding big numbers"},
+  {name:"Subtraction", ic:"➖", col:"#f7b731", ds:"Taking away with borrowing"},
+  {name:"Addition & Subtraction", ic:"🔀", col:"#2ed573", ds:"Mixed sums together"},
+  {name:"Multiplication", ic:"✖️", col:"#1bc5bd", ds:"Times tables up to 20"},
+  {name:"Division", ic:"➗", col:"#3aa0ff", ds:"Sharing & remainders"},
+  {name:"Fractions", ic:"🍕", col:"#a55eea", ds:"Parts of a whole"},
+  {name:"Money", ic:"🪙", col:"#eccc68", ds:"Rupees & paise"},
+  {name:"Metric Measures", ic:"📏", col:"#ff6b81", ds:"Length, weight & capacity"},
+  {name:"Time", ic:"🕐", col:"#70a1ff", ds:"Clock & calendar"},
+  {name:"Geometry", ic:"🔷", col:"#7bed9f", ds:"Shapes, faces & corners"},
+  {name:"Pictographs", ic:"📊", col:"#eccc68", ds:"Pictures that tell data"}
+];
+var CH1_TOPICS = [
+  "Digit Numbers","Representing 1000 on the Abacus","Place Value",
+  "Place Value and Expanded Form","Ordering of Numbers","Odd and Even Numbers",
+  "Successor and Predecessor","Roman Numerals"
+];
+var SUBJECTS = [
+  {name:"Maths", ic:"🔢", col:"linear-gradient(160deg,#5db4ff,#3aa0ff)", live:true},
+  {name:"English", ic:"📚", col:"linear-gradient(160deg,#ff7ba9,#ff5d8f)", skel:["Grammar Fun","Reading Stories","New Words (Vocabulary)","Writing Sentences","Comprehension","Poems & Rhymes","Spellings"]},
+  {name:"Science / EVS", ic:"🌱", col:"linear-gradient(160deg,#4be38a,#2ed573)", skel:["Plants Around Us","Animals Around Us","Our Body","Food We Eat","Water & Air","Our Earth","Seasons & Weather"]},
+  {name:"Social Studies", ic:"🗺️", col:"linear-gradient(160deg,#ffb35c,#ff9f43)", skel:["My Family & Home","My Neighbourhood","Our Country India","Festivals We Celebrate","Transport & Travel","People Who Help Us"]},
+  {name:"Computer", ic:"💻", col:"linear-gradient(160deg,#c07fff,#a55eea)", skel:["Parts of a Computer","Using the Mouse & Keyboard","Drawing on the Computer","Being Safe Online","Fun with Files"]},
+  {name:"2nd Language", ic:"🗣️", col:"linear-gradient(160deg,#3ad6cd,#1bc5bd)", skel:["Letters & Sounds","Everyday Words","Small Sentences","Rhymes & Songs","Reading Practice"]}
+];
+/* SUBJECT-GENERIC CURRICULUM: every subject is an entry in SUBJECTS and
+   carries its own chapters + topic data. The home grid, journeys and
+   placeholder skeletons are ALL rendered from this data. Maths is simply
+   the first subject with live content — adding English later means
+   adding DATA here, with zero redesign or flow changes. */
+SUBJECTS[0].chapters = CHAPTERS;
+SUBJECTS[0].chapterTopics = { "0": CH1_TOPICS };
+for(var _si=1; _si<SUBJECTS.length; _si++){ SUBJECTS[_si].chapters = SUBJECTS[_si].skel; SUBJECTS[_si].chapterTopics = {}; }
+var REWARD_LADDER = [
+  ["Level 2 · Learner","A small surprise — sticker set / stationery"],
+  ["Level 3 · Thinker","A story book or a puzzle"],
+  ["Level 4 · Silver+","A small chosen toy"],
+  ["Level 5 · Gold","A better toy or a special outing"],
+  ["Level 6 · Gold / Diamond","The BIG reward she picks with Amma & Nanna"]
+];
+var ALL_BADGES = [
+  {id:"first-steps", ic:"👣", name:"First Steps", ds:"Finished a learning step"},
+  {id:"brave", ic:"🦁", name:"Brave Tryer", ds:"Finished the Think activity"},
+  {id:"topic-master", ic:"🏆", name:"Topic Master", ds:"Passed the Topic Exam"},
+  {id:"sharp", ic:"🦉", name:"Sharp Thinker", ds:"Got all Think questions right"}
+];
+</script>
+<script>
+"use strict";
+/* ================= STORAGE (localStorage, memory fallback) ================= */
+var _mem = {};
+var store = {
+  get:function(k){ try{ var v = localStorage.getItem(k); return v===null?null:v; }catch(e){ return (k in _mem)?_mem[k]:null; } },
+  set:function(k,v){ try{ localStorage.setItem(k,v); }catch(e){ _mem[k]=v; } },
+  del:function(k){ try{ localStorage.removeItem(k); }catch(e){ delete _mem[k]; } }
+};
+function slugify(name){ return (""+name).toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "guest"; }
+
+/* ================= PROFILE ================= */
+function blankTopic(){
+  return { stepsDone:[false,false,false], stage:0, thinkDone:false, mastered:false,
+    bestExamPct:-1, bestXP:0, guidedUsed:false };
+}
+function newProfile(name, slug, isGuest){
+  return { name:name, slug:slug, isGuest:!!isGuest, stars:0, coins:0, xp:0,
+    topic:blankTopic(), badges:[], attempts:[], examHistory:[], tricky:[],
+    subStats:{ pv:{a:0,c:0}, fv:{a:0,c:0}, exp:{a:0,c:0} },
+    kindStats:{ sums:{a:0,c:0}, thinking:{a:0,c:0} },
+    pracStats:{a:0,c:0}, thinkStats:{a:0,c:0},
+    lastPlayed:null, createdAt:Date.now() };
+}
+function loadProfile(slug){
+  var raw = store.get("g3world_profile_"+slug);
+  if(raw){ try{ return JSON.parse(raw); }catch(e){} }
+  return null;
+}
+function saveProfile(p){ store.set("g3world_profile_"+p.slug, JSON.stringify(p)); }
+function loadRegistry(){
+  var raw = store.get("g3world_players");
+  if(raw){ try{ return JSON.parse(raw); }catch(e){} }
+  return [];
+}
+function saveRegistry(r){ store.set("g3world_players", JSON.stringify(r)); }
+function registerPlayer(slug, name, isGuest){
+  var r = loadRegistry(), found=false;
+  for(var i=0;i<r.length;i++){ if(r[i].slug===slug){ r[i].name=name; found=true; } }
+  if(!found) r.push({slug:slug, name:name, isGuest:!!isGuest});
+  saveRegistry(r);
+}
+function getReward(){
+  var raw = store.get("g3world_reward");
+  if(raw){ try{ var r=JSON.parse(raw); if(r && r.text) return r; }catch(e){} }
+  return { emoji:"🎁", text:"Surprise Gift", level:2 };
+}
+function setReward(r){ store.set("g3world_reward", JSON.stringify(r)); }
+
+/* ================= LEVELS / XP / SCORING (pure) ================= */
+function levelOf(xp){
+  var cur = LEVELS[0], next = null;
+  for(var i=0;i<LEVELS.length;i++){ if(xp>=LEVELS[i].xp){ cur=LEVELS[i]; next=LEVELS[i+1]||null; } }
+  return { cur:cur, next:next };
+}
+function examScore(results){ /* results: [{correct:bool, skipped:bool}] */
+  var raw=0, c=0, w=0, s=0;
+  for(var i=0;i<results.length;i++){
+    if(results[i].skipped){ s++; }
+    else if(results[i].correct){ raw+=10; c++; }
+    else { raw-=2; w++; }
+  }
+  if(raw<0) raw=0;
+  return { raw:raw, pct:raw, correct:c, wrong:w, skipped:s, pass: raw>=PASS_MARK };
+}
+function computeTopicXP(t, prac, think, bestExamPct){
+  var steps=0; for(var i=0;i<3;i++) if(t.stepsDone[i]) steps++;
+  var learn = Math.round(20*steps/3);
+  var pracAcc = prac.a>0 ? prac.c/prac.a : 0;
+  var thinkAcc = think.a>0 ? think.c/think.a : 0;
+  var examPart = bestExamPct>0 ? (bestExamPct/100)*40 : 0;
+  var xp = Math.round(learn + pracAcc*20 + examPart + thinkAcc*20);
+  if(xp>100) xp=100; if(xp<0) xp=0;
+  return xp;
+}
+
+/* ================= QUESTION GENERATORS (deterministic maths) ================= */
+function ri(a,b){ return a + Math.floor(Math.random()*(b-a+1)); }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function num(n){ return (""+n).replace(/\B(?=(\d{3})+(?!\d))/g,","); }
+function mkQ(text, visual, correct, distractors, sub, kind, explain, speak){
+  var opts=[String(correct)], seen={}; seen[String(correct)]=1;
+  var ds = shuffle(distractors);
+  for(var i=0;i<ds.length && opts.length<4;i++){ var d=String(ds[i]); if(!seen[d]){ seen[d]=1; opts.push(d); } }
+  var guard=2;
+  while(opts.length<4){ var extra=String(parseInt(correct,10)+guard); if(!isNaN(parseInt(correct,10)) && !seen[extra]){ seen[extra]=1; opts.push(extra); } guard+=3; if(guard>60) break; }
+  opts = shuffle(opts);
+  return { q:text, visual:visual||"", options:opts, answer:String(correct),
+    sub:sub, kind:kind, explain:explain, speak:speak||text };
+}
+var PLACES=[{n:"Ones",v:1},{n:"Tens",v:10},{n:"Hundreds",v:100},{n:"Thousands",v:1000}];
+function digitsOf(n){ return [Math.floor(n/1000)%10, Math.floor(n/100)%10, Math.floor(n/10)%10, n%10]; }
+function pvVisual(n){
+  var d=digitsOf(n), cols=[["#ff5d8f","Thousands","🟦"],["#ff9f43","Hundreds","🟩"],["#f7b731","Tens","🟨"],["#3aa0ff","Ones","🟪"]];
+  var names=["Thousands","Hundreds","Tens","Ones"];
+  var h='<div class="pv-chart">';
+  for(var i=0;i<4;i++){
+    var blocks=""; for(var b=0;b<d[i];b++) blocks+=cols[i][2];
+    if(d[i]===0) blocks="·";
+    h+='<div class="pv-col" style="background:'+cols[i][0]+'"><div class="dig">'+d[i]+'</div><div class="pl">'+names[i]+'</div><div class="bl">'+blocks+'</div></div>';
+  }
+  return h+"</div>";
+}
+/* --- Place Value (sub: pv) --- */
+function genPV(easy){
+  var n = easy? ri(101,999) : ri(1001,9998);
+  var type = ri(0,2);
+  if(easy) type = ri(0,1);
+  var ds = digitsOf(n); if(easy) ds=[0,ds[1],ds[2],ds[3]];
+  if(type===0){
+    var pi = easy? ri(1,3) : ri(0,3);
+    var place = PLACES[3-pi]; if(easy && pi===0) pi=1;
+    var dig = digitsOf(n)[pi];
+    if(dig===0){ return genPV(easy); }
+    var ans = dig*place.v;
+    var dist=[dig, dig*(place.v===1000?100:place.v*10), dig*(place.v===1?10:place.v/10), ans+place.v];
+    return mkQ("What is the place value of "+dig+" in "+num(n)+"?", pvVisual(n), ans, dist, "pv","sums",
+      "The digit "+dig+" is in the "+place.n+" place, so its place value is "+dig+" × "+num(place.v)+" = "+num(ans)+".",
+      "What is the place value of "+dig+" in "+n+"?");
+  } else if(type===1){
+    var pi2 = ri(0,3); var pl2 = PLACES[3-pi2]; var d2 = digitsOf(n)[pi2];
+    var others=[]; for(var k=0;k<4;k++){ if(k!==pi2) others.push(digitsOf(n)[k]); }
+    return mkQ("Which digit is in the "+pl2.n+" place in "+num(n)+"?", pvVisual(n), d2, others.concat([ (d2+3)%10 ]), "pv","sums",
+      "Reading "+num(n)+" from the left: Thousands, Hundreds, Tens, Ones. The "+pl2.n+" digit is "+d2+".",
+      "Which digit is in the "+pl2.n+" place in "+n+"?");
+  } else {
+    var th=ri(1,9), hu=ri(0,9), te=ri(0,9), on=ri(0,9);
+    var val = th*1000+hu*100+te*10+on;
+    return mkQ("Look at the blocks: "+th+" thousands, "+hu+" hundreds, "+te+" tens, "+on+" ones. Which number is this?", "",
+      val, [ th*1000+te*100+hu*10+on, th*1000+hu*100+on*10+te, val+100, val-10 ], "pv","sums",
+      "Thousands first: "+th+"000, then "+hu+"00, then "+te+"0, then "+on+" → "+num(val)+".",
+      "There are "+th+" thousands, "+hu+" hundreds, "+te+" tens and "+on+" ones. Which number is this?");
+  }
+}
+/* --- Face Value vs Place Value (sub: fv) --- */
+function genFV(easy){
+  var n = easy? ri(112,998) : ri(1012,9987);
+  var ds = digitsOf(n);
+  var type = ri(0,2); if(easy) type=ri(0,1);
+  if(type===0){
+    var pi = ri(0,3); var dig = ds[pi]; var place = PLACES[3-pi];
+    if(dig===0) return genFV(easy);
+    return mkQ("What is the FACE value of "+dig+" in "+num(n)+"?", pvVisual(n), dig,
+      [ dig*place.v, (dig+1)%10===0?1:(dig+1)%10, dig*10, dig*100, dig+10 ], "fv","sums",
+      "Face value is just the digit itself — it never changes. The face value of "+dig+" is always "+dig+".",
+      "What is the face value of "+dig+" in "+n+"?");
+  } else if(type===1){
+    return genFVtext();
+  } else {
+    var pi3 = ri(0,3); var dA = ds[pi3]; var pl3 = PLACES[3-pi3];
+    var piB = (pi3+ri(1,3))%4; var dB = ds[piB];
+    if(dA===0 || dB===0) return genFV(easy);
+    var correct = num(dA*pl3.v)+" and "+dB;
+    return mkQ("In "+num(n)+": place value of "+dA+" = ? and face value of "+dB+" = ?", pvVisual(n), correct,
+      [ num(dA)+" and "+dB, num(dA*pl3.v)+" and "+num(dB*PLACES[3-piB].v), num(pl3.v)+" and "+dB ], "fv","sums",
+      dA+" is in the "+pl3.n+" place → place value "+num(dA*pl3.v)+". Face value of "+dB+" is just "+dB+".",
+      "In "+n+", what is the place value of "+dA+" and the face value of "+dB+"?");
+  }
+}
+/* fix: genFV type1 produces text options — rebuild it properly */
+function genFVtext(){
+  var n = ri(1012,9987); var ds=digitsOf(n); var pi=ri(0,3); var dig=ds[pi]; var pl=PLACES[3-pi];
+  if(dig===0) return genFVtext();
+  var ans=dig*pl.v;
+  var q = { q:"In "+num(n)+", the digit "+dig+" is worth "+num(ans)+". Is "+num(ans)+" its face value or its place value?",
+    visual:pvVisual(n), options:shuffle(["Place value","Face value","Both are the same","None of these"]),
+    answer:"Place value", sub:"fv", kind:"thinking",
+    explain:"Face value is just the digit: "+dig+". Worth "+num(ans)+" comes from its place ("+pl.n+"), so it is the place value.",
+    speak:"In "+n+", the digit "+dig+" is worth "+ans+". Is that its face value or its place value?" };
+  return q;
+}
+/* --- Expanded Form (sub: exp) --- */
+function expParts(n){ var d=digitsOf(n); return [d[0]*1000, d[1]*100, d[2]*10, d[3]]; }
+function expString(n){ var p=expParts(n); var parts=[]; for(var i=0;i<4;i++) if(p[i]>0) parts.push(num(p[i])); return parts.join(" + ") || "0"; }
+function genEXP(easy){
+  var n = easy? ri(112,998) : ri(1012,9987);
+  var type = ri(0,2); if(easy) type=ri(0,1);
+  var d=digitsOf(n), p=expParts(n);
+  if(type===0){
+    function js(arr){ return arr.filter(function(x){return x>0;}).map(num).join(" + "); }
+    var cands=[ js([p[0], d[1]*10, p[2], p[3]]), js([p[0], p[1], d[2], p[3]]),
+      js([p[0], p[1], p[2], d[3]*10]), js([d[0]*100, p[1], p[2], p[3]]),
+      js([p[0], d[1]*1000, p[2], p[3]]), js(expParts(n).slice().reverse()),
+      js([p[0], p[2], p[1], p[3]]) ];
+    return mkQ("What is the expanded form of "+num(n)+"?", "", expString(n), cands, "exp","sums",
+      "Break "+num(n)+" by places: "+expString(n)+".",
+      "What is the expanded form of "+n+"?");
+  } else if(type===1){
+    var parts = expParts(n).filter(function(x){return x>0;});
+    return mkQ(expString(n)+" makes which number?", "", n,
+      [ n+100, n-100>0?n-100:n+10, parseInt(""+d[0]+d[2]+d[1]+d[3],10) ], "exp","sums",
+      "Add the parts: "+parts.join(" + ")+" = "+num(n)+".",
+      expString(n)+" makes which number?");
+  } else {
+    var miss = ri(0,3); if(p[miss]===0) return genEXP(easy);
+    var shown = expParts(n).map(function(x,i){ return i===miss? "□" : num(x); }).filter(function(x){return x!=="0";}).join(" + ");
+    return mkQ("Find the missing part: "+shown+" = "+num(n)+". What is □?", "", p[miss],
+      [ p[miss]/10>=1?p[miss]/10:p[miss]+10, p[miss]*10, p[miss]+100 ], "exp","sums",
+      "The missing part belongs to the "+PLACES[miss].n+" place of "+num(n)+", which is "+num(p[miss])+".",
+      "Find the missing part. "+shown+" equals "+n+".");
+  }
+}
+/* --- THINK generators (kind: thinking) --- */
+function genThinkOdd(){
+  var pi = ri(0,3); var pl = PLACES[3-pi]; var dig = ri(1,9);
+  function withDigit(){ var ds=[ri(1,9),ri(0,9),ri(0,9),ri(0,9)]; ds[pi]=dig; return ds[0]*1000+ds[1]*100+ds[2]*10+ds[3]; }
+  var a=withDigit(), b=withDigit(), c=withDigit(), odd;
+  do{ var ds2=[ri(1,9),ri(0,9),ri(0,9),ri(0,9)]; if(ds2[pi]===dig) ds2[pi]=(dig+3)%10; odd=ds2[0]*1000+ds2[1]*100+ds2[2]*10+ds2[3]; }while(odd===a||odd===b||odd===c);
+  var set={}; set[a]=1; set[b]=1; set[c]=1; if(Object.keys(set).length<3) return genThinkOdd();
+  return mkQ("Odd One Out! Three numbers have "+dig+" in the "+pl.n+" place. One does not. Which one?", "",
+    odd, [a,b,c], "pv","thinking",
+    num(a)+", "+num(b)+" and "+num(c)+" all have "+dig+" in the "+pl.n+" place. "+num(odd)+" does not!",
+    "Odd one out! Three numbers have "+dig+" in the "+pl.n+" place. Which number does not?");
+}
+function genThinkBox(){
+  var n = ri(2012,8997); var p = expParts(n); var miss = ri(1,2);
+  if(p[miss]===0) return genThinkBox();
+  var shown = p.map(function(x,i){ return i===miss? "□" : num(x); }).filter(function(x){return x!=="0";}).join(" + ");
+  return mkQ("Missing Box! "+shown+" = "+num(n)+". What number hides in the □?", "", p[miss],
+    [ p[miss]/10, p[miss]*10, p[miss]+(miss===1?100:10) ], "exp","thinking",
+    "The □ sits in the "+PLACES[miss].n+" place. In "+num(n)+" that part is "+num(p[miss])+".",
+    "Missing box! "+shown+" equals "+n+". What number hides in the box?");
+}
+function genThinkMistake(){
+  var n = ri(2012,8997); var d=digitsOf(n); var p=expParts(n);
+  var which = ri(1,2); if(p[which]===0) return genThinkMistake();
+  var bad = p.slice(); bad[which] = (which===1)? d[1]*10 : d[2];
+  var badStr = bad.filter(function(x){return x>0;}).join(" + ");
+  var correctPlace = PLACES[which].n;
+  var wrongDesc = (which===1)? (num(p[1])+" was written as "+num(bad[1])) : (num(p[2])+" was written as "+num(bad[2]));
+  var opts = shuffle([ wrongDesc, "Nothing is wrong — it is correct", "The thousands part is wrong", "Two parts are swapped" ]);
+  return { q:"Find the Mistake! Appu wrote: "+num(n)+" = "+badStr+". What is the mistake?", visual:"",
+    options:opts, answer:wrongDesc, sub:"exp", kind:"thinking",
+    explain:"In "+num(n)+", the "+correctPlace+" part is "+num(p[which])+", but Appu wrote "+num(bad[which])+". Correct expanded form: "+expString(n)+".",
+    speak:"Find the mistake! Appu wrote "+n+" equals "+badStr+". What is the mistake?" };
+}
+function genThinkTF(){
+  var n = ri(2012,8997); var d=digitsOf(n);
+  var samePi=-1; for(var i=0;i<4;i++) for(var j=i+1;j<4;j++) if(d[i]===d[j] && d[i]!==0){ samePi=i; }
+  if(samePi<0){ var dig=ri(2,8); var piA=ri(0,1), piB=ri(2,3); var ds=[ri(1,9),ri(0,9),ri(0,9),ri(0,9)]; ds[piA]=dig; ds[piB]=dig; n=ds[0]*1000+ds[1]*100+ds[2]*10+ds[3]; d=ds; samePi=piA; }
+  var dig2=d[samePi]; var other=-1; for(var k=0;k<4;k++) if(d[k]===dig2 && k!==samePi) other=k;
+  var vA=dig2*PLACES[3-samePi].v, vB=dig2*PLACES[3-other].v;
+  var ansTxt="No — "+num(vA)+" and "+num(vB)+" are different";
+  var opts=shuffle([ansTxt, "Yes — same digit, same value", "Yes — both are worth "+num(vA), "No — both are worth "+dig2]);
+  return { q:"True or False? In "+num(n)+", the digit "+dig2+" appears twice. Do both "+dig2+"s have the SAME value?", visual:pvVisual(n),
+    options:opts, answer:ansTxt, sub:"fv", kind:"thinking",
+    explain:"Same digit, different places! One "+dig2+" is worth "+num(vA)+", the other is worth "+num(vB)+". Place changes the value!",
+    speak:"True or false? In "+n+", the digit "+dig2+" appears twice. Do both have the same value?" };
+}
+function genThinkAny(){
+  var t=ri(0,3);
+  if(t===0) return genThinkOdd();
+  if(t===1) return genThinkBox();
+  if(t===2) return genThinkMistake();
+  return genThinkTF();
+}
+function genForStep(step, easy){
+  if(step===0) return genPV(easy);
+  if(step===1){ return (Math.random()<0.22)? genFVtext() : genFV(easy); }
+  return genEXP(easy);
+}
+function buildExam(){
+  var qs=[ genPV(false), genFV(false), genEXP(false),
+           genPV(false), (Math.random()<0.5?genFVtext():genFV(false)), genEXP(false),
+           genThinkOdd(), genThinkBox(), genThinkMistake(), genThinkTF() ];
+  var seen={}, out=[];
+  for(var i=0;i<qs.length;i++){ if(!seen[qs[i].q]){ seen[qs[i].q]=1; out.push(qs[i]); } }
+  var guard=0;
+  while(out.length<10 && guard<40){ var q=genThinkAny(); if(!seen[q.q]){ seen[q.q]=1; out.push(q); } guard++; }
+  return shuffle(out).slice(0,10);
+}
+</script>
+<script>
+"use strict";
+/* ================= APP STATE ================= */
+var P = null;              /* current player profile */
+var SES = null;            /* per-sitting stats for the closing ritual */
+function newSession(){ return { stars:0, coins:0, trickyText:null }; }
+function $(id){ if(typeof document==="undefined") return null; return document.getElementById(id); }
+function show(id){
+  var ss = document.querySelectorAll(".screen");
+  for(var i=0;i<ss.length;i++) ss[i].classList.remove("on");
+  $("scr-"+id).classList.add("on");
+  window.scrollTo(0,0);
+}
+function toast(msg){
+  var t=$("toast"); t.textContent=msg; t.classList.add("on");
+  setTimeout(function(){ t.classList.remove("on"); }, 2400);
+}
+function speak(text){
+  try{
+    if(!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    var vs = window.speechSynthesis.getVoices();
+    for(var i=0;i<vs.length;i++){ if(/en[-_]IN/i.test(vs[i].lang)){ u.voice=vs[i]; break; } }
+    u.lang = (u.voice? u.voice.lang : "en-IN"); u.rate = 0.92;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function confetti(n){
+  var colors=["#ff5d8f","#ff9f43","#ffd32a","#2ed573","#3aa0ff","#a55eea"];
+  var fx=$("fx");
+  for(var i=0;i<(n||40);i++){
+    var d=document.createElement("div"); d.className="confetti";
+    var s=6+Math.random()*8;
+    d.style.width=s+"px"; d.style.height=(s*0.55)+"px";
+    d.style.left=(Math.random()*100)+"vw";
+    d.style.background=colors[i%colors.length];
+    d.style.animationDuration=(1.6+Math.random()*1.8)+"s";
+    d.style.animationDelay=(Math.random()*0.35)+"s";
+    fx.appendChild(d);
+    (function(el){ setTimeout(function(){ el.remove(); }, 4200); })(d);
+  }
+}
+/* floating sky decorations */
+(function sky(){
+  var fx=$("fx"); if(!fx) return;
+  var clouds=[[6,26,38],[38,60,55],[66,16,70],[84,48,30]];
+  for(var i=0;i<clouds.length;i++){
+    var c=document.createElement("div"); c.className="cloud"; c.textContent="☁️";
+    c.style.top=clouds[i][0]+"%"; c.style.fontSize=clouds[i][1]+"px";
+    c.style.animationDuration=clouds[i][2]+"s"; c.style.animationDelay=(-clouds[i][2]/2)+"s";
+    fx.appendChild(c);
+  }
+  for(var s=0;s<9;s++){
+    var st=document.createElement("div"); st.className="starbg"; st.textContent="⭐";
+    st.style.top=(Math.random()*55)+"%"; st.style.left=(Math.random()*92)+"%";
+    st.style.fontSize=(11+Math.random()*10)+"px"; st.style.animationDelay=(Math.random()*2)+"s";
+    fx.appendChild(st);
+  }
+})();
+
+/* ================= SCORING HELPERS (bound to profile) ================= */
+function awardBadge(id){
+  if(!P || P.badges.indexOf(id)>=0) return;
+  P.badges.push(id);
+  var b=null; for(var i=0;i<ALL_BADGES.length;i++) if(ALL_BADGES[i].id===id) b=ALL_BADGES[i];
+  if(b) toast("New Badge: "+b.ic+" "+b.name+"!");
+}
+function addStars(n){
+  P.stars+=n; if(SES) SES.stars+=n; saveProfile(P);
+}
+function addCoins(n, silent){
+  P.coins+=n; if(SES) SES.coins+=n; saveProfile(P);
+  if(!silent) toast("🪙 +"+n+" coins!");
+}
+function recordAttempt(q, pickedText, correct, phase){
+  P.attempts.push({ q:q.q, sub:q.sub, kind:q.kind, correct:!!correct,
+    picked:pickedText, answer:q.answer, phase:phase, at:Date.now() });
+  if(P.attempts.length>400) P.attempts = P.attempts.slice(-400);
+  if(P.subStats[q.sub]){ P.subStats[q.sub].a++; if(correct) P.subStats[q.sub].c++; }
+  if(P.kindStats[q.kind]){ P.kindStats[q.kind].a++; if(correct) P.kindStats[q.kind].c++; }
+  if(phase!=="exam"){
+    P.pracStats.a++; if(correct) P.pracStats.c++;
+    if(phase==="think"){ P.thinkStats.a++; if(correct) P.thinkStats.c++; }
+  }
+  if(!correct){
+    P.tricky.push({ q:q.q, sub:q.sub, picked:pickedText, answer:q.answer, at:Date.now() });
+    if(P.tricky.length>60) P.tricky = P.tricky.slice(-60);
+    if(SES && !SES.trickyText) SES.trickyText = q.q;
+  }
+  P.lastPlayed = Date.now();
+  saveProfile(P);
+}
+function refreshXP(){
+  var xp = computeTopicXP(P.topic, P.pracStats, P.thinkStats, P.topic.bestExamPct);
+  if(xp > P.topic.bestXP){
+    var delta = xp - P.topic.bestXP;
+    P.topic.bestXP = xp; P.xp += delta; saveProfile(P);
+    return delta;
+  }
+  return 0;
+}
+
+/* ================= ACCESS / PIN ================= */
+var pinMode = null, pinBuf = "";
+function gotoPin(mode){
+  pinMode = mode; pinBuf = "";
+  $("pinBubble").innerHTML = mode==="parent"
+    ? "Hello Amma / Nanna! Enter the <b>Parent PIN</b> to see the Dashboard 📊"
+    : "Hi Sreshta! Enter <b>your</b> secret PIN 🔐";
+  $("pinMsg").textContent = "";
+  drawPinDots(); show("pin");
+}
+function drawPinDots(){
+  var dots = $("pinDots").children;
+  for(var i=0;i<4;i++) dots[i].className = i<pinBuf.length? "f":"";
+}
+function pinKey(k){
+  if(k==="⌫"){ pinBuf = pinBuf.slice(0,-1); drawPinDots(); return; }
+  if(pinBuf.length>=4) return;
+  pinBuf += k; drawPinDots();
+  if(pinBuf.length===4){
+    var want = pinMode==="parent"? PARENT_PIN : CHILD_PIN;
+    if(pinBuf===want){
+      if(pinMode==="parent"){ setTimeout(openDashboard, 180); }
+      else { setTimeout(function(){ loginPlayer("sreshta","Sreshta",false); }, 180); }
+    } else {
+      var card=$("pinCard"); card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake");
+      $("pinMsg").textContent = "Oops! That PIN didn't match. Try again, brave one! 💪";
+      setTimeout(function(){ pinBuf=""; drawPinDots(); }, 500);
+    }
+  }
+}
+(function buildPad(){
+  var keys=["1","2","3","4","5","6","7","8","9","","0","⌫"];
+  var pad=$("pinPad"); if(!pad) return;
+  for(var i=0;i<keys.length;i++){
+    (function(k){
+      var b=document.createElement("button"); b.textContent=k;
+      if(k===""){ b.style.visibility="hidden"; }
+      b.onclick=function(){ pinKey(k); };
+      pad.appendChild(b);
+    })(keys[i]);
+  }
+})();
+function loginPlayer(slug, name, isGuest){
+  var p = loadProfile(slug);
+  if(!p){ p = newProfile(name, slug, isGuest); saveProfile(p); }
+  p.name = name; saveProfile(p);
+  registerPlayer(slug, name, isGuest);
+  store.set("g3world_who", slug);
+  P = p; SES = newSession();
+  renderHome(); show("home");
+  confetti(18);
+}
+function renderContinue(){
+  var who = store.get("g3world_who");
+  var box = $("continueBox"); box.innerHTML="";
+  if(!who) return;
+  var p = loadProfile(who);
+  if(!p) return;
+  var b=document.createElement("button"); b.className="btn green"; b.style.margin="4px 0 12px";
+  b.textContent = "▶ Continue as "+p.name+"! ⭐ "+p.stars;
+  b.onclick=function(){ P=p; SES=newSession(); renderHome(); show("home"); };
+  box.appendChild(b);
+}
+
+/* ================= CHILD HOME ================= */
+function renderHome(){
+  var greet = P.isGuest? ("Hi "+P.name+"! Ready to play & learn? 🎮")
+    : ("Hi Sreshta! 🌈 Appu is ready — let's learn something new today!");
+  $("homeBubble").innerHTML = greet;
+  var li = levelOf(P.xp);
+  $("ringLv").textContent = "Level "+li.cur.n;
+  $("ringName").textContent = li.cur.name;
+  $("ringXp").textContent = P.xp+" XP";
+  var pct = 100;
+  if(li.next){ pct = Math.round(100*(P.xp-li.cur.xp)/(li.next.xp-li.cur.xp)); $("xpNextLab").textContent = "Next: Level "+li.next.n+" "+li.next.name+" at "+li.next.xp+" XP — "+(li.next.xp-P.xp)+" to go!"; }
+  else { $("xpNextLab").textContent = "Top level — Super Thinker! 🏆"; }
+  $("levelRing").style.setProperty("--p", pct);
+  $("xpFill").style.width = pct+"%";
+  bump("cntStars"); bump("cntCoins");
+  $("cntStars").textContent = "⭐ "+P.stars;
+  $("cntCoins").textContent = "🪙 "+P.coins;
+  var rw = getReward();
+  $("rewardIc").textContent = rw.emoji;
+  $("rewardName").textContent = rw.text;
+  $("rewardAt").textContent = "LEVEL "+(rw.level||2);
+  $("rewardSub").textContent = li.cur.n >= (rw.level||2)? "You reached it — ask Amma & Nanna! 🎉" : "Reach Level "+(rw.level||2)+" to win it — you can do it!";
+  var shelf=$("badgeShelf"); shelf.innerHTML="";
+  for(var i=0;i<ALL_BADGES.length;i++){
+    var bd=ALL_BADGES[i]; var got = P.badges.indexOf(bd.id)>=0;
+    var s=document.createElement("span"); s.className="badge"+(got?"":" dim");
+    s.textContent = bd.ic+" "+bd.name; s.title = bd.ds;
+    shelf.appendChild(s);
+  }
+  var grid=$("subjGrid"); grid.innerHTML="";
+  for(var j=0;j<SUBJECTS.length;j++){
+    (function(sub){
+      var b=document.createElement("button");
+      b.className="subj"+(sub.live?"":" soon"); b.style.background=sub.col;
+      if(sub.live){
+        var done = P.topic.mastered? 1:0;
+        b.innerHTML='<div class="ic">'+sub.ic+'</div><div class="nm">'+sub.name+'</div><span class="st">▶ Play · Chapter 1: '+Math.round(100*done/8)+'% of topics</span>';
+        b.onclick=function(){ renderChapters(); show("maths"); };
+      } else {
+        b.innerHTML='<div class="ic">'+sub.ic+'</div><div class="nm">'+sub.name+'</div><span class="st">🔒 Coming Soon — after Maths</span>';
+        b.onclick=function(){ openSubject(sub); };
+      }
+      grid.appendChild(b);
+    })(SUBJECTS[j]);
+  }
+}
+function bump(id){ var e=$(id); if(!e) return; e.classList.remove("bump"); void e.offsetWidth; e.classList.add("bump"); }
+function openSubject(sub){
+  $("smTitle").textContent = sub.ic+" "+sub.name;
+  $("smSub").textContent = "This world is sleeping now 😴 It opens after Maths! Here is its treasure map:";
+  var ul=$("smList"); ul.innerHTML="";
+  for(var i=0;i<sub.skel.length;i++){ var li=document.createElement("li"); li.textContent="🔒 "+sub.skel[i]; ul.appendChild(li); }
+  $("subjModal").classList.add("on");
+}
+
+/* ================= MATHS JOURNEY ================= */
+function renderChapters(){
+  var chapters = SUBJECTS[0].chapters; /* Maths = first live subject in the data */
+  var wrap=$("chapList"); wrap.innerHTML="";
+  for(var i=0;i<chapters.length;i++){
+    (function(ch, idx){
+      var b=document.createElement("button");
+      b.className="chap"+(idx===0?"":" lock"); b.style.borderLeftColor=ch.col;
+      b.innerHTML='<span class="ic">'+ch.ic+'</span><span style="flex:1"><span class="nm">Chapter '+(idx+1)+" · "+ch.name+'</span><br><span class="ds">'+ch.ds+"</span></span>"+
+        (idx===0? '<span class="tag play">▶ OPEN</span>' : '<span style="font-size:22px">🔒</span>');
+      b.onclick=function(){
+        if(idx===0){ renderTopics(); show("chapter"); }
+        else { toast("🔒 Finish the chapter before to open this one!"); }
+      };
+      wrap.appendChild(b);
+    })(chapters[i], i);
+  }
+}
+function renderTopics(){
+  var topics = SUBJECTS[0].chapterTopics["0"];
+  var wrap=$("topicList"); wrap.innerHTML="";
+  for(var i=0;i<topics.length;i++){
+    (function(tname, idx){
+      var row=document.createElement("div"); row.className="topic-row";
+      var isSample = tname==="Place Value and Expanded Form";
+      var tags="";
+      if(isSample){
+        tags = P.topic.mastered? '<span class="tag done">⭐ MASTERED</span>' : '<span class="tag play">★ SAMPLE — PLAY!</span>';
+      } else {
+        tags = '<span class="tag soon">Coming in Full Maths</span>';
+      }
+      tags += ' <span class="tag test">Test-Out · soon</span>';
+      row.innerHTML='<span class="n">'+(idx+1)+'</span><span class="tn">'+tname+'</span>'+tags;
+      if(isSample){ row.style.cursor="pointer"; row.onclick=function(){ renderTopicStart(); show("topic"); }; }
+      wrap.appendChild(row);
+    })(topics[i], i);
+  }
+}
+function renderTopicStart(){
+  var t=P.topic; var dots=$("topicDots"); dots.innerHTML="";
+  var stages=["Step 1","Step 2","Step 3","Mixed","Think","Exam"];
+  for(var i=0;i<6;i++){
+    var d=document.createElement("i");
+    var doneIdx = t.mastered? 6 : t.stage;
+    if(i<doneIdx) d.className="done"; else if(i===doneIdx) d.className="now";
+    dots.appendChild(d); dots.lastChild.title=stages[i];
+  }
+  $("topicStatus").textContent = t.mastered
+    ? "⭐ You MASTERED this topic! Exam best: "+t.bestExamPct+"%. Play again any time!"
+    : (t.stage===0? "A brand-new adventure — let's begin!" : "You are part-way through — keep going, champion!");
+  $("btnStartTopic").textContent = t.mastered? "Play Again 🔁" : (t.stage===0? "Start the Adventure! 🚀" : "Continue ➜");
+  $("btnExamOnly").style.display = (t.stage>=5 || t.mastered)? "flex":"none";
+}
+</script>
+<script>
+"use strict";
+/* ================= LEARN CONTENT ================= */
+var LEARN = [
+  { title:"Step 1 · Place Value 🔢", speak:"Place value. Every digit has a home. In 4625, 4 lives in Thousands, so it is worth 4000. 6 is in Hundreds, worth 600. 2 is in Tens, worth 20. And 5 is in Ones, worth 5.",
+    visual:function(){ return "<div style='font-size:19px; font-weight:700;'>Look at the number 4,625 👀</div>"+pvVisual(4625)+"<div>4 thousands = <b>4,000</b> · 6 hundreds = <b>600</b> · 2 tens = <b>20</b> · 5 ones = <b>5</b></div>"; },
+    rule:"A digit's value depends on its PLACE: Ones ×1, Tens ×10, Hundreds ×100, Thousands ×1,000!" },
+  { title:"Step 2 · Face Value vs Place Value 🎭", speak:"Face value never changes. In 3582, the face value of 5 is just 5. But 5 sits in the Hundreds place, so its place value is 500.",
+    visual:function(){ return "<div style='font-size:19px; font-weight:700;'>Look at the digit 5 in 3,582 👀</div>"+pvVisual(3582)+"<div>🎭 <b>Face value</b> of 5 = <b>5</b> (just the digit!)<br>🏠 <b>Place value</b> of 5 = <b>500</b> (5 hundreds!)</div>"; },
+    rule:"Face value = the digit itself, it NEVER changes. Place value = what it's worth in its place!" },
+  { title:"Step 3 · Expanded Form 🎈", speak:"Expanded form opens up a number like a balloon. 4625 opens into 4000 plus 600 plus 20 plus 5.",
+    visual:function(){ return "<div style='font-size:19px; font-weight:700;'>Open up 4,625 like a balloon 🎈</div>"+pvVisual(4625)+"<div style='font-size:21px;'><b>4,625</b> = <span style='color:#ff5d8f'><b>4,000</b></span> + <span style='color:#ff9f43'><b>600</b></span> + <span style='color:#c9930a'><b>20</b></span> + <span style='color:#3aa0ff'><b>5</b></span></div>"; },
+    rule:"Expanded form writes a number as the SUM of its place values!" }
+];
+var STEPNAMES = ["Place Value","Face Value vs Place Value","Expanded Form"];
+
+/* ================= QUIZ RUNNER ================= */
+var QZ = null;
+function startQuiz(cfg){
+  QZ = { phase:cfg.phase, label:cfg.label, list:cfg.list, idx:0, results:[],
+         firstTry:true, curWrong:0, phaseWrongFirst:0, phaseAsked:0, onDone:cfg.onDone, dots:cfg.dots||cfg.list.length };
+  show("quiz"); renderQ();
+}
+function renderQ(){
+  var q = QZ.list[QZ.idx];
+  QZ.firstTry = true;
+  $("qzPhase").textContent = QZ.label;
+  $("qzCount").textContent = (QZ.idx+1)+" / "+QZ.list.length;
+  var dots=$("qzDots"); dots.innerHTML="";
+  for(var i=0;i<QZ.list.length;i++){ var d=document.createElement("i"); if(i<QZ.idx) d.className="done"; else if(i===QZ.idx) d.className="now"; dots.appendChild(d); }
+  $("qText").textContent = q.q;
+  $("qVisual").innerHTML = q.visual||"";
+  var ex=$("qExplain"); ex.className="explain"; ex.innerHTML="";
+  $("qNext").style.display="none";
+  $("qSkip").style.display = QZ.phase==="exam"? "flex":"none";
+  var wrap=$("qOpts"); wrap.innerHTML="";
+  for(var i=0;i<q.options.length;i++){
+    (function(opt){
+      var b=document.createElement("button"); b.className="opt"; b.textContent=opt;
+      b.onclick=function(){ answerQ(opt, b); };
+      wrap.appendChild(b);
+    })(q.options[i]);
+  }
+}
+function lockOpts(){
+  var bs=$("qOpts").children;
+  for(var i=0;i<bs.length;i++) bs[i].disabled=true;
+}
+function markOpts(pickedText, correctText){
+  var bs=$("qOpts").children;
+  for(var i=0;i<bs.length;i++){
+    if(bs[i].textContent===correctText) bs[i].classList.add("good");
+    else if(bs[i].textContent===pickedText) bs[i].classList.add("bad");
+  }
+}
+function answerQ(opt, btn){
+  var q = QZ.list[QZ.idx];
+  var correct = (opt === q.answer);
+  if(QZ.phase==="exam"){
+    recordAttempt(q, opt, correct, "exam");
+    QZ.results.push({ q:q, correct:correct, skipped:false, picked:opt });
+    QZ.idx++;
+    if(QZ.idx>=QZ.list.length){ var cb=QZ.onDone, r=QZ.results; QZ=null; cb(r); }
+    else renderQ();
+    return;
+  }
+  /* practice-family phases */
+  if(QZ.firstTry){
+    recordAttempt(q, opt, correct, QZ.phase);
+    QZ.phaseAsked++;
+    if(!correct){ QZ.phaseWrongFirst++; if(SES && !SES.trickyText) SES.trickyText=q.q; }
+  }
+  if(correct){
+    lockOpts(); markOpts(opt, q.answer);
+    if(QZ.firstTry){ addStars(1); bump("qzPhase"); }
+    var ex=$("qExplain"); ex.className="explain on";
+    ex.innerHTML = (QZ.firstTry? "⭐ <b>Correct! Super!</b><br>" : "✅ <b>You got it!</b><br>") + q.explain;
+    $("qSkip").style.display="none";
+    var nx=$("qNext"); nx.style.display="flex"; nx.textContent = QZ.idx>=QZ.list.length-1? "Finish ➜":"Next ➜";
+    nx.onclick = function(){
+      QZ.results.push({ q:q, correct:QZ.firstTry, skipped:false });
+      QZ.idx++;
+      if(QZ.idx>=QZ.list.length){ var cb2=QZ.onDone, ph=QZ.phase, wa=QZ.phaseWrongFirst, as=QZ.phaseAsked, rr=QZ.results; QZ=null; cb2(rr, wa, as); }
+      else renderQ();
+    };
+  } else {
+    btn.classList.add("bad"); btn.disabled=true;
+    QZ.firstTry=false;
+    var ex2=$("qExplain"); ex2.className="explain on";
+    ex2.innerHTML = "💪 <b>Almost! Let's fix this one:</b><br>"+q.explain+"<br><b>Now try a similar question!</b>";
+    setTimeout(function(){
+      var nq = (q.kind==="thinking")? genThinkAny() : genForStep(stepOfSub(q.sub), false);
+      nq._retryOf = true;
+      QZ.list[QZ.idx] = nq; renderQ(); QZ.firstTry=false;
+    }, 1600);
+  }
+}
+function stepOfSub(sub){ return sub==="pv"?0 : sub==="fv"?1 : 2; }
+function skipQ(){
+  if(!QZ || QZ.phase!=="exam") return;
+  var q=QZ.list[QZ.idx];
+  P.attempts.push({ q:q.q, sub:q.sub, kind:q.kind, correct:false, picked:"(skipped)", answer:q.answer, phase:"exam", at:Date.now() });
+  saveProfile(P);
+  QZ.results.push({ q:q, correct:false, skipped:true, picked:null });
+  QZ.idx++;
+  if(QZ.idx>=QZ.list.length){ var cb=QZ.onDone, r=QZ.results; QZ=null; cb(r); }
+  else renderQ();
+}
+
+/* ================= TOPIC FLOW ================= */
+function flowLearn(step){
+  var L=LEARN[step];
+  $("learnPhase").textContent = "📖 Learn · Step "+(step+1)+" of 3";
+  $("learnTitle").textContent = L.title;
+  $("learnVisual").innerHTML = L.visual();
+  $("learnRule").textContent = "⭐ "+L.rule;
+  $("learnListen").onclick = function(){ speak(L.speak); };
+  $("btnLearnNext").onclick = function(){ flowTry(step); };
+  show("learn");
+}
+function flowTry(step){
+  var qs=[genForStep(step,false), genForStep(step,false), genForStep(step,false)];
+  startQuiz({ phase:"try", label:"✏️ Try 3 · "+STEPNAMES[step], list:qs,
+    onDone:function(res, wrongFirst){
+      if(wrongFirst>=2){
+        showPhase("💪","Brave try!","Some questions were tricky — that's OK! Let's do a few EASIER practice questions together, then a Quick Check. You can do this!",
+          function(){ flowGuided(step); });
+      } else if(wrongFirst===0){
+        showPhase("🚀","Fast Track!","WOW — all 3 correct on the first try! You skipped the extra practice like a champion! Now a tiny Quick Check.",
+          function(){ flowQuick(step); });
+      } else {
+        showPhase("🌟","Good Going!","You finished Try 3! Now a tiny 2-question Quick Check — no pressure, it's not an exam!",
+          function(){ flowQuick(step); });
+      }
+    }});
+}
+function flowGuided(step){
+  var qs=[genForStep(step,true), genForStep(step,true), genForStep(step,true)];
+  startQuiz({ phase:"guided", label:"🌈 Guided Practice · "+STEPNAMES[step], list:qs,
+    onDone:function(){ flowQuick(step); } });
+}
+function flowQuick(step){
+  var qs=[genForStep(step,false), genForStep(step,false)];
+  startQuiz({ phase:"quick", label:"⚡ Quick Check · "+STEPNAMES[step], list:qs,
+    onDone:function(res, wrongFirst){
+      if(!P.topic.stepsDone[step]){
+        P.topic.stepsDone[step]=true; addCoins(5); awardBadge("first-steps");
+      }
+      if(step<2){ P.topic.stage=Math.max(P.topic.stage, step+1); saveProfile(P); refreshXP(); saveProfile(P); }
+      var msg = wrongFirst===0? "Quick Check: BOTH correct! Step complete! +🪙5 coins" :
+                wrongFirst===1? "Quick Check done — 1 to check carefully next time. Step complete! +🪙5 coins" :
+                "Quick Check done! Those two are in your Tricky list — they'll come back later so you can beat them! Step complete! +🪙5 coins";
+      showPhase("✅","Step "+(step+1)+" Complete!", msg, function(){
+        if(step<2) flowLearn(step+1); else flowMixedIntro();
+      });
+    }});
+}
+function flowMixedIntro(){
+  P.topic.stage=Math.max(P.topic.stage,3); saveProfile(P); refreshXP(); saveProfile(P);
+  showPhase("🔀","Mixed Practice Time!","All 3 steps shuffled together — 6 questions. This is how your brain becomes strong! 💪",
+    function(){
+      var qs=[genForStep(0,false),genForStep(1,false),genForStep(2,false),genForStep(ri(0,2),false),genForStep(ri(0,2),false),genForStep(ri(0,2),false)];
+      startQuiz({ phase:"mixed", label:"🔀 Mixed Practice", list:qs,
+        onDone:function(){ flowThinkIntro(); } });
+    });
+}
+function flowThinkIntro(){
+  P.topic.stage=Math.max(P.topic.stage,4); saveProfile(P);
+  showPhase("🦉","Think Time!","4 THINKING questions — Odd One Out, Missing Box, Find the Mistake... No hurry. Think like a detective! 🔍",
+    function(){
+      var qs=[genThinkOdd(), genThinkBox(), genThinkMistake(), genThinkTF()];
+      startQuiz({ phase:"think", label:"🦉 Think", list:qs,
+        onDone:function(res, wrongFirst, asked){
+          if(!P.topic.thinkDone){ P.topic.thinkDone=true; addCoins(10); awardBadge("brave"); }
+          if(wrongFirst===0 && asked===4) awardBadge("sharp");
+          P.topic.stage=Math.max(P.topic.stage,5); saveProfile(P); refreshXP(); saveProfile(P);
+          showPhase("🏅","Think Complete!","You thought like a detective! +🪙10 coins. When you are ready, the Topic Exam is waiting — no hurry, take a break if you like! 🐘",
+            function(){ renderTopicStart(); show("topic"); });
+        }});
+    });
+}
+function showPhase(emoji, title, text, onNext){
+  $("phaseEmoji").textContent=emoji; $("phaseTitle").textContent=title; $("phaseText").textContent=text;
+  $("phaseNext").onclick=onNext;
+  show("phase");
+}
+function startTopicFlow(){
+  var st=P.topic.stage;
+  if(P.topic.mastered || st>=6){ flowLearn(0); return; }
+  if(st<=2) flowLearn(st);
+  else if(st===3) flowMixedIntro();
+  else if(st===4) flowThinkIntro();
+  else show("examintro");
+}
+/* ================= EXAM ================= */
+function startExam(){
+  var qs=buildExam();
+  startQuiz({ phase:"exam", label:"📝 Topic Exam", list:qs,
+    onDone:function(results){ finishExam(results); } });
+}
+function finishExam(results){
+  var sc = examScore(results);
+  P.examHistory.push({ at:Date.now(), pct:sc.pct, correct:sc.correct, wrong:sc.wrong,
+    skipped:sc.skipped, negMarks: sc.wrong*2 });
+  if(sc.pct > P.topic.bestExamPct) P.topic.bestExamPct = sc.pct;
+  var passed = sc.pass;
+  if(passed && !P.topic.mastered){
+    P.topic.mastered=true; P.topic.stage=6; addCoins(30); awardBadge("topic-master");
+  }
+  saveProfile(P);
+  var xpDelta = refreshXP(); saveProfile(P);
+  var sumsA=0,sumsC=0,thA=0,thC=0;
+  for(var i=0;i<results.length;i++){
+    if(results[i].skipped) continue;
+    if(results[i].q.kind==="thinking"){ thA++; if(results[i].correct) thC++; }
+    else { sumsA++; if(results[i].correct) sumsC++; }
+  }
+  $("examEmoji").textContent = passed? "🏆🎉" : "💪🌈";
+  $("examTitle").textContent = passed? "You PASSED the Topic Exam!" : "Almost! Let's fix a few things!";
+  $("examScore").textContent = sc.pct+"%";
+  $("examDetail").innerHTML = "✅ Correct: <b>"+sc.correct+"</b> · ❌ To fix: <b>"+sc.wrong+"</b> · ⏭ Skipped: <b>"+sc.skipped+"</b><br>"+
+    "Points: "+sc.correct+" × 10 − "+sc.wrong+" × 2 = <b>"+sc.pct+"</b> / 100"+
+    (xpDelta>0? "<br>⭐ Level XP went up by +"+xpDelta+"!" : "")+
+    (passed? "<br>🪙 +30 coins for passing!" : "<br>Pass mark is 70 — try again when ready. Your best score is always kept!");
+  $("examSums").textContent = sumsA? Math.round(100*sumsC/sumsA)+"%" : "–";
+  $("examThink").textContent = thA? Math.round(100*thC/thA)+"%" : "–";
+  $("examCareful").textContent = sc.wrong>0? "🔍 "+sc.wrong+" question"+(sc.wrong>1?"s":"")+" to check carefully next time — look at them below!" : "🔍 Nothing to fix — every answer was checked carefully!";
+  var wrap=$("examReview"); wrap.innerHTML="";
+  for(var j=0;j<results.length;j++){
+    (function(r){
+      var d=document.createElement("div"); d.className="review-item";
+      var head = r.skipped? '<span class="rno">⏭ Skipped</span>' : r.correct? '<span class="rok">✅ Correct</span>' : '<span class="rno">❌ Let\'s fix</span>';
+      d.innerHTML = '<div class="rq">'+r.q.q+'</div><div>'+head+
+        (r.skipped? ' · You skipped this one' : ' · Your answer: <b>'+(r.picked)+'</b>')+
+        (r.correct? '' : ' · Right answer: <b>'+r.q.answer+'</b>')+'</div>'+
+        '<div class="rex">💡 '+r.q.explain+'</div>';
+      wrap.appendChild(d);
+    })(results[j]);
+  }
+  show("examresult");
+  if(passed) confetti(90);
+}
+/* ================= CLOSING RITUAL ================= */
+function openRitual(big){
+  var s = SES||newSession();
+  $("ritualEarned").textContent = "I earned ⭐ "+s.stars+" and 🪙 "+s.coins;
+  $("ritualTricky").textContent = "My tricky question was: "+(s.trickyText? ("“"+s.trickyText+"”") : "None — all correct! 🎉");
+  $("ritualCard").style.transform = big? "scale(1.04)":"";
+  $("ritualCard").style.fontSize = big? "1.12em":"";
+  show("ritual");
+  confetti(50);
+}
+</script>
+<script>
+"use strict";
+/* ================= PARENT DASHBOARD ================= */
+function fmtDate(ts){ if(!ts) return "—"; var d=new Date(ts); return d.toLocaleDateString("en-IN")+" "+d.toLocaleTimeString("en-IN",{hour:"numeric",minute:"2-digit"}); }
+function pctOf(s){ return s.a? Math.round(100*s.c/s.a)+"%" : "–"; }
+function openDashboard(){
+  var prof = loadProfile("sreshta") || newProfile("Sreshta","sreshta",false);
+  var li=levelOf(prof.xp);
+  var html="";
+  html+='<div class="card"><h3 style="margin-top:0;">🌟 Overview — Sreshta</h3><div class="stat-grid">'
+    +'<div class="stat"><div class="v">Level '+li.cur.n+'</div><div class="k">'+li.cur.name+' · '+prof.xp+' XP'+(li.next? ' · next at '+li.next.xp : '')+'</div></div>'
+    +'<div class="stat"><div class="v">⭐ '+prof.stars+' · 🪙 '+prof.coins+'</div><div class="k">Stars · Coins</div></div>'
+    +'<div class="stat"><div class="v">'+(prof.topic.mastered? "Mastered ⭐" : "Stage "+prof.topic.stage+" of 6")+'</div><div class="k">Sample topic: Place Value & Expanded Form</div></div>'
+    +'<div class="stat"><div class="v">'+(prof.topic.bestExamPct>=0? prof.topic.bestExamPct+"%" : "Not taken")+'</div><div class="k">Best Topic Exam · Last played: '+fmtDate(prof.lastPlayed)+'</div></div>'
+    +'</div></div>';
+  /* Deep performance */
+  var sn={pv:"Place Value", fv:"Face vs Place Value", exp:"Expanded Form"};
+  html+='<div class="card dash"><h3 style="margin-top:0;">🔍 Deep Performance</h3><table><tr><th>Subtopic</th><th>Asked</th><th>Correct</th><th>Accuracy</th></tr>';
+  for(var k in sn){ var s=prof.subStats[k]; html+='<tr><td>'+sn[k]+'</td><td>'+s.a+'</td><td>'+s.c+'</td><td>'+pctOf(s)+'</td></tr>'; }
+  html+='</table><p class="mini">Sums questions: '+prof.kindStats.sums.c+' / '+prof.kindStats.sums.a+' correct ('+pctOf(prof.kindStats.sums)+') · Thinking questions: '+prof.kindStats.thinking.c+' / '+prof.kindStats.thinking.a+' ('+pctOf(prof.kindStats.thinking)+')</p>';
+  /* exam history */
+  html+='<h3>📝 Exam History</h3>';
+  if(!prof.examHistory.length) html+='<p class="mini">No exam attempts yet.</p>';
+  else { html+='<table><tr><th>When</th><th>Score</th><th>✓</th><th>✗ (neg marks)</th><th>Skipped</th></tr>';
+    for(var e=prof.examHistory.length-1;e>=0;e--){ var h=prof.examHistory[e];
+      html+='<tr><td>'+fmtDate(h.at)+'</td><td>'+h.pct+'%'+(h.pct>=70?' ⭐':'')+'</td><td>'+h.correct+'</td><td>'+h.wrong+' (−'+h.negMarks+')</td><td>'+h.skipped+'</td></tr>'; }
+    html+='</table>'; }
+  /* confusions */
+  var conf=[];
+  for(var a=prof.attempts.length-1;a>=0 && conf.length<5;a--){ var at=prof.attempts[a]; if(!at.correct && at.picked && at.picked!=="(skipped)") conf.push(at); }
+  html+='<h3>🔀 Recent Confusions (what she picked instead)</h3>';
+  if(!conf.length) html+='<p class="mini">No mistakes recorded yet — data starts collecting from the first play.</p>';
+  for(var c=0;c<conf.length;c++){ html+='<p class="mini">• '+conf[c].q+'<br>Picked: <b>'+conf[c].picked+'</b> → Correct: <b>'+conf[c].answer+'</b></p>'; }
+  /* tricky */
+  html+='<h3>🧩 Tricky Questions Bank ('+prof.tricky.length+')</h3>';
+  if(!prof.tricky.length) html+='<p class="mini">Empty — nothing tricky yet!</p>';
+  for(var t=Math.max(0,prof.tricky.length-6);t<prof.tricky.length;t++){ html+='<p class="mini">• '+prof.tricky[t].q+'</p>'; }
+  html+='<p class="mini">Spaced resurfacing of tricky questions arrives in Phase 3.</p></div>';
+  /* rewards */
+  var rw=getReward();
+  html+='<div class="card"><h3 style="margin-top:0;">🎁 Rewards Centre (lite)</h3>'
+    +'<p style="font-weight:600;">Next Reward (shown on her home):</p>'
+    +'<div class="btnrow"><input class="namein" id="rwEmoji" style="max-width:84px;" maxlength="4" value="'+rw.emoji+'"><input class="namein" id="rwText" value="'+String(rw.text).replace(/"/g,'&quot;')+'"></div>'
+    +'<div style="height:8px"></div><div class="btnrow"><input class="namein" id="rwLevel" type="number" min="2" max="7" value="'+(rw.level||2)+'"><button class="btn green" id="rwSave">Save Reward</button></div>'
+    +'<p class="mini">Reward level (2–7) — the child home shows "Next reward at Level N".</p>'
+    +'<h3>🪜 Reward Ladder (from the Final Design)</h3><table>';
+  for(var r2=0;r2<REWARD_LADDER.length;r2++){ html+='<tr><td><b>'+REWARD_LADDER[r2][0]+'</b></td><td>'+REWARD_LADDER[r2][1]+'</td></tr>'; }
+  html+='</table><p class="mini">Full ladder with per-grade rewards & Reward-Due marking activates in Full Maths (Phase 2).</p></div>';
+  /* guests + controls */
+  var reg=loadRegistry();
+  html+='<div class="card"><h3 style="margin-top:0;">🧑‍🤝‍🧑 Guests on this device</h3>';
+  var anyGuest=false;
+  for(var g=0;g<reg.length;g++){ if(reg[g].slug==="sreshta") continue; var gp=loadProfile(reg[g].slug); if(!gp) continue; anyGuest=true;
+    html+='<p class="mini">• <b>'+gp.name+'</b> — ⭐ '+gp.stars+' · 🪙 '+gp.coins+' · XP '+gp.xp+' · topic '+(gp.topic.mastered?'Mastered':'stage '+gp.topic.stage)+' · last: '+fmtDate(gp.lastPlayed)+'</p>'; }
+  if(!anyGuest) html+='<p class="mini">No guests have played on this device yet.</p>';
+  html+='<h3>⚙️ Controls</h3><button class="btn orange" id="btnReset">🗑 Reset Sreshta\'s Progress</button>'
+    +'<p class="mini" id="resetMsg"></p></div>';
+  $("dashBody").innerHTML=html;
+  $("rwSave").onclick=function(){
+    var e=$("rwEmoji").value||"🎁", tx=$("rwText").value||"Surprise Gift", lv=parseInt($("rwLevel").value,10)||2;
+    if(lv<2) lv=2; if(lv>7) lv=7;
+    setReward({emoji:e, text:tx, level:lv}); toast("Reward saved! 🎁");
+  };
+  var armed=false;
+  $("btnReset").onclick=function(){
+    if(!armed){ armed=true; $("btnReset").textContent="⚠️ Tap AGAIN to really reset"; $("resetMsg").textContent="This clears Sreshta's stars, coins, XP, topic progress and history on this device.";
+      setTimeout(function(){ armed=false; var b=$("btnReset"); if(b) b.textContent="🗑 Reset Sreshta's Progress"; }, 4000); return; }
+    var fresh=newProfile("Sreshta","sreshta",false); saveProfile(fresh);
+    if(P && P.slug==="sreshta") P=fresh;
+    toast("Progress reset — fresh start! 🌈"); openDashboard();
+  };
+  show("dash");
+}
+
+/* ================= WIRING ================= */
+function wire(){
+  var nav=document.querySelectorAll("[data-goto]");
+  for(var i=0;i<nav.length;i++){ (function(el){ el.onclick=function(){ show(el.getAttribute("data-goto")); }; })(nav[i]); }
+  $("btnSreshta").onclick=function(){ gotoPin("child"); };
+  $("btnParents").onclick=function(){ gotoPin("parent"); };
+  $("btnGuest").onclick=function(){ show("guest"); setTimeout(function(){ $("guestName").focus(); },80); };
+  $("guestGo").onclick=function(){
+    var nm=$("guestName").value.trim();
+    if(!nm){ toast("Type your name first! 😊"); return; }
+    loginPlayer(slugify(nm), nm, true);
+  };
+  $("guestName").addEventListener("keydown", function(ev){ if(ev.key==="Enter") $("guestGo").click(); });
+  $("btnSwitch").onclick=function(){
+    store.del("g3world_who"); P=null; renderContinue(); show("access");
+  };
+  $("btnParentFromHome").onclick=function(){ gotoPin("parent"); };
+  $("smClose").onclick=function(){ $("subjModal").classList.remove("on"); };
+  $("subjModal").onclick=function(ev){ if(ev.target===$("subjModal")) $("subjModal").classList.remove("on"); };
+  $("btnStartTopic").onclick=function(){ startTopicFlow(); };
+  $("btnExamOnly").onclick=function(){ show("examintro"); };
+  $("btnStartExam").onclick=function(){ startExam(); };
+  $("qListen").onclick=function(){ if(QZ) speak(QZ.list[QZ.idx].speak || QZ.list[QZ.idx].q); };
+  $("qSkip").onclick=function(){ skipQ(); };
+  $("btnToRitual").onclick=function(){ openRitual(false); };
+  $("btnRetryExam").onclick=function(){ show("examintro"); };
+  $("btnAmma").onclick=function(){ openRitual(true); };
+  renderContinue();
+  show("access");
+}
+if(typeof window!=="undefined" && typeof document!=="undefined" && document.getElementById){
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", wire); else wire();
+}
+</script>
+</body>
+</html>
