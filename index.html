@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sreshta's Learning World 🐘</title>
+<title>Sreshta's Learning World 🎀</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -42,6 +42,28 @@ h1.title{
 .appu{font-size:64px; line-height:1; animation:bob 2.6s ease-in-out infinite; filter:drop-shadow(0 4px 4px rgba(38,50,94,.25)); position:relative;}
 .appu .acc{position:absolute; font-size:30px; top:-16px; right:-8px;}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+.cast{display:block;width:92px;min-width:92px;line-height:0;position:relative;}
+.cast svg{width:100%;height:auto;display:block;animation:bob 2.6s ease-in-out infinite;filter:drop-shadow(0 4px 4px rgba(38,50,94,.22));}
+.cast-pair{display:flex;align-items:flex-end;gap:0;}
+.cast-mini{width:54px;min-width:54px;}
+.cast-small{width:62px;min-width:62px;}
+.cast-med{width:78px;min-width:78px;}
+.cast-big{width:118px;min-width:118px;}
+.twirl svg{animation:twirl .75s ease-in-out;}
+@keyframes twirl{0%{transform:rotate(0) scale(1)}35%{transform:rotate(-7deg) scale(1.08)}70%{transform:rotate(7deg) scale(1.08)}100%{transform:rotate(0) scale(1)}}
+.munch svg{animation:munch .35s ease-in-out 3;}
+@keyframes munch{0%,100%{transform:translateY(0)}50%{transform:translateY(4px) scale(.97)}}
+.family-line{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff8fb;border:2.5px dashed #ffb3cd;border-radius:18px;padding:8px 10px;margin:10px 0;font-weight:700;}
+.nanna-moment{border:3.5px solid #ffd32a;background:linear-gradient(140deg,#fffbe9,#ffe9f3);}
+.letter-card{background:#fff8fb;border:2.5px solid #ffb3cd;border-radius:16px;padding:9px 12px;margin:7px 0;font-weight:600;font-size:15px;text-align:left;}
+.wish-pulse{animation:wishpulse 1.6s ease-in-out infinite;}
+@keyframes wishpulse{0%,100%{box-shadow:0 6px 0 rgba(38,50,94,.12)}50%{box-shadow:0 6px 0 rgba(38,50,94,.12),0 0 0 6px rgba(255,211,42,.55)}}
+.boutique-stage{background:linear-gradient(180deg,#fff0f6,#fffbe9);border:3px solid #ffb3cd;border-radius:24px;padding:12px;display:flex;gap:8px;align-items:flex-end;box-shadow:0 6px 0 rgba(38,50,94,.12);margin:12px 0;}
+.boutique-stage .stage-line{flex:1;font-weight:700;font-size:16.5px;background:#fff;border-radius:16px;padding:10px 12px;border:2.5px solid #ffe08a;}
+.shop-sec-t{font-weight:800;font-size:19px;margin:16px 2px 4px;}
+.slot-lab{font-size:12px;font-weight:800;color:#a24b78;letter-spacing:.4px;}
+.confirm-box{background:#fffbe9;border:3px dashed #f7b731;border-radius:18px;padding:12px 14px;font-weight:700;margin:10px 0;}
+.heart-btn{background:#ffe9f3 !important;color:#d6336c !important;}
 .bubble{
   background:#fff; border-radius:20px; border:3px solid #ffe08a; padding:10px 14px;
   font-size:16.5px; font-weight:600; position:relative; box-shadow:0 4px 0 rgba(38,50,94,.12); flex:1;
@@ -385,8 +407,8 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
   <h1 class="title">Sreshta's<br>Learning World</h1>
   <p class="subtitle">Learn • Think • Shine ✨</p>
   <div class="mascot-row">
-    <div class="appu" data-appu>🐘</div>
-    <div class="bubble">Hi! I'm <b>Appu</b>! Pick who is playing today and let's go on a learning adventure! 🌈</div>
+    <div class="cast" data-cast="bubbly"></div>
+    <div class="bubble">Hi! I'm <b>Bubbly</b>, your doll friend! Pick who is playing today and let's go on a learning adventure! 🌈</div>
   </div>
   <div id="continueBox"></div>
   <div class="who-grid">
@@ -409,7 +431,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ PIN ============ -->
 <section class="screen" id="scr-pin">
   <div class="mascot-row">
-    <div class="appu" data-appu>🐘</div>
+    <div class="cast" data-cast="bubbly"></div>
     <div class="bubble" id="pinBubble">Enter your secret PIN!</div>
   </div>
   <div class="card" id="pinCard">
@@ -423,7 +445,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ GUEST NAME ============ -->
 <section class="screen" id="scr-guest">
   <div class="mascot-row">
-    <div class="appu" data-appu>🐘</div>
+    <div class="cast" data-cast="bubbly"></div>
     <div class="bubble">Welcome, friend! What is your name? Your stars will be saved just for you! ⭐</div>
   </div>
   <div class="card">
@@ -437,9 +459,11 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ CHILD HOME ============ -->
 <section class="screen" id="scr-home">
   <div class="mascot-row">
-    <div class="appu" data-appu>🐘</div>
+    <div class="cast" data-cast="bubbly"></div>
+    <div class="cast cast-mini" data-cast="mimi"></div>
     <div class="bubble" id="homeBubble">Welcome!</div>
   </div>
+  <div id="nannaHomeBox"></div>
   <div class="home-top">
     <div class="level-ring" id="levelRing" style="--p:0">
       <div class="lv" id="ringLv">Level 1</div>
@@ -463,13 +487,14 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
       <div class="mut" style="font-size:13.5px;" id="rewardSub">Keep learning to reach it!</div>
     </div>
   </div>
+  <div id="wishHomeBox"></div>
   <div class="card">
     <div style="font-weight:700; font-size:17px; margin-bottom:8px;">🏅 My Badges</div>
     <div class="badges" id="badgeShelf"></div>
   </div>
   <div class="btnrow" style="margin:12px 0;">
     <button class="btn teal small" id="btnTrickyHome">🧩 My Tricky Questions <span id="trickyCount"></span></button>
-    <button class="btn orange small" id="btnShopHome">🛍️ Appu's Shop</button>
+    <button class="btn orange small" id="btnShopHome">🛍️ Bubbly's Boutique</button>
   </div>
   <div class="card">
     <div style="font-weight:700; font-size:17px;">🔎 Homework Helper</div>
@@ -507,7 +532,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ TOPIC START ============ -->
 <section class="screen" id="scr-topic">
   <div class="mascot-row">
-    <div class="appu" data-appu>🐘</div>
+    <div class="cast" data-cast="bubbly"></div>
     <div class="bubble" id="topicBubble">Today we learn!</div>
   </div>
   <div class="card center">
@@ -575,7 +600,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ EXAM INTRO ============ -->
 <section class="screen" id="scr-examintro">
   <div class="mascot-row">
-    <div class="appu" data-appu>🐘</div>
+    <div class="cast" data-cast="bubbly"></div>
     <div class="bubble" id="examIntroBubble">It's <b>Exam</b> time! You are ready — believe in yourself! 💪</div>
   </div>
   <div class="card center">
@@ -594,6 +619,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
     <div style="font-size:23px; font-weight:700;" id="examTitle">Exam Done!</div>
     <div class="score-big" id="examScore">0%</div>
     <p style="font-weight:600; font-size:16.5px;" id="examDetail"></p>
+    <div class="family-line"><span class="cast cast-mini" data-cast="nanna"></span><span>Your family is proud of you!<br><span class="mut" style="font-size:13.5px;">Nanna &amp; Amma are cheering for you 💛</span></span><span class="cast cast-mini" data-cast="amma"></span></div>
     <div class="stat-grid" style="text-align:center;">
       <div class="stat"><div class="v" id="examSums">–</div><div class="k">Sums score</div></div>
       <div class="stat"><div class="v" id="examThink">–</div><div class="k">Thinking score</div></div>
@@ -613,10 +639,12 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ CLOSING RITUAL ============ -->
 <section class="screen" id="scr-ritual">
   <div class="mascot-row">
-    <div class="appu" data-appu>🐘</div>
+    <div class="cast" data-cast="bubbly"></div>
+    <div class="cast cast-mini" data-cast="mimi"></div>
     <div class="bubble">What a super learning day! Show this to Amma! 💛</div>
   </div>
   <div class="amma-mode" id="ritualCard">
+    <div class="cast cast-med" data-cast="amma" style="margin:0 auto;"></div>
     <div class="a1">🌟 Today I finished 🌟</div>
     <div class="a2" id="ritualTopic">Topic</div>
     <div class="a1" id="ritualEarned">I earned ⭐ 0 and 🪙 0</div>
@@ -630,9 +658,29 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 
 <!-- ============ SHOP ============ -->
 <section class="screen" id="scr-shop">
-  <h1 class="title" style="font-size:30px;">🛍️ Appu's Shop</h1>
+  <h1 class="title" style="font-size:30px;">🛍️ Bubbly's Boutique</h1>
   <p class="subtitle" id="shopCoins">Spend your coins — your Level never goes down! 🌟</p>
+  <div class="boutique-stage">
+    <div class="cast cast-big" data-cast="bubbly" id="shopDoll"></div>
+    <div class="cast cast-med" data-cast="mimi" id="shopMimi"></div>
+    <div class="stage-line" id="shopStageLine">Tap any pretty thing to try it on Bubbly or Mimi! 🎀</div>
+  </div>
+  <div id="shopConfirm"></div>
+  <div class="shop-sec-t">👧 Bubbly's Boutique — dress the doll!</div>
+  <p class="mut" style="font-size:14px; margin:2px 2px 8px;">Buy it and Bubbly wears it right away — everywhere in her world! Tap ❤ to wish for one special thing.</p>
   <div class="shop-grid" id="shopGrid"></div>
+  <div class="card">
+    <div style="font-weight:700; font-size:18px; margin-bottom:6px;">👗 My Wardrobe</div>
+    <p class="mut" style="font-size:13.5px; margin:0 0 8px;">Everything Bubbly owns. Tap "Wear it" to change her look — free, any time!</p>
+    <div id="wardrobeGrid"></div>
+  </div>
+  <div class="card" style="border:3px solid #ffd98a;">
+    <div style="font-weight:700; font-size:18px; margin-bottom:6px;">🏆 Earned Treasures — never sold!</div>
+    <div id="treasureGrid"></div>
+  </div>
+  <div class="shop-sec-t">🐰 Mimi's Corner</div>
+  <p class="mut" style="font-size:14px; margin:2px 2px 8px;">Little things for Mimi, Bubbly's bunny. Bought = Mimi wears (or munches!) it right away.</p>
+  <div class="shop-grid" id="mimiGrid"></div>
   <div class="card">
     <div style="font-weight:700; font-size:18px; margin-bottom:8px;">🏰 My Dream World Rooms</div>
     <p class="mut" style="font-size:14px; margin:0 0 8px;">Finish a whole chapter to open its room!</p>
@@ -687,7 +735,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 /* ================= CONSTANTS ================= */
 var CHILD_PIN = "2017";   /* Sreshta's PIN (her birth year) */
 var PARENT_PIN = "7392";  /* Parent Dashboard PIN */
-var PROFILE_V = 2;
+var PROFILE_V = 3;
 var LEVELS = [
   {n:1,name:"Explorer",xp:0},{n:2,name:"Learner",xp:300},{n:3,name:"Thinker",xp:800},
   {n:4,name:"Problem Solver",xp:1500},{n:5,name:"Star Performer",xp:2500},
@@ -1107,11 +1155,11 @@ function thinkMistakeAdd(sub){
   return function(){
     var pr=genPair([1123,8999],[1123,8999],4,function(a,b){ var cs=colSums(a,b,4); return cs[3]>=10; });
     var a=pr[0], b=pr[1], ans=a+b, wrong=ans-10;
-    var good="Appu forgot to CARRY the 1 ten from the ones place";
-    return tfQ("Find the Mistake! Appu wrote: "+num(a)+" + "+num(b)+" = "+num(wrong)+". What is the mistake?",
-      good, ["Nothing is wrong — it is correct","Appu carried an EXTRA ten","Appu subtracted instead of adding"], sub,
+    var good="Mimi forgot to CARRY the 1 ten from the ones place";
+    return tfQ("Find the Mistake! Mimi mixed it up — Mimi wrote: "+num(a)+" + "+num(b)+" = "+num(wrong)+". What is the mistake?",
+      good, ["Nothing is wrong — it is correct","Mimi carried an EXTRA ten","Mimi subtracted instead of adding"], sub,
       "The ones add up to 10 or more, so 1 ten must carry to the tens place. Correct answer: "+num(a)+" + "+num(b)+" = "+num(ans)+".",
-      "Find the mistake! Appu wrote "+a+" plus "+b+" equals "+wrong+". What is the mistake?", "mistake");
+      "Find the mistake! Mimi mixed it up! Mimi wrote "+a+" plus "+b+" equals "+wrong+". What is the mistake?", "mistake");
   };
 }
 function thinkMistakeSub(sub){
@@ -1119,11 +1167,11 @@ function thinkMistakeSub(sub){
     var pr=genPair([2113,8999],[1123,7999],4,function(a,b){ return a>b && hasBorrow(a,b,4); });
     var a=pr[0], b=pr[1], ans=a-b, wrong=noBorrowDiff(a,b,4);
     if(wrong===ans) return thinkMistakeSub(sub)();
-    var good="Appu did NOT borrow — he subtracted the smaller digit from the bigger digit";
-    return tfQ("Find the Mistake! Appu wrote: "+num(a)+" − "+num(b)+" = "+num(wrong)+". What is the mistake?",
-      good, ["Nothing is wrong — it is correct","Appu borrowed one ten EXTRA times","Appu added instead of subtracting"], sub,
+    var good="Mimi did NOT borrow — he subtracted the smaller digit from the bigger digit";
+    return tfQ("Find the Mistake! Mimi mixed it up — Mimi wrote: "+num(a)+" − "+num(b)+" = "+num(wrong)+". What is the mistake?",
+      good, ["Nothing is wrong — it is correct","Mimi borrowed one ten EXTRA times","Mimi added instead of subtracting"], sub,
       "When the top digit is smaller, we must BORROW from the next place. Correct answer: "+num(a)+" − "+num(b)+" = "+num(ans)+".",
-      "Find the mistake! Appu wrote "+a+" minus "+b+" equals "+wrong+". What is the mistake?", "mistake");
+      "Find the mistake! Mimi mixed it up! Mimi wrote "+a+" minus "+b+" equals "+wrong+". What is the mistake?", "mistake");
   };
 }
 function thinkMistakeTable(sub){
@@ -1132,10 +1180,10 @@ function thinkMistakeTable(sub){
     var wrong = ans + pick([t, -t, 2, -2, 10]);
     if(wrong<=0 || wrong===ans) wrong = ans+t;
     var good=t+" × "+m+" = "+ans+", not "+wrong;
-    return tfQ("Find the Mistake! Appu wrote: "+t+" × "+m+" = "+wrong+". What is the mistake?",
+    return tfQ("Find the Mistake! Mimi mixed it up — Mimi wrote: "+t+" × "+m+" = "+wrong+". What is the mistake?",
       good, ["Nothing is wrong — it is correct", t+" × "+m+" = "+(ans+t), t+" × "+m+" = "+(ans-t)], sub,
-      "Table of "+t+": count "+m+" times — "+ans+". Appu's answer "+wrong+" is a nearby table answer, a very common slip!",
-      "Find the mistake! Appu wrote "+t+" times "+m+" equals "+wrong+".", "mistake");
+      "Table of "+t+": count "+m+" times — "+ans+". Mimi's answer "+wrong+" is a nearby table answer, a very common slip!",
+      "Find the mistake! Mimi mixed it up! Mimi wrote "+t+" times "+m+" equals "+wrong+".", "mistake");
   };
 }
 function thinkExtraInfoAdd(aR, bR, sub){
@@ -1308,11 +1356,11 @@ function genThinkMistakeExp(){
   var bad = p.slice(); bad[which] = (which===1)? d[1]*10 : d[2];
   var badStr = bad.filter(function(x){return x>0;}).map(num).join(" + ");
   var wrongDesc = (which===1)? (num(p[1])+" was written as "+num(bad[1])) : (num(p[2])+" was written as "+num(bad[2]));
-  return mkQT({ q:"Find the Mistake! Appu wrote: "+num(n)+" = "+badStr+". What is the mistake?", visual:"",
+  return mkQT({ q:"Find the Mistake! Mimi mixed it up — Mimi wrote: "+num(n)+" = "+badStr+". What is the mistake?", visual:"",
     options:[ wrongDesc, "Nothing is wrong — it is correct", "The thousands part is wrong", "The ones part is wrong" ],
     answer:wrongDesc, sub:"exp", kind:"thinking", thinkType:"mistake",
-    explain:"In "+num(n)+", the "+PLACES[which].n+" part is "+num(p[which])+", but Appu wrote "+num(bad[which])+". Correct expanded form: "+expString(n)+".",
-    speak:"Find the mistake! Appu wrote "+n+" equals "+badStr+". What is the mistake?" });
+    explain:"In "+num(n)+", the "+PLACES[which].n+" part is "+num(p[which])+", but Mimi wrote "+num(bad[which])+". Correct expanded form: "+expString(n)+".",
+    speak:"Find the mistake! Mimi mixed it up! Mimi wrote "+n+" equals "+badStr+". What is the mistake?" });
 }
 function genThinkTFPV(){
   var n = ri(2012,8997); var d=digitsOf(n);
@@ -2106,11 +2154,11 @@ TOP['mul-distributive'] = T("mul-distributive","Distributive Property of Multipl
         "Break "+a+": (10 × "+b+") + ("+(a-10)+" × "+b+") = "+(10*b)+" + "+((a-10)*b)+" = "+ans+".", txt); })
 ],[
   function(){ var a=ri(12,24), b=ri(3,8), wrong=a*b - (a%10)*b; /* forgot the ones part */
-    return tfQ("Find the Mistake! Appu wrote: "+a+" × "+b+" = "+wrong+" (he only multiplied the TENS part). What is the correct answer?",
+    return tfQ("Find the Mistake! Mimi mixed it up — Mimi wrote: "+a+" × "+b+" = "+wrong+" (he only multiplied the TENS part). What is the correct answer?",
       (a*b)+" — he forgot to add the ones part: "+((a%10)*b),
       ["Nothing is wrong — "+wrong+" is correct", (a*b + b)+" — just add one more "+b, wrong+" — but written differently"], "md-break",
       "Breaking apart needs BOTH parts: ("+Math.floor(a/10)*10+" × "+b+") + ("+(a%10)+" × "+b+") = "+(Math.floor(a/10)*10*b)+" + "+((a%10)*b)+" = "+(a*b)+".",
-      "Find the mistake! Appu forgot the ones part.", "mistake"); },
+      "Find the mistake! Mimi forgot the ones part.", "mistake"); },
   thinkMissingBoxMul([12,25],[3,9],"md-break"),
   function(){ return tfQ("True or False? 15 × 4 = (10 × 4) + (5 × 4).",
       "True — 15 breaks into 10 + 5, and both parts are multiplied by 4",
@@ -2547,9 +2595,9 @@ TOP['frac-add'] = T("frac-add","Adding Fractions With the Same Denominator","➕
     fracAddGen("fa-story", false))
 ],[
   function(){ var b=pick([4,5,6,8]), a=ri(1,b-2), c=ri(1,b-a-1), wrong=(a+c)+"/"+(b+b);
-    return tfQ("Find the Mistake! Appu wrote: "+a+"/"+b+" + "+c+"/"+b+" = "+wrong+". What is the mistake?",
-      "Appu added the BOTTOMS too — bottoms never add! Answer: "+(a+c)+"/"+b,
-      ["Nothing is wrong — "+wrong+" is correct","Appu forgot to add the tops","Appu should subtract instead"], "fa-bar",
+    return tfQ("Find the Mistake! Mimi mixed it up — Mimi wrote: "+a+"/"+b+" + "+c+"/"+b+" = "+wrong+". What is the mistake?",
+      "Mimi added the BOTTOMS too — bottoms never add! Answer: "+(a+c)+"/"+b,
+      ["Nothing is wrong — "+wrong+" is correct","Mimi forgot to add the tops","Mimi should subtract instead"], "fa-bar",
       "Denominators tell the SIZE of the parts — they never add. Only numerators (parts taken) add: "+a+" + "+c+" = "+(a+c)+".", "Find the mistake in the fraction addition!", "mistake"); },
   thinkOddNumeric("fa-story"),
   function(){ var b=pick([5,6,8]), a=ri(1,b-2), tot=ri(a+1,b-1);
@@ -2575,9 +2623,9 @@ TOP['frac-sub'] = T("frac-sub","Subtracting Fractions With the Same Denominator"
     fracSubGen("fs-story", false))
 ],[
   function(){ var b=pick([4,5,6,8]), a=ri(2,b-1), c=ri(1,a-1), wrong=(a-c)+"/"+(b-b);
-    return tfQ("Find the Mistake! Appu wrote: "+a+"/"+b+" − "+c+"/"+b+" = "+(a-c)+"/0. What is the mistake?",
+    return tfQ("Find the Mistake! Mimi mixed it up — Mimi wrote: "+a+"/"+b+" − "+c+"/"+b+" = "+(a-c)+"/0. What is the mistake?",
       "The bottom NEVER becomes 0 — it stays "+b+"! Answer: "+(a-c)+"/"+b,
-      ["Nothing is wrong","Appu subtracted the tops wrongly","Appu should add the bottoms"], "fs-bar",
+      ["Nothing is wrong","Mimi subtracted the tops wrongly","Mimi should add the bottoms"], "fs-bar",
       "Denominators never subtract. Only the tops: "+a+" − "+c+" = "+(a-c)+", bottom stays "+b+".", "Find the mistake in the fraction subtraction!", "mistake"); },
   thinkOddNumeric("fs-story"),
   function(){ var b=pick([5,6,8]), c=ri(1,b-2), tot=ri(c+1,b-1);
@@ -2848,7 +2896,7 @@ TOP['wt-convert'] = T("wt-convert","Weight — Conversion","⚖️",[
         k+" kg = "+num(g1)+" g. Compare "+num(g1)+" g and "+num(g2)+" g: the heavier is "+(more===g1? k+" kg" : num(g2)+" g")+".", "Which is heavier?"); }),
   S("Weighing Stories","wc-story","Vegetables, bags of rice, and a baby elephant's lunch! 🐘",
     "Weighing stories.",
-    vTxt("<div style='font-size:20px;'>🐘 Appu eats 5 kg of bananas a day = <b>5,000 g</b>!</div>"),
+    vTxt("<div style='font-size:20px;'>🐘 An elephant eats 5 kg of bananas a day = <b>5,000 g</b>!</div>"),
     function(){ var k=ri(2,15); var c=ctxPick();
       var txt="A bag of "+c.item+" weighs "+k+" kg. How many grams is that?";
       return mkQ(txt, "⚖️", num(k*1000)+" g", [num(k*100)+" g", num(k*10)+" g", k+" g"], "wc-story","sums",
@@ -2910,9 +2958,9 @@ TOP['vol-convert'] = T("vol-convert","Volume and Capacity — Conversion","🥤"
       var it=pick(conts);
       return mkQ("Is the capacity of "+it[0]+" measured better in LITRES or MILLILITRES?", "", cap(it[2]), [["Litres","Millilitres"].filter(function(x){return x!==cap(it[2]);})[0], "Kilograms", "Centimetres"], "vc-hold","sums",
         it[0]+" holds "+(it[2]==="litres"? "a LOT of water — litres fit best" : "only a little water — millilitres fit best")+"!", "Litres or millilitres for "+it[0]+"?"); }),
-  S("Capacity Stories","vc-story","Juice for a party, water for Appu, milk for tea!",
+  S("Capacity Stories","vc-story","Juice for a party, water for an elephant, milk for tea!",
     "Capacity stories.",
-    vTxt("<div style='font-size:20px;'>🐘 Appu drinks 8 L of water = <b>8,000 mL</b>!</div>"),
+    vTxt("<div style='font-size:20px;'>🐘 An elephant drinks 8 L of water = <b>8,000 mL</b>!</div>"),
     function(){ var l=ri(2,12);
       var txt="A tank holds "+l+" litres of water. How many millilitres is that?";
       return mkQ(txt, "🚰", num(l*1000)+" mL", [num(l*100)+" mL", num(l*10)+" mL", l+" mL"], "vc-story","sums",
@@ -3408,8 +3456,189 @@ function lsGet(key){ try{ var v = localStorage.getItem(LS_PREFIX+key); return v?
 function lsSet(key, val){ try{ localStorage.setItem(LS_PREFIX+key, JSON.stringify(val)); }catch(e){} }
 function slugify(name){ return String(name||"player").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"player"; }
 
-/* ============ PROFILE v2 + MIGRATION ============ */
-var PROFILE_V = 2;
+/* ============ BOUTIQUE CATALOGUE + CAST ITEM LOGIC (v3) ============ */
+var BOUTIQUE_ITEMS = [
+  { id:"hair-open", name:"Open Hair", icon:"💇‍♀️", price:0, corner:"doll", slot:"hair", style:"open", def:true },
+  { id:"hair-ponytail", name:"Ponytail", icon:"🎀", price:30, corner:"doll", slot:"hair", style:"ponytail" },
+  { id:"hair-braids", name:"Braids", icon:"🧶", price:45, corner:"doll", slot:"hair", style:"braids" },
+  { id:"hair-bun", name:"Dance Bun", icon:"🩰", price:50, corner:"doll", slot:"hair", style:"bun" },
+  { id:"hair-curly", name:"Curly Hair", icon:"🌀", price:60, corner:"doll", slot:"hair", style:"curly" },
+  { id:"treasure-thinker-cap", name:"Golden Thinker Cap", icon:"🧢", price:0, corner:"doll", slot:"hair", style:"cap", treasure:"thinker" },
+  { id:"dress-pink", name:"Pink Dress", icon:"👗", price:0, corner:"doll", slot:"dress", style:"pink", def:true },
+  { id:"dress-school", name:"School Dress", icon:"🎒", price:40, corner:"doll", slot:"dress", style:"school" },
+  { id:"dress-dance", name:"Twirly Dance Dress", icon:"💃", price:60, corner:"doll", slot:"dress", style:"dance" },
+  { id:"dress-lehenga", name:"Festive Lehenga", icon:"🪔", price:80, corner:"doll", slot:"dress", style:"lehenga" },
+  { id:"dress-explorer", name:"Explorer Outfit", icon:"🧭", price:55, corner:"doll", slot:"dress", style:"explorer" },
+  { id:"dress-artist", name:"Artist Dress", icon:"🎨", price:50, corner:"doll", slot:"dress", style:"artist" },
+  { id:"dress-pyjamas", name:"Cosy Pyjamas", icon:"🌙", price:35, corner:"doll", slot:"dress", style:"pyjamas" },
+  { id:"dress-cape", name:"Super-Bubbly Cape Dress", icon:"🦸‍♀️", price:70, corner:"doll", slot:"dress", style:"cape" },
+  { id:"treasure-brave-cape", name:"Brave Cape", icon:"🏅", price:0, corner:"doll", slot:"dress", style:"brave", treasure:"brave" },
+  { id:"acc-bow", name:"Side Bow", icon:"🎀", price:0, corner:"doll", slot:"accessory", style:"bow", def:true },
+  { id:"acc-flower", name:"Flower Clip", icon:"🌸", price:20, corner:"doll", slot:"accessory", style:"flower" },
+  { id:"acc-star-glasses", name:"Star Glasses", icon:"🤓", price:40, corner:"doll", slot:"accessory", style:"star-glasses" },
+  { id:"acc-heart-glasses", name:"Heart Sunglasses", icon:"😎", price:45, corner:"doll", slot:"accessory", style:"hearts" },
+  { id:"acc-carrot", name:"Carrot Hairclip", icon:"🥕", price:25, corner:"doll", slot:"accessory", style:"carrot" },
+  { id:"acc-wand", name:"Magic Wand", icon:"🪄", price:55, corner:"doll", slot:"accessory", style:"wand" },
+  { id:"acc-crown", name:"Princess Crown", icon:"👑", price:150, corner:"doll", slot:"accessory", style:"crown" },
+  { id:"acc-bag", name:"School Bag", icon:"🎒", price:40, corner:"doll", slot:"accessory", style:"bag" },
+  { id:"treasure-chapter-crown", name:"Chapter Crown", icon:"👑", price:0, corner:"doll", slot:"accessory", style:"chapter-crown", treasure:"chapter" },
+  { id:"theme-sunset", name:"Sunset Home Theme", icon:"🌅", price:50, corner:"fun", type:"theme", val:"sunset" },
+  { id:"theme-mint", name:"Mint Home Theme", icon:"🌿", price:50, corner:"fun", type:"theme", val:"mint" },
+  { id:"theme-candy", name:"Candy Home Theme", icon:"🍬", price:50, corner:"fun", type:"theme", val:"candy" },
+  { id:"bubble", name:"Bubble Pop Mini-Game", icon:"🫧", price:100, corner:"fun", type:"game", val:"" }
+];
+var MIMI_ITEMS = [
+  { id:"mimi-ear-bow", name:"Ear Bow for Mimi", icon:"🎀", price:20, corner:"mimi", slot:"ears", style:"bow" },
+  { id:"mimi-ear-flower", name:"Ear Flower for Mimi", icon:"🌼", price:25, corner:"mimi", slot:"ears", style:"flower" },
+  { id:"mimi-carrot-snack", name:"Carrot Snack", icon:"🥕", price:10, corner:"mimi", consumable:true },
+  { id:"mimi-blanket", name:"Cosy Blanket for Mimi", icon:"🧣", price:45, corner:"mimi", slot:"blanket", style:"blanket" }
+];
+function boutiqueItem(id){ var all = BOUTIQUE_ITEMS.concat(MIMI_ITEMS); for(var i=0;i<all.length;i++) if(all[i].id===id) return all[i]; return null; }
+function isWearableItem(it){ return !!(it && (it.slot==="hair"||it.slot==="dress"||it.slot==="accessory"||it.slot==="ears"||it.slot==="blanket")); }
+function defaultLook(){ return { hair:"hair-open", dress:"dress-pink", accessory:"acc-bow" }; }
+function defaultMimiLook(){ return { ears:"", blanket:"" }; }
+function starterWardrobe(){ return ["hair-open","dress-pink","acc-bow"]; }
+function ensureLookShape(p){
+  if(!p.look) p.look = defaultLook();
+  ["hair","dress","accessory"].forEach(function(slot){ var it = boutiqueItem(p.look[slot]); if(!it || it.slot!==slot) p.look[slot] = defaultLook()[slot]; });
+  if(!p.mimiLook) p.mimiLook = defaultMimiLook();
+  if(!Array.isArray(p.wardrobe)) p.wardrobe = starterWardrobe();
+  starterWardrobe().forEach(function(id){ if(p.wardrobe.indexOf(id)<0) p.wardrobe.push(id); });
+  if(!p.itemSources) p.itemSources = {};
+  starterWardrobe().forEach(function(id){ if(!p.itemSources[id]) p.itemSources[id] = "starter"; });
+  if(!Array.isArray(p.treasures)) p.treasures = p.wardrobe.filter(function(id){ var it = boutiqueItem(id); return it && it.treasure; });
+  if(!Array.isArray(p.nannaLetters)) p.nannaLetters = [];
+  if(p.pendingNanna===undefined) p.pendingNanna = null;
+  if(p.wishlist===undefined) p.wishlist = "";
+}
+function addOwnedItem(p, id, source){
+  var it = boutiqueItem(id); if(!it) return false;
+  ensureLookShape(p);
+  var newly = false;
+  if(isWearableItem(it)){ if(p.wardrobe.indexOf(id)<0){ p.wardrobe.push(id); newly = true; } }
+  else if(it.type==="theme" || it.type==="game"){ if(p.purchases.indexOf(id)<0){ p.purchases.push(id); newly = true; } }
+  if(source) p.itemSources[id] = source;
+  return newly;
+}
+function applyOwnedItem(p, id){
+  var it = boutiqueItem(id); if(!it) return false;
+  ensureLookShape(p);
+  if(it.slot==="hair" || it.slot==="dress" || it.slot==="accessory"){ if(p.wardrobe.indexOf(id)<0) return false; p.look[it.slot] = id; return true; }
+  if(it.slot==="ears"){ if(p.wardrobe.indexOf(id)<0) return false; p.mimiLook.ears = id; return true; }
+  if(it.slot==="blanket"){ if(p.wardrobe.indexOf(id)<0) return false; p.mimiLook.blanket = id; return true; }
+  if(it.type==="theme"){ if(p.purchases.indexOf(id)<0) return false; p.theme = it.val; return true; }
+  if(it.type==="game"){ return p.purchases.indexOf(id)>=0; }
+  return false;
+}
+function thinkCorrectTotal(p){
+  var fromStats = (p.thinkStats && p.thinkStats.c) || 0;
+  var fromAttempts = (p.attempts||[]).filter(function(a){ return a && a.kind==="thinking" && a.ok; }).length;
+  return Math.max(fromStats, fromAttempts);
+}
+function awardTreasure(p, id){
+  var it = boutiqueItem(id); if(!it || !it.treasure) return false;
+  ensureLookShape(p);
+  if(p.wardrobe.indexOf(id)>=0) return false;
+  addOwnedItem(p, id, "treasure");
+  if(p.treasures.indexOf(id)<0) p.treasures.push(id);
+  return true;
+}
+function checkTreasures(p, event){
+  var newly = [];
+  if(thinkCorrectTotal(p) >= 20 && awardTreasure(p, "treasure-thinker-cap")) newly.push("treasure-thinker-cap");
+  if(event && event.type==="chapterExam" && event.badge==="Gold" && awardTreasure(p, "treasure-chapter-crown")) newly.push("treasure-chapter-crown");
+  if(event && ((event.type==="examPass" && (event.attempts||0)>=3) || (event.type==="exam" && event.afterRevise) || event.type==="clearRevise") && awardTreasure(p, "treasure-brave-cape")) newly.push("treasure-brave-cape");
+  return newly;
+}
+function coinMathFor(p, it){ return { have:p.coins||0, price:it? it.price:0, left:(p.coins||0)-(it? it.price:0), enough: !!it && (p.coins||0) >= it.price }; }
+function purchaseItem(p, id){
+  var it = boutiqueItem(id); if(!it) return { ok:false, reason:"unknown" };
+  ensureLookShape(p);
+  if(it.treasure) return { ok:false, reason:"treasure", item:it };
+  if(!it.consumable && (p.wardrobe.indexOf(id)>=0 || p.purchases.indexOf(id)>=0)) return { ok:false, reason:"owned", item:it };
+  var math = coinMathFor(p, it);
+  if(!math.enough) return { ok:false, reason:"coins", item:it, have:math.have, left:math.left };
+  p.coins -= it.price; p.coinsSpentTotal = (p.coinsSpentTotal||0) + it.price;
+  p.coinLedger.push({ what:(it.corner==="mimi"? "Mimi's Corner: " : "Bubbly's Boutique: ") + it.name, amt:-it.price, date:todayStr() });
+  if(p.coinLedger.length>200) p.coinLedger = p.coinLedger.slice(-200);
+  if(it.consumable) return { ok:true, item:it, left:p.coins, consumable:true, worn:false };
+  if(p.purchases.indexOf(id)<0) p.purchases.push(id);
+  addOwnedItem(p, id, "shop");
+  var worn = applyOwnedItem(p, id);
+  if(p.wishlist===id) p.wishlist = "";
+  return { ok:true, item:it, left:p.coins, worn:worn };
+}
+function setWishlist(p, id){
+  var it = boutiqueItem(id);
+  if(!it || it.treasure || it.consumable || !isWearableItem(it)) return false;
+  ensureLookShape(p);
+  if(p.wardrobe.indexOf(id)>=0) return false;
+  p.wishlist = (p.wishlist===id)? "" : id;
+  return true;
+}
+function wishlistInfo(p){
+  if(!p || !p.wishlist) return null;
+  var it = boutiqueItem(p.wishlist);
+  if(!it) return null;
+  ensureLookShape(p);
+  if(p.wardrobe.indexOf(it.id)>=0) return { item:it, owned:true, gap:0, affordable:true };
+  var gap = Math.max(0, it.price - (p.coins||0));
+  return { item:it, owned:false, gap:gap, affordable: gap===0 };
+}
+function queueNannaLetter(p, text, giftItemId){
+  text = String(text||"").trim().slice(0,140);
+  if(giftItemId && !boutiqueItem(giftItemId)) return false;
+  if(!text && !giftItemId) return false;
+  p.pendingNanna = { text:text, giftItemId:giftItemId||"", date:todayStr() };
+  return true;
+}
+function deliverNannaLetter(p){
+  if(!p || !p.pendingNanna) return { delivered:false };
+  ensureLookShape(p);
+  var pend = p.pendingNanna;
+  var giftItem = pend.giftItemId? boutiqueItem(pend.giftItemId) : null;
+  var worn = false;
+  if(giftItem){
+    if(!giftItem.consumable){ addOwnedItem(p, giftItem.id, "gift"); worn = applyOwnedItem(p, giftItem.id); }
+    if(p.wishlist===giftItem.id) p.wishlist = "";
+  }
+  var letter = { text:pend.text||"", giftItemId:giftItem? giftItem.id : "", giftName:giftItem? giftItem.name : "", date:pend.date||todayStr(), read:true, readDate:todayStr() };
+  p.nannaLetters.push(letter);
+  p.pendingNanna = null;
+  return { delivered:true, letter:letter, giftItem:giftItem, worn:worn };
+}
+var LEGACY_SHOP_MAP = { "hat":"hair-ponytail", "shades":"acc-star-glasses", "crown":"acc-crown", "theme-sunset":"theme-sunset", "theme-mint":"theme-mint", "theme-candy":"theme-candy", "bubble":"bubble" };
+var LEGACY_SHOP_PRICES = { "hat":30, "bow":30, "shades":40, "crown":90, "theme-sunset":50, "theme-mint":50, "theme-candy":50, "bubble":100 };
+var LEGACY_SHOP_REFUNDS = { "bow":30 };
+function applyShopMigration(p, legacyPurchases){
+  ensureLookShape(p);
+  var legacy = [];
+  (legacyPurchases||[]).forEach(function(id){ if(legacy.indexOf(id)<0) legacy.push(id); });
+  p.legacyPurchases = legacy.slice();
+  var kept = [];
+  (p.purchases||[]).forEach(function(id){ if(legacy.indexOf(id)<0 && kept.indexOf(id)<0) kept.push(id); });
+  p.purchases = kept;
+  legacy.forEach(function(id){
+    if(LEGACY_SHOP_REFUNDS[id]){
+      p.coins = (p.coins||0) + LEGACY_SHOP_REFUNDS[id];
+      p.coinLedger.push({ what:"Boutique update: the old Pretty Bow became your starter Side Bow — coins back", amt:LEGACY_SHOP_REFUNDS[id], date:todayStr() });
+      return;
+    }
+    var nid = LEGACY_SHOP_MAP[id];
+    if(nid){
+      var it = boutiqueItem(nid);
+      if(it && isWearableItem(it)){ addOwnedItem(p, nid, "shop (updated)"); if(p.purchases.indexOf(nid)<0) p.purchases.push(nid); }
+      else if(nid && p.purchases.indexOf(nid)<0) p.purchases.push(nid);
+    } else if(p.purchases.indexOf(id)<0) p.purchases.push(id);
+  });
+  if(p.outfit){
+    var wornLegacy = LEGACY_SHOP_MAP[Object.keys(LEGACY_SHOP_MAP).filter(function(k){ return ({ "hat":"🎩", "shades":"🕶️", "crown":"👑" })[k]===p.outfit; })[0]];
+    if(wornLegacy) applyOwnedItem(p, wornLegacy);
+  }
+}
+
+/* ============ PROFILE v3 + MIGRATION ============ */
+var PROFILE_V = 3;
 function defaultTopicState(){ return { stepsDone:0, stage:0, thinkDone:false, mastered:false, testedOut:false, status:"", fixStep:-1, bestExamPct:0, bestXP:0, exams:0, prac:{a:0,c:0}, think:{a:0,c:0}, examHistory:[] }; }
 function defaultChapterState(){ return { bestPct:0, mastered:false, bonusXP:0, honest:false, attempts:0, history:[] }; }
 function newProfile(name){
@@ -3419,6 +3648,9 @@ function newProfile(name){
     badges:[], badgeDates:{}, chapterBadges:{}, playDays:[], mistakeFinderCount:0, tfWhyCount:0,
     pendingConfirm:[], baseline:null, paper:{}, teach:{count:0, sessions:[]},
     purchases:[], theme:"", outfit:"", coinLedger:[], rewardsGiven:[], rituals:0, bestStreak:0,
+    look:defaultLook(), mimiLook:defaultMimiLook(), wardrobe:starterWardrobe(),
+    itemSources:{ "hair-open":"starter", "dress-pink":"starter", "acc-bow":"starter" },
+    treasures:[], wishlist:"", pendingNanna:null, nannaLetters:[], legacyPurchases:[], pendingTreasureAwards:[],
     lastPlayed:todayStr(), createdAt:todayStr(), coinsSpentTotal:0 };
 }
 function topicState(p, tid){ if(!p.topics[tid]) p.topics[tid]=defaultTopicState(); return p.topics[tid]; }
@@ -3439,10 +3671,20 @@ function recomputeProfileXP(p){
 }
 function migrateProfile(old){
   if(!old) return null;
-  if(old.v===PROFILE_V && old.topics) { /* already v2 — safe defaults merge */
+  if(old.v===PROFILE_V && old.topics) { /* already v3 — safe defaults merge */
     var base = newProfile(old.name||"Player");
     Object.keys(base).forEach(function(k){ if(old[k]===undefined) old[k]=base[k]; });
+    ensureLookShape(old);
     old.v = PROFILE_V; return old;
+  }
+  if(old.v===2 && old.topics) { /* v2 → v3: keep EVERYTHING, map the old shop */
+    var p2 = old;
+    var base2 = newProfile(old.name||"Player");
+    Object.keys(base2).forEach(function(k){ if(p2[k]===undefined) p2[k]=base2[k]; });
+    ensureLookShape(p2);
+    applyShopMigration(p2, (old.purchases||[]).slice());
+    p2.v = PROFILE_V;
+    return p2;
   }
   var p = newProfile(old.name||"Player");
   /* Phase 1 scalar fields */
@@ -3475,6 +3717,7 @@ function migrateProfile(old){
   recomputeProfileXP(p);
   var st = p.topics["place-value-expanded"];
   if(st && st.mastered && (old.xp||0) > 0){ st.bestXP = Math.min(100, old.xp); p.xp = st.bestXP + Object.keys(p.chapters).reduce(function(s2,cid){ return s2+(p.chapters[cid].bonusXP||0); }, 0); }
+  if(old.purchases && old.purchases.length) applyShopMigration(p, old.purchases.slice());
   p.v = PROFILE_V;
   return p;
 }
@@ -3597,7 +3840,7 @@ function evaluateChapterExam(p, cid, results){
 /* ============ PURE LOGIC: badges ============ */
 var TRAIT_BADGES = [
   { id:"brave", name:"Brave Tryer", icon:"🦁", how:"Took a Topic Exam again after a Revise" },
-  { id:"mistake-finder", name:"Mistake Finder", icon:"🔍", how:"Found 5 of Appu's mistakes" },
+  { id:"mistake-finder", name:"Mistake Finder", icon:"🔍", how:"Found 5 of Mimi's mix-ups" },
   { id:"never-give-up", name:"Never Give Up", icon:"💪", how:"Passed an exam on the 3rd try or later" },
   { id:"regular", name:"Regular Star", icon:"📅", how:"Played on 5 different days" },
   { id:"explainer", name:"Clear Explainer", icon:"🗣️", how:"Got 10 True/False + Why questions right" }
@@ -3615,6 +3858,8 @@ function checkBadges(p, event){
     if(event.type==="exam" && event.afterRevise && awardBadge(p,"brave")) newly.push("brave");
     if(event.type==="examPass" && (event.attempts||0)>=3 && awardBadge(p,"never-give-up")) newly.push("never-give-up");
   }
+  var treasures = checkTreasures(p, event);
+  if(treasures.length){ p.pendingTreasureAwards = (p.pendingTreasureAwards||[]).concat(treasures); }
   return newly;
 }
 
@@ -3711,9 +3956,10 @@ function rewardDue(p){
 "use strict";
 /* ============ APP STATE & UI HELPERS ============ */
 var APP = { profile:null, isGuest:false, cid:null, tid:null, stepIx:0, session:null, phaseNext:null,
-  pinTarget:null, pinBuf:"", examCtx:null, snap:null, ammaBig:false, bubTimer:null, bubScore:0, resetArm:false };
+  pinTarget:null, pinBuf:"", examCtx:null, snap:null, ammaBig:false, bubTimer:null, bubScore:0, resetArm:false, shopPreviewId:"" };
 function el(id){ return document.getElementById(id); }
 function show(scr){
+  renderCast();
   var all = document.querySelectorAll(".screen");
   for(var i=0;i<all.length;i++) all[i].classList.remove("on");
   var s = el("scr-"+scr); if(s) s.classList.add("on");
@@ -3742,15 +3988,145 @@ function confetti(){
     (function(node){ setTimeout(function(){ if(node.parentNode) node.parentNode.removeChild(node); }, 3400); })(s);
   }
 }
+/* ============ FAMILY DOLL CAST (inline SVG, switchable outfit layers) ============ */
+function castItemStyle(id, fallback){ var it = boutiqueItem(id); return (it && it.style)? it.style : fallback; }
+function bubblySVG(look){
+  look = look || defaultLook();
+  var hs = castItemStyle(look.hair, "open"), ds = castItemStyle(look.dress, "pink"), as = castItemStyle(look.accessory, "bow");
+  var dc = { pink:["#ff6b9d","#ff9dbd"], school:["#3b6fd4","#2f57a8"], dance:["#a55eea","#c99aff"], lehenga:["#e23b3b","#f0763d"], explorer:["#2a9d8f","#63bda9"], artist:["#0fb5a6","#7fe8db"], pyjamas:["#7db4ff","#b3d4ff"], cape:["#7c4dff","#a78bff"], brave:["#3aa0ff","#79c2ff"] }[ds] || ["#ff6b9d","#ff9dbd"];
+  var FUR = "#ffc4da", FURD = "#ffb0cd", EDGE = "#f78fb0", HAIR = "#4a3436";
+  var s = '<svg viewBox="0 0 120 142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bubbly, the baby pink plush doll">';
+  s += '<ellipse cx="60" cy="136" rx="30" ry="4.5" fill="rgba(38,50,94,.13)"/>';
+  if(ds==="cape" || ds==="brave") s += '<path d="M30 66 Q10 96 18 128 L40 124 Q34 92 40 68 Z" fill="#e23b3b"/><path d="M90 66 Q110 96 102 128 L80 124 Q86 92 80 68 Z" fill="#e23b3b"/>';
+  if(hs==="open") s += '<path d="M28 54 Q27 12 60 10 Q93 12 92 54 L90 100 Q75 108 60 108 Q45 108 30 100 Z" fill="'+HAIR+'" stroke="#38262a" stroke-width="1.6" stroke-dasharray="5 3"/>';
+  if(hs==="curly") s += '<g fill="'+HAIR+'"><circle cx="33" cy="36" r="11"/><circle cx="30" cy="56" r="10"/><circle cx="87" cy="36" r="11"/><circle cx="90" cy="56" r="10"/><circle cx="44" cy="20" r="11"/><circle cx="60" cy="16" r="12"/><circle cx="76" cy="20" r="11"/></g>';
+  if(hs==="braids") s += '<g fill="'+HAIR+'"><circle cx="31" cy="58" r="7"/><circle cx="30" cy="74" r="6.5"/><circle cx="31" cy="89" r="6"/><circle cx="89" cy="58" r="7"/><circle cx="90" cy="74" r="6.5"/><circle cx="89" cy="89" r="6"/></g><circle cx="30" cy="100" r="4" fill="#ff5d8f"/><circle cx="90" cy="100" r="4" fill="#ff5d8f"/>';
+  if(hs==="ponytail") s += '<path d="M84 30 Q106 44 100 78 Q97 94 88 96 Q94 66 82 44 Z" fill="'+HAIR+'"/>';
+  s += '<ellipse cx="60" cy="106" rx="27" ry="29" fill="'+FUR+'" stroke="'+EDGE+'" stroke-width="1.8" stroke-dasharray="5 3"/>';
+  s += '<ellipse cx="60" cy="113" rx="15.5" ry="18" fill="#fff7ee" opacity=".92"/>';
+  s += '<path d="M44 82 L76 82 L88 126 Q60 134 32 126 Z" fill="'+dc[0]+'"/>';
+  s += '<path d="M44 82 L76 82 L80 100 L40 100 Z" fill="'+dc[1]+'" opacity=".55"/>';
+  if(ds==="dance") s += '<ellipse cx="60" cy="124" rx="31" ry="8" fill="'+dc[1]+'"/><circle cx="48" cy="112" r="2.4" fill="#ffd32a"/><circle cx="66" cy="118" r="2.4" fill="#ffd32a"/><circle cx="58" cy="106" r="2.4" fill="#fff"/>';
+  if(ds==="lehenga") s += '<path d="M46 84 L84 122 L76 126 L40 90 Z" fill="#ffd32a" opacity=".9"/><circle cx="52" cy="116" r="2.2" fill="#ffd32a"/><circle cx="70" cy="110" r="2.2" fill="#ffd32a"/>';
+  if(ds==="school") s += '<path d="M50 82 L60 94 L70 82 L66 82 L60 88 L54 82 Z" fill="#fff"/><rect x="42" y="106" width="36" height="5" rx="2.5" fill="#ffd32a"/>';
+  if(ds==="explorer") s += '<rect x="40" y="104" width="40" height="6" rx="3" fill="#8a5a2b"/><rect x="56" y="103" width="8" height="8" rx="2" fill="#ffd32a"/>';
+  if(ds==="artist") s += '<circle cx="50" cy="108" r="3.4" fill="#ff5d8f"/><circle cx="64" cy="114" r="3.4" fill="#ffd32a"/><circle cx="58" cy="102" r="3" fill="#3aa0ff"/>';
+  if(ds==="pyjamas") s += '<text x="50" y="114" font-size="11" fill="#fff">★</text><text x="64" y="106" font-size="9" fill="#fff">☾</text>';
+  if(ds==="brave") s += '<text x="53" y="106" font-size="15" fill="#ffd32a">★</text>';
+  s += '<ellipse cx="31" cy="97" rx="7" ry="12" fill="'+FUR+'" stroke="'+EDGE+'" stroke-width="1.6" stroke-dasharray="4 3" transform="rotate(16 31 97)"/>';
+  s += '<ellipse cx="89" cy="97" rx="7" ry="12" fill="'+FUR+'" stroke="'+EDGE+'" stroke-width="1.6" stroke-dasharray="4 3" transform="rotate(-16 89 97)"/>';
+  s += '<ellipse cx="47" cy="133" rx="8" ry="4.2" fill="'+FUR+'" stroke="'+EDGE+'" stroke-width="1.5" stroke-dasharray="4 3"/><ellipse cx="73" cy="133" rx="8" ry="4.2" fill="'+FUR+'" stroke="'+EDGE+'" stroke-width="1.5" stroke-dasharray="4 3"/>';
+  s += '<g fill="'+FURD+'"><circle cx="35" cy="33" r="7"/><circle cx="47" cy="24" r="7.5"/><circle cx="60" cy="21" r="8"/><circle cx="73" cy="24" r="7.5"/><circle cx="85" cy="33" r="7"/><circle cx="89" cy="47" r="6.5"/><circle cx="31" cy="47" r="6.5"/></g>';
+  s += '<circle cx="60" cy="50" r="28" fill="'+FUR+'" stroke="'+EDGE+'" stroke-width="1.8" stroke-dasharray="5 3"/>';
+  s += '<ellipse cx="46" cy="33" rx="11" ry="6" fill="#fff" opacity=".4" transform="rotate(-18 46 33)"/>';
+  s += '<circle cx="60" cy="54" r="20.5" fill="#fff7ee"/>';
+  if(hs==="open" || hs==="ponytail" || hs==="braids") s += '<path d="M38 47 Q40 25 60 24 Q80 25 82 47 Q70 34 60 34 Q50 34 38 47 Z" fill="'+HAIR+'"/>';
+  if(hs==="open") s += '<path d="M35 44 Q31 66 36 88 Q40 92 42 86 Q40 62 41 46 Z" fill="'+HAIR+'"/><path d="M85 44 Q89 66 84 88 Q80 92 78 86 Q80 62 79 46 Z" fill="'+HAIR+'"/>';
+  if(hs==="ponytail") s += '<circle cx="81" cy="29" r="6" fill="#ff5d8f"/>';
+  if(hs==="bun") s += '<circle cx="60" cy="15" r="10.5" fill="'+HAIR+'" stroke="#38262a" stroke-width="1.4" stroke-dasharray="4 3"/><circle cx="60" cy="15" r="4.2" fill="#ff5d8f"/><path d="M38 47 Q40 25 60 24 Q80 25 82 47 Q70 34 60 34 Q50 34 38 47 Z" fill="'+HAIR+'"/>';
+  if(hs==="curly") s += '<g fill="'+HAIR+'"><circle cx="41" cy="30" r="7.5"/><circle cx="53" cy="24" r="8.5"/><circle cx="67" cy="24" r="8.5"/><circle cx="79" cy="30" r="7.5"/><circle cx="35" cy="43" r="6.5"/><circle cx="85" cy="43" r="6.5"/></g>';
+  if(hs==="cap") s += '<path d="M36 42 Q40 21 60 21 Q80 21 84 42 Q60 32 36 42 Z" fill="#e6a817"/><rect x="32" y="40" width="56" height="6" rx="3" fill="#c78f0a"/><text x="54" y="35" font-size="12" fill="#fff">★</text>';
+  s += '<circle cx="50" cy="53" r="4.3" fill="#26222b"/><circle cx="70" cy="53" r="4.3" fill="#26222b"/>';
+  s += '<circle cx="51.6" cy="51.4" r="1.5" fill="#fff"/><circle cx="71.6" cy="51.4" r="1.5" fill="#fff"/>';
+  s += '<ellipse cx="41.5" cy="62" rx="5.6" ry="3.5" fill="#ff8fab"/><ellipse cx="78.5" cy="62" rx="5.6" ry="3.5" fill="#ff8fab"/>';
+  s += '<ellipse cx="60" cy="59.5" rx="2.3" ry="1.7" fill="#ff9ebb"/>';
+  s += '<path d="M54.5 64.5 Q60 69 65.5 64.5" stroke="#c2506e" stroke-width="2.3" fill="none" stroke-linecap="round"/>';
+  if(as==="bow") s += '<g fill="#ff5d8f"><ellipse cx="83" cy="27" rx="8" ry="5" transform="rotate(-24 83 27)"/><ellipse cx="96" cy="33" rx="8" ry="5" transform="rotate(24 96 33)"/><circle cx="89.5" cy="30" r="3.6" fill="#e84393"/></g>';
+  if(as==="flower") s += '<g><circle cx="85" cy="24" r="4.4" fill="#ff8fb5"/><circle cx="93" cy="24" r="4.4" fill="#ff8fb5"/><circle cx="89" cy="19" r="4.4" fill="#ff8fb5"/><circle cx="89" cy="28" r="4.4" fill="#ffb3cd"/><circle cx="89" cy="24" r="3.2" fill="#ffd32a"/></g>';
+  if(as==="star-glasses") s += '<g stroke="#7c4dff" stroke-width="2.6" fill="rgba(124,77,255,.10)"><circle cx="49.5" cy="53" r="9.5"/><circle cx="70.5" cy="53" r="9.5"/></g><path d="M59 53 L61 53" stroke="#7c4dff" stroke-width="2.6"/><text x="42" y="41" font-size="10" fill="#e6a817">★</text>';
+  if(as==="hearts") s += '<path d="M49.5 60 C38.5 50 42.5 40 49.5 46 C56.5 40 60.5 50 49.5 60Z" fill="#e84393"/><path d="M70.5 60 C59.5 50 63.5 40 70.5 46 C77.5 40 81.5 50 70.5 60Z" fill="#e84393"/>';
+  if(as==="carrot") s += '<g transform="rotate(24 87 27)"><path d="M87 21 L93 35 L81 35 Z" fill="#ff8f1f"/><path d="M87 21 Q83 13 79 11 M87 21 Q87 12 91 9 M87 21 Q93 14 97 13" stroke="#2ed573" stroke-width="2.6" fill="none" stroke-linecap="round"/></g>';
+  if(as==="wand") s += '<path d="M88 98 L107 66" stroke="#a55eea" stroke-width="3.4" stroke-linecap="round"/><text x="100" y="70" font-size="17" fill="#e6a817">★</text>';
+  if(as==="crown") s += '<polygon points="42,24 50,10 60,22 70,10 78,24" fill="#ffd32a" stroke="#e6a817" stroke-width="2"/><circle cx="60" cy="20" r="3" fill="#ff5d8f"/>';
+  if(as==="chapter-crown") s += '<polygon points="40,25 49,8 60,21 71,8 80,25" fill="#ffd32a" stroke="#e6a817" stroke-width="2"/><circle cx="49" cy="18" r="2.6" fill="#3aa0ff"/><circle cx="60" cy="22" r="2.8" fill="#ff5d8f"/><circle cx="71" cy="18" r="2.6" fill="#2ed573"/>';
+  if(as==="bag") s += '<rect x="89" y="90" width="20" height="24" rx="6" fill="#f39c3d"/><rect x="94" y="84" width="10" height="9" rx="4" fill="#e07b00"/><circle cx="99" cy="101" r="3" fill="#ffd32a"/>';
+  return s + '</svg>';
+}
+function mimiSVG(ml){
+  ml = ml || defaultMimiLook();
+  var earStyle = ml.ears? castItemStyle(ml.ears, "") : "";
+  var s = '<svg viewBox="0 0 120 116" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mimi the bunny">';
+  s += '<ellipse cx="60" cy="110" rx="28" ry="4" fill="rgba(38,50,94,.13)"/>';
+  s += '<g><ellipse cx="40" cy="30" rx="10.5" ry="29" fill="#ffffff" stroke="#f0a8c0" stroke-width="2" stroke-dasharray="5 3" transform="rotate(-9 40 30)"/><ellipse cx="40" cy="32" rx="5" ry="19" fill="#ffb3cd" transform="rotate(-9 40 32)"/>';
+  s += '<ellipse cx="80" cy="30" rx="10.5" ry="29" fill="#ffffff" stroke="#f0a8c0" stroke-width="2" stroke-dasharray="5 3" transform="rotate(9 80 30)"/><ellipse cx="80" cy="32" rx="5" ry="19" fill="#ffb3cd" transform="rotate(9 80 32)"/></g>';
+  if(earStyle==="bow") s += '<g fill="#ff5d8f"><ellipse cx="82" cy="10" rx="7" ry="4.2" transform="rotate(-20 82 10)"/><ellipse cx="94" cy="14" rx="7" ry="4.2" transform="rotate(22 94 14)"/><circle cx="88" cy="12" r="3.2" fill="#e84393"/></g>';
+  if(earStyle==="flower") s += '<g><circle cx="84" cy="8" r="3.8" fill="#ffd32a"/><circle cx="91" cy="8" r="3.8" fill="#ffd32a"/><circle cx="87.5" cy="4.5" r="3.8" fill="#ffe97a"/><circle cx="87.5" cy="11" r="3.8" fill="#ffe97a"/><circle cx="87.5" cy="8" r="2.7" fill="#ff8f1f"/></g>';
+  s += '<ellipse cx="60" cy="90" rx="27" ry="19" fill="#ffffff" stroke="#f0a8c0" stroke-width="2" stroke-dasharray="5 3"/>';
+  s += '<circle cx="60" cy="60" r="24" fill="#ffffff" stroke="#f0a8c0" stroke-width="2" stroke-dasharray="5 3"/>';
+  s += '<circle cx="51" cy="58" r="3" fill="#26325e"/><circle cx="69" cy="58" r="3" fill="#26325e"/>';
+  s += '<ellipse cx="44" cy="66" rx="4.6" ry="2.9" fill="#ffb3c6"/><ellipse cx="76" cy="66" rx="4.6" ry="2.9" fill="#ffb3c6"/>';
+  s += '<path d="M57 65 Q60 62 63 65 Q60 69 57 65Z" fill="#ff7ba9"/><path d="M60 68 Q60 72 55 73 M60 68 Q60 72 65 73" stroke="#c2506e" stroke-width="1.8" fill="none" stroke-linecap="round"/>';
+  s += '<path d="M30 62 L44 64 M31 70 L44 68 M90 62 L76 64 M89 70 L76 68" stroke="#d8b7c3" stroke-width="1.5" stroke-linecap="round"/>';
+  s += '<ellipse cx="42" cy="106" rx="8" ry="4" fill="#fff" stroke="#f0c4d2" stroke-width="1.6"/><ellipse cx="78" cy="106" rx="8" ry="4" fill="#fff" stroke="#f0c4d2" stroke-width="1.6"/>';
+  if(ml.blanket==="mimi-blanket") s += '<path d="M28 88 Q60 78 92 88 L92 104 Q60 96 28 104 Z" fill="#ffb3cd" stroke="#ff8fb5" stroke-width="2"/><text x="55" y="98" font-size="10" fill="#fff">★</text>';
+  return s + '</svg>';
+}
+function nannaSVG(){
+  var s = '<svg viewBox="0 0 120 142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nanna doll, soft cream and sky plush">';
+  s += '<ellipse cx="60" cy="136" rx="29" ry="4.5" fill="rgba(38,50,94,.13)"/>';
+  s += '<rect x="44" y="104" width="13" height="26" rx="5" fill="#5a6db3"/><rect x="63" y="104" width="13" height="26" rx="5" fill="#5a6db3"/>';
+  s += '<ellipse cx="48" cy="132" rx="8" ry="3.6" fill="#3c4a85"/><ellipse cx="72" cy="132" rx="8" ry="3.6" fill="#3c4a85"/>';
+  s += '<path d="M38 62 L82 62 L86 110 Q60 118 34 110 Z" fill="#a8d8ff" stroke="#7fb6e8" stroke-width="1.8" stroke-dasharray="5 3"/>';
+  s += '<ellipse cx="60" cy="88" rx="14" ry="17" fill="#fff7ee" opacity=".9"/>';
+  s += '<ellipse cx="31" cy="80" rx="6.5" ry="13" fill="#a8d8ff" stroke="#7fb6e8" stroke-width="1.5" stroke-dasharray="4 3" transform="rotate(13 31 80)"/><ellipse cx="89" cy="80" rx="6.5" ry="13" fill="#a8d8ff" stroke="#7fb6e8" stroke-width="1.5" stroke-dasharray="4 3" transform="rotate(-13 89 80)"/>';
+  s += '<g fill="#f7e3c2"><circle cx="38" cy="24" r="6.5"/><circle cx="49" cy="17" r="7"/><circle cx="60" cy="15" r="7.5"/><circle cx="71" cy="17" r="7"/><circle cx="82" cy="24" r="6.5"/></g>';
+  s += '<circle cx="60" cy="40" r="25" fill="#fff3e2" stroke="#e8c9a0" stroke-width="1.8" stroke-dasharray="5 3"/>';
+  s += '<path d="M36 38 Q37 15 60 14 Q83 15 84 38 Q73 26 60 26 Q47 26 36 38Z" fill="#5a4632"/>';
+  s += '<circle cx="50" cy="41" r="3.8" fill="#26222b"/><circle cx="70" cy="41" r="3.8" fill="#26222b"/>';
+  s += '<circle cx="51.3" cy="39.6" r="1.3" fill="#fff"/><circle cx="71.3" cy="39.6" r="1.3" fill="#fff"/>';
+  s += '<ellipse cx="43" cy="49" rx="5" ry="3.1" fill="#ffb59d"/><ellipse cx="77" cy="49" rx="5" ry="3.1" fill="#ffb59d"/>';
+  s += '<path d="M52 51 Q60 58.5 68 51" stroke="#b35a44" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+  return s + '</svg>';
+}
+function ammaSVG(){
+  var s = '<svg viewBox="0 0 120 142" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Amma doll, soft peach and lavender plush">';
+  s += '<ellipse cx="60" cy="136" rx="29" ry="4.5" fill="rgba(38,50,94,.13)"/>';
+  s += '<path d="M31 52 Q30 13 60 11 Q90 13 89 52 L87 96 Q73 103 60 103 Q47 103 33 96Z" fill="#4a2f3a"/>';
+  s += '<circle cx="60" cy="12" r="9" fill="#4a2f3a" stroke="#38222c" stroke-width="1.4" stroke-dasharray="4 3"/>';
+  s += '<path d="M44 80 L76 80 L89 126 Q60 134 31 126Z" fill="#cdb4f0" stroke="#a983e0" stroke-width="1.8" stroke-dasharray="5 3"/>';
+  s += '<path d="M45 82 L86 122 L78 127 L38 90Z" fill="#ffd32a" opacity=".92"/>';
+  s += '<ellipse cx="33" cy="95" rx="6.5" ry="12" fill="#ffe3d3" stroke="#f2bda0" stroke-width="1.5" stroke-dasharray="4 3" transform="rotate(17 33 95)"/><ellipse cx="87" cy="95" rx="6.5" ry="12" fill="#ffe3d3" stroke="#f2bda0" stroke-width="1.5" stroke-dasharray="4 3" transform="rotate(-17 87 95)"/>';
+  s += '<ellipse cx="48" cy="132" rx="7" ry="3.6" fill="#8a63c9"/><ellipse cx="72" cy="132" rx="7" ry="3.6" fill="#8a63c9"/>';
+  s += '<g fill="#ffd7bd"><circle cx="37" cy="29" r="6.5"/><circle cx="48" cy="21" r="7"/><circle cx="60" cy="19" r="7.5"/><circle cx="72" cy="21" r="7"/><circle cx="83" cy="29" r="6.5"/></g>';
+  s += '<circle cx="60" cy="49" r="26" fill="#ffe3d3" stroke="#f2bda0" stroke-width="1.8" stroke-dasharray="5 3"/>';
+  s += '<path d="M34 49 Q36 23 60 22 Q84 23 86 49 Q75 36 60 36 Q45 36 34 49Z" fill="#4a2f3a"/>';
+  s += '<circle cx="60" cy="43" r="2.1" fill="#c2185b"/>';
+  s += '<circle cx="50" cy="50" r="3.8" fill="#26222b"/><circle cx="70" cy="50" r="3.8" fill="#26222b"/>';
+  s += '<circle cx="51.3" cy="48.6" r="1.3" fill="#fff"/><circle cx="71.3" cy="48.6" r="1.3" fill="#fff"/>';
+  s += '<ellipse cx="43" cy="58" rx="5" ry="3.1" fill="#ff9eb5"/><ellipse cx="77" cy="58" rx="5" ry="3.1" fill="#ff9eb5"/>';
+  s += '<path d="M53 60 Q60 66 67 60" stroke="#a03a5c" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+  return s + '</svg>';
+}
+function currentDollLook(){
+  var base = P()? (P().look || defaultLook()) : defaultLook();
+  var look = { hair:base.hair, dress:base.dress, accessory:base.accessory };
+  if(APP.shopPreviewId){ var it = boutiqueItem(APP.shopPreviewId); if(it && it.corner==="doll" && it.slot) look[it.slot] = it.id; }
+  return look;
+}
+function currentMimiLook(){
+  var base = P()? (P().mimiLook || defaultMimiLook()) : defaultMimiLook();
+  var ml = { ears:base.ears||"", blanket:base.blanket||"" };
+  if(APP.shopPreviewId){ var it = boutiqueItem(APP.shopPreviewId); if(it && it.corner==="mimi" && it.slot) ml[it.slot] = it.id; }
+  return ml;
+}
+function castSVG(kind){
+  if(kind==="mimi") return mimiSVG(currentMimiLook());
+  if(kind==="nanna") return nannaSVG();
+  if(kind==="amma") return ammaSVG();
+  return bubblySVG(currentDollLook());
+}
+function renderCast(){
+  var nodes = document.querySelectorAll("[data-cast]");
+  for(var i=0;i<nodes.length;i++) nodes[i].innerHTML = castSVG(nodes[i].getAttribute("data-cast") || "bubbly");
+}
 function P(){ return APP.profile; }
 function save(){ if(APP.profile) saveProfile(APP.profile); }
 function applyThemeOutfit(){
-  var p = P(); if(!p) return;
+  var p = P();
   document.body.classList.remove("theme-sunset","theme-mint","theme-candy");
-  if(p.theme){ document.body.setAttribute("data-theme", p.theme); document.body.classList.add("theme-"+p.theme); }
+  if(p && p.theme){ document.body.setAttribute("data-theme", p.theme); document.body.classList.add("theme-"+p.theme); }
   else document.body.removeAttribute("data-theme");
-  var appus = document.querySelectorAll("[data-appu]");
-  for(var i=0;i<appus.length;i++) appus[i].textContent = "🐘" + (p.outfit||"");
+  renderCast();
 }
 function notePlayDay(){
   var p = P(); if(!p) return;
@@ -3831,6 +4207,55 @@ function nextRewardInfo(p){
   if(g && g.text) return { at:"LEVEL "+lv.next.n, name:(g.emoji||"🎁")+" "+g.text, ic:g.emoji||"🎁", sub:"Keep learning to reach it!" };
   return { at:"LEVEL "+lv.next.n, name:"A Surprise Gift from Amma & Nanna 🎁", ic:"🎁", sub:"Keep learning to reach it!" };
 }
+function renderNannaHome(){
+  var box = el("nannaHomeBox"); if(!box) return;
+  var p = P(); if(!p){ box.innerHTML = ""; return; }
+  var html = "";
+  if(p.pendingTreasureAwards && p.pendingTreasureAwards.length){
+    html += "<div class='card center' style='border:3.5px solid #ffd32a; background:#fffbe9;'><div style='font-size:30px;'>🏆</div><div style='font-weight:800; font-size:18px;'>You EARNED a treasure!</div>"
+      + p.pendingTreasureAwards.map(function(id){ var it = boutiqueItem(id); if(!it) return "";
+          return "<p style='font-weight:700; margin:8px 0 4px;'>"+it.icon+" "+esc(it.name)+" is now in your Wardrobe!</p><button class='btn pink small' data-wear-treasure='"+id+"'>Wear it now! ✨</button>"; }).join("")
+      + "<div style='height:6px'></div><button class='btn grey small' id='btnTreasureLater'>Later</button></div>";
+  }
+  if(p.pendingNanna){
+    var pend = p.pendingNanna, gift = pend.giftItemId? boutiqueItem(pend.giftItemId) : null;
+    html += "<div class='card nanna-moment center'><div style='display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;'><span class='cast cast-med' data-cast='nanna'></span><div style='text-align:left; max-width:420px;'><div style='font-weight:800; font-size:19px;'>💌 From Nanna!</div><div class='bubble' style='margin-top:6px;'>"+(pend.text? esc(pend.text) : "Nanna sent you a surprise!")+"</div></div></div>"
+      + (gift? "<p style='font-weight:700;'>🎁 A gift is wrapped inside: <b>"+esc(gift.name)+"</b>!</p>" : "")
+      + "<button class='btn pink' id='btnOpenNanna'>"+(gift? "Open my surprise! 🎁" : "Thank you, Nanna! 💛")+"</button></div>";
+  }
+  if(p.nannaLetters && p.nannaLetters.length){
+    var last = p.nannaLetters.slice(-3).reverse();
+    html += "<div class='card'><div style='font-weight:700; font-size:17px; margin-bottom:4px;'>💌 Letters from Nanna</div>"
+      + last.map(function(L){ return "<div class='letter-card'>&ldquo;"+esc(L.text || "A gift from Nanna")+"&rdquo;"+(L.giftName? " 🎁 "+esc(L.giftName) : "")+"<div class='mut' style='font-size:12.5px;'>"+esc(L.date||"")+"</div></div>"; }).join("") + "</div>";
+  }
+  box.innerHTML = html;
+  renderCast();
+  var ob = el("btnOpenNanna");
+  if(ob) ob.addEventListener("click", openNannaMoment);
+  var wb = box.querySelectorAll("[data-wear-treasure]");
+  for(var i=0;i<wb.length;i++) wb[i].addEventListener("click", function(){
+    var id = this.getAttribute("data-wear-treasure");
+    if(applyOwnedItem(p, id)){ p.pendingTreasureAwards = (p.pendingTreasureAwards||[]).filter(function(x){ return x!==id; }); save(); applyThemeOutfit(); confetti(); toast("✨ Treasure on! Looking super!"); }
+    renderHome();
+  });
+  var lb = el("btnTreasureLater");
+  if(lb) lb.addEventListener("click", function(){ p.pendingTreasureAwards = []; save(); renderHome(); });
+}
+function openNannaMoment(){
+  var p = P(); if(!p) return;
+  var res = deliverNannaLetter(p);
+  if(!res.delivered){ renderHome(); return; }
+  save(); applyThemeOutfit(); confetti();
+  toast(res.giftItem? ("🎁 Gift from Nanna: "+res.giftItem.name+(res.worn? " — Bubbly is wearing it now!" : " — it's yours!")) : "💌 Nanna's letter is saved in your Letters!");
+  renderHome();
+}
+function renderWishHome(){
+  var box = el("wishHomeBox"); if(!box) return;
+  var p = P(); var info = p? wishlistInfo(p) : null;
+  if(!info || info.owned){ box.innerHTML = ""; return; }
+  var it = info.item;
+  box.innerHTML = "<div class='card center"+(info.affordable? " wish-pulse" : "")+"' style='border:3px solid #ffb3cd;'><div style='font-size:26px;'>"+it.icon+"</div><div style='font-weight:700; font-size:16.5px;'>Bubbly doll dreams of <b>"+esc(it.name)+"</b>!</div><div class='mut' style='font-size:14px;'>"+(info.affordable? "You have enough coins — visit Bubbly's Boutique! 🎉" : "Only <b>"+info.gap+" more coins</b> to go! ("+(p.coins||0)+" of "+it.price+" 🪙)")+"</div></div>";
+}
 function renderHome(){
   var p = P(); if(!p) return;
   var lv = levelOf(p.xp), gr = gradeOf(p);
@@ -3866,6 +4291,8 @@ function renderHome(){
     var due = rewardDue(p);
     if(due.length) el("homeBubble").innerHTML += "<br>🎁 <b>Reward time!</b> Show Amma or Nanna — a reward is DUE!";
   }
+  renderNannaHome();
+  renderWishHome();
   renderSubjects();
 }
 function renderSubjects(){
@@ -3897,11 +4324,11 @@ function renderMaths(){
   var p = P();
   var bb = el("baselineBox");
   if(!p.baseline){
-    bb.innerHTML = "<div class='card center' style='border:3px dashed #f6bf26;'><div class='big-emoji' style='font-size:40px;'>🚀</div><b style='font-size:18px;'>Baseline Adventure!</b><p class='mut' style='font-size:14.5px; margin:6px 0;'>A friendly trip through Maths Land — 20 fun questions, NO marks, NO pass or fail. It helps Appu know what you already know! 🗺️</p><button class='btn orange' id='btnBaseline'>Start the Adventure! 🗺️</button></div>";
+    bb.innerHTML = "<div class='card center' style='border:3px dashed #f6bf26;'><div class='big-emoji' style='font-size:40px;'>🚀</div><b style='font-size:18px;'>Baseline Adventure!</b><p class='mut' style='font-size:14.5px; margin:6px 0;'>A friendly trip through Maths Land — 20 fun questions, NO marks, NO pass or fail. It helps Bubbly know what you already know! 🗺️</p><button class='btn orange' id='btnBaseline'>Start the Adventure! 🗺️</button></div>";
     el("btnBaseline").addEventListener("click", startBaseline);
   } else {
     var strong = (p.baseline.suggested||[]).length;
-    bb.innerHTML = "<div class='card' style='padding:10px 14px;'>🗺️ <b>Baseline Adventure done!</b> <span class='mut' style='font-size:14px;'>"+(strong? "You look strong in "+strong+" chapter"+(strong>1?"s":"")+" — try a Test-Out there! 💪" : "Appu saved your starting map. Keep exploring!")+"</span></div>";
+    bb.innerHTML = "<div class='card' style='padding:10px 14px;'>🗺️ <b>Baseline Adventure done!</b> <span class='mut' style='font-size:14px;'>"+(strong? "You look strong in "+strong+" chapter"+(strong>1?"s":"")+" — try a Test-Out there! 💪" : "Bubbly saved your starting map. Keep exploring!")+"</span></div>";
   }
   var html = "";
   CHAPTERS.forEach(function(ch, ix){
@@ -3967,11 +4394,11 @@ function renderChapterExtra(ch){
     + "<button class='btn purple' id='btnChapExam'>"+(cs.mastered? "Take Chapter Exam Again" : all? "Start Chapter Exam 🏆" : "Chapter Test-Out 💪")+"</button></div>";
   /* Paper Bridge card */
   var paper = p.paper[ch.id];
-  html += "<div class='card'><div style='font-weight:700; font-size:18px;'>✍️ Write in Your Notebook — Paper Bridge</div><div id='paperSums'></div>"
+  html += "<div class='card'><div style='display:flex; gap:10px; align-items:center;'><span class='cast cast-small' data-cast='amma'></span><div style='font-weight:700; font-size:18px;'>✍️ Write in Your Notebook — Paper Bridge</div></div><p class='mut' style='font-size:14px; margin:4px 0;'>Write these in your notebook and show Amma! 💛</p><div id='paperSums'></div>"
     + "<div class='btnrow'><button class='btn blue small' id='btnPaperNew'>🎲 New Sums</button>"
     + "<button class='btn "+(paper && paper.done? "grey":"green")+" small' id='btnPaperDone'>"+(paper && paper.done? "✓ Done on "+paper.date+" (tap to undo)" : "✅ Amma/Nanna: Done!")+"</button></div></div>";
   /* Teach Nanna card */
-  html += "<div class='card'><div style='font-weight:700; font-size:18px;'>📞 Teach Nanna — Make YOUR Own Question!</div>"
+  html += "<div class='card'><div style='display:flex; gap:10px; align-items:center;'><span class='cast cast-small' data-cast='nanna'></span><div style='font-weight:700; font-size:18px;'>📞 Teach Nanna — Make YOUR Own Question!</div></div>"
     + "<p class='mut' style='font-size:14.5px; margin:6px 0;'>Pick numbers and a sum type. Then ask Nanna on a call — YOU are the teacher! 🎓</p>"
     + "<div class='btnrow'><select id='tnOp' class='sel'><option value='+'>＋ Add</option><option value='-'>− Subtract</option><option value='x'>× Multiply</option><option value='/'>÷ Divide</option></select>"
     + "<select id='tnA' class='sel'></select><select id='tnB' class='sel'></select></div>"
@@ -3980,6 +4407,7 @@ function renderChapterExtra(ch){
     + "<button class='btn green small' id='btnTnDone'>📞 Done — asked on a call!</button></div>"
     + "<p class='mut' style='font-size:13.5px;'>Questions asked so far: <b>"+(p.teach.count||0)+"</b> 🎉</p></div>";
   box.innerHTML = html;
+  renderCast();
   el("btnChapExam").addEventListener("click", function(){ startChapterExam(ch.id); });
   renderPaperSums(ch, false);
   el("btnPaperNew").addEventListener("click", function(){ renderPaperSums(ch, true); });
@@ -4043,7 +4471,7 @@ function renderTopicStart(){
   var ch = chapterById(APP.cid);
   el("topicEmoji").textContent = td.ic;
   el("topicName").textContent = td.name;
-  el("topicBubble").innerHTML = t.mastered? "You mastered this one! Play again any time to stay sharp! 🌟" : "Today we learn <b>"+esc(td.name)+"</b> — step by step, with Appu! 🐘";
+  el("topicBubble").innerHTML = t.mastered? "You mastered this one! Play again any time to stay sharp! 🌟" : "Today we learn <b>"+esc(td.name)+"</b> — step by step, with Bubbly! 🎀";
   el("topicSteps").innerHTML = td.steps.map(function(s, i){
     return (i<t.stepsDone||t.mastered? "✅ " : i===t.stepsDone? "👉 " : "▫️ ")+esc(s.name);
   }).join("<br>") + "<br>🎯 Then: Mixed Practice · 💡 Think · 📝 Topic Exam";
@@ -4201,10 +4629,10 @@ function startTry3(){
       var after = function(){ startQuickCheck(stepIx); };
       if(right===3){ toast("⚡ Fast Track! All 3 correct — super brain!"); setTimeout(after, 350); }
       else if(wrong>=2){
-        showPhase("🐘","Appu is with you!","Those were tricky! Let's do 2 more together, slowly — watch the rule: <b>"+esc(st.rule)+"</b>", function(){
+        showPhase("🎀","Bubbly is with you!","Those were tricky! Let's do 2 more together, slowly — watch the rule: <b>"+esc(st.rule)+"</b>", function(){
           var list2 = [], g2 = 0;
           while(list2.length<2 && g2<30){ g2++; var q2 = tryGen(st.gen); if(q2){ q2._tid = APP.tid; list2.push(q2); } }
-          runQuiz({ phase:"🐘 Together · "+st.name, list:list2, mode:"tryx", record:"full", tid:APP.tid, explainAfter:true, onDone:function(){ after(); } });
+          runQuiz({ phase:"🎀 Together · "+st.name, list:list2, mode:"tryx", record:"full", tid:APP.tid, explainAfter:true, onDone:function(){ after(); } });
         });
       } else after();
     } });
@@ -4281,7 +4709,7 @@ function startMixed(){
       recomputeProfileXP(p); save();
       var right = s.results.filter(function(r){return r.res==="c";}).length;
       var extra = reopened.length? "<br>↺ One earlier topic ("+esc(reopened.join(", "))+") wants a little Revise — find it in its chapter. Your XP is safe! 💛" : "";
-      showPhase("🎯","Mixed Practice Done!","You got <b>"+right+" of "+s.results.length+"</b>! Now let's THINK in new ways — Appu's favourite part! 💡"+extra, function(){ startThink(); });
+      showPhase("🎯","Mixed Practice Done!","You got <b>"+right+" of "+s.results.length+"</b>! Now let's THINK in new ways — Bubbly's favourite part! 💡"+extra, function(){ startThink(); });
     } });
 }
 function startThink(){
@@ -4307,7 +4735,7 @@ function examIntro(kind, id, testOut){
   if(kind==="topic"){
     APP.tid = id; APP.cid = CHAPTER_OF[id];
     el("examIntroEmoji").textContent = "📝🏆";
-    el("examIntroText").innerHTML = "<b>Topic Exam — "+esc(TOP[id].name)+"</b><br>10 questions · Right answer <b>+10</b> · Wrong <b>−2</b> · Skip <b>0</b>.<br>Score <b>70%</b> or more to pass and unlock the next topic! No timer — think calmly. 🐘<br><span class='mut' style='font-size:14px;'>No hints in the exam — but Appu explains everything after!</span>";
+    el("examIntroText").innerHTML = "<b>Topic Exam — "+esc(TOP[id].name)+"</b><br>10 questions · Right answer <b>+10</b> · Wrong <b>−2</b> · Skip <b>0</b>.<br>Score <b>70%</b> or more to pass and unlock the next topic! No timer — think calmly. 🎀<br><span class='mut' style='font-size:14px;'>No hints in the exam — but Bubbly explains everything after!</span>";
   } else {
     APP.cid = id;
     var ch = chapterById(id);
@@ -4374,18 +4802,18 @@ function finishTopicExam(ctx, s){
   el("examTitle").textContent = passed? "You PASSED, Star!" : ev.needsFix? "So Close — One Small Fix!" : "Good Trying, Brave Star!";
   el("examScore").textContent = sc.pct+"%";
   el("examDetail").innerHTML = passed
-    ? "You mastered <b>"+esc(td.name)+"</b>! The next topic is now OPEN — no waiting! 🎉"+(ev.borderline? "<br><span style='font-size:14.5px;'>It was a close pass — Appu will slip 3 tiny practice questions into your next warm-ups to make it super strong! 🐘</span>":"")
+    ? "You mastered <b>"+esc(td.name)+"</b>! The next topic is now OPEN — no waiting! 🎉"+(ev.borderline? "<br><span style='font-size:14.5px;'>It was a close pass — Bubbly will slip 3 tiny practice questions into your next warm-ups to make it super strong! 🎀</span>":"")
     : ev.needsFix? "Your score was <b>"+sc.pct+"%</b> — passing level! But one step needs a little more practice before it counts. Do the quick Fix-It and it's yours! 🛠️"
-    : "You scored <b>"+sc.pct+"%</b>. Passing is 70% — a little more practice and you'll shine! Look at the answers below with Appu, then try again. 🌟";
+    : "You scored <b>"+sc.pct+"%</b>. Passing is 70% — a little more practice and you'll shine! Look at the answers below with Bubbly, then try again. 🌟";
   var sums = subScorePct(s, "sums"), think = subScorePct(s, "thinking");
   el("examSums").textContent = sums==null? "–" : sums+"%";
   el("examThink").textContent = think==null? "–" : think+"%";
   var wrongSubs = [];
   s.results.forEach(function(r){ if(r.res==="w" && wrongSubs.indexOf(r.q.subName||r.q.sub)<0) wrongSubs.push(r.q.subName||r.q.sub); });
-  el("examCareful").textContent = sc.wrong? ("Careful next time in: "+wrongSubs.slice(0,3).join(", ")+". Appu believes in you!") : "No careless mistakes at all — careful and calm! 🌟";
+  el("examCareful").textContent = sc.wrong? ("Careful next time in: "+wrongSubs.slice(0,3).join(", ")+". Bubbly believes in you!") : "No careless mistakes at all — careful and calm! 🌟";
   var box = el("examActionBox");
   if(ev.needsFix) box.innerHTML = "<button class='btn orange' id='btnFixNow'>🛠️ Start Fix-It Now</button>";
-  else if(!passed) box.innerHTML = "<button class='btn teal' id='btnPracTopic'>🐘 Practise This Topic</button>";
+  else if(!passed) box.innerHTML = "<button class='btn teal' id='btnPracTopic'>🎀 Practise This Topic</button>";
   else box.innerHTML = "<button class='btn teal' id='btnSeeChapter'>🌈 See My Chapter</button>";
   var bn = el("btnFixNow"); if(bn) bn.addEventListener("click", startFixIt);
   var bp = el("btnPracTopic"); if(bp) bp.addEventListener("click", function(){ openTopic(APP.cid, tid); });
@@ -4414,6 +4842,8 @@ function finishChapterExam(ctx, s){
     if(!oldBadge || rank[ev.badge]>rank[oldBadge]) p.chapterBadges[cid] = ev.badge;
     if(firstPass) coinAward(50, "Chapter Exam passed · "+ch.name);
   }
+  var newTreasures = checkTreasures(p, { type:"chapterExam", badge:ev.badge });
+  if(newTreasures.length) p.pendingTreasureAwards = (p.pendingTreasureAwards||[]).concat(newTreasures);
   recomputeProfileXP(p); save();
   levelUpCheck(oldXp);
   el("examEmoji").textContent = ev.passed? "🏆" : "💪";
@@ -4421,7 +4851,7 @@ function finishChapterExam(ctx, s){
   el("examScore").textContent = sc.pct+"%";
   el("examDetail").innerHTML = ev.passed
     ? "You finished the whole <b>"+esc(ch.name)+"</b> chapter and earned the <b>"+ev.badge+"</b> chapter badge! 🎉 Bonus XP: +"+ev.bonus+". The next chapter is OPEN!"
-    : "You scored <b>"+sc.pct+"%</b>. Passing is 70% — practise the chapter's topics a little more, then try again. Appu is with you! 🐘";
+    : "You scored <b>"+sc.pct+"%</b>. Passing is 70% — practise the chapter's topics a little more, then try again. Bubbly is with you! 🎀";
   var sums = subScorePct(s, "sums"), think = subScorePct(s, "thinking");
   el("examSums").textContent = sums==null? "–" : sums+"%";
   el("examThink").textContent = think==null? "–" : think+"%";
@@ -4442,7 +4872,7 @@ function startFixIt(){
   var st = td.steps[stepIx];
   var list = [], guard = 0;
   while(list.length<3 && guard<30){ guard++; var q = tryGen(st.gen); if(q){ q._tid = APP.tid; list.push(q); } }
-  showPhase("🛠️","Fix-It Time!","Your exam was passing level — just the step <b>"+esc(st.name)+"</b> needs a little love. 3 guided questions, then 3 to confirm. You've got this! 🐘", function(){
+  showPhase("🛠️","Fix-It Time!","Your exam was passing level — just the step <b>"+esc(st.name)+"</b> needs a little love. 3 guided questions, then 3 to confirm. You've got this! 🎀", function(){
     runQuiz({ phase:"🛠️ Fix-It · "+st.name, list:list, mode:"fixit", record:"full", tid:APP.tid, explainAfter:true,
       onDone:function(){
         var list2 = [], g2 = 0;
@@ -4461,7 +4891,7 @@ function startFixIt(){
               confetti();
             } else {
               save();
-              showPhase("🐘","Almost There!","Let's learn that step once more with Appu — slowly and happily. Then the Fix-It will be easy! 💛", function(){ APP.flowStep = stepIx; showLearn(stepIx); });
+              showPhase("🎀","Almost There!","Let's learn that step once more with Bubbly — slowly and happily. Then the Fix-It will be easy! 💛", function(){ APP.flowStep = stepIx; showLearn(stepIx); });
             }
           } });
       } });
@@ -4482,7 +4912,7 @@ function startBaseline(){
       p.baseline = { date:todayStr(), perChapter:perCid, suggested:suggested };
       save();
       var names = suggested.map(function(cid){ return chapterById(cid).name; });
-      showPhase("🗺️","Adventure Complete!","What a trip! Appu now knows your starting map. 🐘"+(names.length? "<br>You look STRONG in: <b>"+esc(names.join(", "))+"</b> — you can try a Test-Out in those chapters! 💪" : "<br>Every chapter is a fresh adventure waiting for you!"), function(){ renderMaths(); show("maths"); });
+      showPhase("🗺️","Adventure Complete!","What a trip! Bubbly now knows your starting map. 🎀"+(names.length? "<br>You look STRONG in: <b>"+esc(names.join(", "))+"</b> — you can try a Test-Out in those chapters! 💪" : "<br>Every chapter is a fresh adventure waiting for you!"), function(){ renderMaths(); show("maths"); });
     } });
 }
 
@@ -4500,7 +4930,7 @@ function startTricky(){
     var q = tryGen(gen);
     if(q){ q._trickyKey = e.key; q._tid = e.tid; list.push(q); }
   });
-  if(!list.length){ toast("Appu could not cook those questions — try later!"); return; }
+  if(!list.length){ toast("Bubbly could not cook those questions — try later!"); return; }
   var clearedNow = 0;
   runQuiz({ phase:"🧩 My Tricky Questions", list:list, mode:"tricky", record:"none", explainAfter:true,
     onAnswer:function(q, correct){
@@ -4522,7 +4952,7 @@ function startHomework(tid){
   var list = [], seen = {}, si = 0, guard = 0;
   while(list.length<6 && guard<50){ guard++; var st = td.steps[si % td.steps.length]; si++; var q = tryGen(st.gen); if(q && !seen[q.q]){ seen[q.q]=1; list.push(q); } }
   runQuiz({ phase:"🔎 Homework Helper · "+td.name, list:list, mode:"homework", record:"none", explainAfter:true,
-    onDone:function(){ showPhase("🔎","Great Practising!","Homework Helper practice never changes your mastery — it's just for learning! 🐘", function(){ renderHome(); show("home"); }); } });
+    onDone:function(){ showPhase("🔎","Great Practising!","Homework Helper practice never changes your mastery — it's just for learning! 🎀", function(){ renderHome(); show("home"); }); } });
 }
 function renderHwResults(query){
   var box = el("hwResults"); if(!box) return;
@@ -4556,31 +4986,70 @@ function showRitual(){
 
 <script>
 "use strict";
-/* ============ APPU'S SHOP & BUBBLE POP ============ */
-var SHOP_ITEMS = [
-  { id:"hat", name:"Party Hat for Appu", icon:"🎩", price:30, type:"outfit", val:"🎩" },
-  { id:"bow", name:"Pretty Bow for Appu", icon:"🎀", price:30, type:"outfit", val:"🎀" },
-  { id:"shades", name:"Cool Shades for Appu", icon:"🕶️", price:40, type:"outfit", val:"🕶️" },
-  { id:"crown", name:"Golden Crown for Appu", icon:"👑", price:90, type:"outfit", val:"👑" },
-  { id:"theme-sunset", name:"Sunset Home Theme", icon:"🌅", price:50, type:"theme", val:"sunset" },
-  { id:"theme-mint", name:"Mint Home Theme", icon:"🌿", price:50, type:"theme", val:"mint" },
-  { id:"theme-candy", name:"Candy Home Theme", icon:"🍬", price:50, type:"theme", val:"candy" },
-  { id:"bubble", name:"Bubble Pop Mini-Game", icon:"🫧", price:100, type:"game", val:"" }
-];
+/* ============ BUBBLY'S BOUTIQUE, MIMI'S CORNER & BUBBLE POP ============ */
+function itemOwned(p, it){
+  if(!it) return false;
+  if(it.consumable) return false;
+  if(isWearableItem(it)) return (p.wardrobe||[]).indexOf(it.id)>=0;
+  return (p.purchases||[]).indexOf(it.id)>=0;
+}
+function itemWorn(p, it){
+  if(!it || !p) return false;
+  if(it.slot==="hair" || it.slot==="dress" || it.slot==="accessory") return (p.look||{})[it.slot]===it.id;
+  if(it.slot==="ears") return (p.mimiLook||{}).ears===it.id;
+  if(it.slot==="blanket") return (p.mimiLook||{}).blanket===it.id;
+  if(it.type==="theme") return p.theme===it.val;
+  return false;
+}
+function slotLabel(slot){ return { hair:"HAIR", dress:"DRESS", accessory:"ACCESSORY", ears:"MIMI'S EARS", blanket:"MIMI" }[slot] || "FUN"; }
+function shopCardHTML(p, it){
+  var owned = itemOwned(p, it), worn = itemWorn(p, it);
+  var wished = p.wishlist===it.id;
+  var btn;
+  if(it.treasure) btn = owned? "<div class='shop-own'>Earned! 🏆</div>" : "<div class='shop-own' style='color:#a8852a;'>🔒 Earn it!</div>";
+  else if(it.consumable) btn = "<button class='btn orange small' data-buy-direct='"+it.id+"'>🪙 "+it.price+" · Munch!</button>";
+  else if(owned) btn = (it.type==="game")? "<div class='shop-own'>Owned! Play below 🎈</div>" : "<button class='btn "+(worn? "grey":"teal")+" small' data-wear='"+it.id+"'>"+(worn? "On now ✓" : (isWearableItem(it)? "Wear it!" : "Use it!"))+"</button>";
+  else btn = "<button class='btn purple small' data-preview='"+it.id+"'>👀 Try it on</button>";
+  var wish = (!owned && !it.treasure && !it.consumable && isWearableItem(it))? "<button class='btn small heart-btn' data-wish='"+it.id+"' title='Wish for this'>"+(wished? "♥ Wished!" : "♡ Wish")+"</button>" : "";
+  return "<div class='shop-card'><div class='slot-lab'>"+slotLabel(it.slot)+"</div><div class='shop-ic'>"+it.icon+"</div><div class='shop-nm'>"+esc(it.name)+"</div>"
+    + (it.treasure? "" : "<div class='mut' style='font-size:13px;'>"+(owned? "Yours! 🎉" : (it.consumable? "Mimi munches it right away!" : "🪙 "+it.price+" coins"))+"</div>")
+    + btn + (wish? "<div style='height:4px'></div>"+wish : "") + "</div>";
+}
 function renderShop(){
   var p = P(); if(!p) return;
+  ensureLookShape(p);
   el("shopCoins").textContent = "🪙 You have "+num(p.coins)+" coins — spending NEVER lowers your Level or XP! 🌟";
-  var html = "";
-  SHOP_ITEMS.forEach(function(it){
-    var owned = p.purchases.indexOf(it.id)>=0;
-    var active = (it.type==="outfit" && p.outfit===it.val) || (it.type==="theme" && p.theme===it.val);
-    html += "<div class='shop-card'><div class='shop-ic'>"+it.icon+"</div><div class='shop-nm'>"+esc(it.name)+"</div>"
-      + (owned
-        ? (it.type==="game"? "<div class='shop-own'>Owned! Play below 🎈</div>" : "<button class='btn "+(active? "grey":"teal")+" small' data-equip='"+it.id+"'>"+(active? "On now ✓" : "Use it!")+"</button>")
-        : "<button class='btn "+(p.coins>=it.price? "orange":"grey")+" small' data-buy='"+it.id+"' "+(p.coins>=it.price? "" : "disabled")+">🪙 "+it.price+" · Buy</button>")
-      + "</div>";
+  var doll = BOUTIQUE_ITEMS.filter(function(it){ return it.corner==="doll" && !it.treasure; })
+    .concat(BOUTIQUE_ITEMS.filter(function(it){ return it.corner==="fun"; }));
+  el("shopGrid").innerHTML = doll.map(function(it){ return shopCardHTML(p, it); }).join("");
+  var mimi = MIMI_ITEMS.slice();
+  el("mimiGrid").innerHTML = mimi.map(function(it){ return shopCardHTML(p, it); }).join("");
+  /* wardrobe */
+  var slots = ["hair","dress","accessory","ears","blanket"];
+  var wHtml = "";
+  slots.forEach(function(slot){
+    var ownedHere = BOUTIQUE_ITEMS.concat(MIMI_ITEMS).filter(function(it){ return it.slot===slot && itemOwned(p, it); });
+    if(!ownedHere.length) return;
+    wHtml += "<div class='slot-lab' style='margin-top:8px;'>"+slotLabel(slot)+"</div><div class='shop-grid'>"
+      + ownedHere.map(function(it){
+          var worn = itemWorn(p, it), src = p.itemSources[it.id];
+          return "<div class='shop-card'><div class='shop-ic'>"+it.icon+"</div><div class='shop-nm'>"+esc(it.name)+"</div>"
+            + "<div class='mut' style='font-size:12.5px;'>"+(src==="gift"? "🎁 Gift from Nanna" : src==="treasure"? "🏆 Treasure" : src==="starter"? "Starter" : src==="shop (updated)"? "From your old shop" : "Boutique")+"</div>"
+            + "<button class='btn "+(worn? "grey":"teal")+" small' data-wear='"+it.id+"'>"+(worn? "Wearing ✓" : "Wear it!")+"</button></div>";
+        }).join("") + "</div>";
   });
-  el("shopGrid").innerHTML = html;
+  el("wardrobeGrid").innerHTML = wHtml || "<span class='mut'>Nothing yet — your starter look is on Bubbly!</span>";
+  /* treasures */
+  var treasureInfo = [
+    { id:"treasure-thinker-cap", how:"Answer 20 Think questions correctly" },
+    { id:"treasure-chapter-crown", how:"Earn a Gold badge in any Chapter Exam" },
+    { id:"treasure-brave-cape", how:"Pass an exam on your 3rd+ try, or clear a Revise" }
+  ];
+  el("treasureGrid").innerHTML = treasureInfo.map(function(t){
+    var it = boutiqueItem(t.id), got = itemOwned(p, it);
+    return "<div class='letter-card' style='text-align:left;'>"+it.icon+" <b>"+esc(it.name)+"</b> — "+(got? "EARNED! Find it in your Wardrobe 🏆" : "🔒 "+t.how)+"</div>";
+  }).join("");
+  /* rooms + bubble */
   var rooms = "";
   CHAPTERS.forEach(function(ch){
     var open = isChapterMastered(p, ch.id);
@@ -4588,29 +5057,72 @@ function renderShop(){
   });
   el("roomGrid").innerHTML = rooms;
   el("btnBubbleGo").style.display = p.purchases.indexOf("bubble")>=0? "block":"none";
-  var buys = el("shopGrid").querySelectorAll("[data-buy]");
-  for(var i=0;i<buys.length;i++) buys[i].addEventListener("click", function(){ buyItem(this.getAttribute("data-buy")); });
-  var eqs = el("shopGrid").querySelectorAll("[data-equip]");
-  for(var j=0;j<eqs.length;j++) eqs[j].addEventListener("click", function(){ equipItem(this.getAttribute("data-equip")); });
+  renderShopConfirm();
+  renderCast();
+  wireShopCards();
+}
+function renderShopConfirm(){
+  var box = el("shopConfirm"); if(!box) return;
+  var p = P(); if(!p){ box.innerHTML = ""; return; }
+  var id = APP.shopPreviewId, it = id? boutiqueItem(id) : null;
+  var stage = el("shopStageLine");
+  if(!it){ box.innerHTML = ""; if(stage && !APP.shopMsg) stage.textContent = "Tap any pretty thing to try it on Bubbly or Mimi! 🎀"; return; }
+  var math = coinMathFor(p, it);
+  if(stage) stage.innerHTML = "Trying on: <b>"+esc(it.name)+"</b> — looking lovely! Tap Buy to make it yours! ✨";
+  box.innerHTML = "<div class='confirm-box center'>"+it.icon+" <b>"+esc(it.name)+"</b><br>"
+    + "You have "+math.have+" 🪙 − "+it.name+" "+math.price+" 🪙 = <b>"+math.left+" 🪙 left</b><br>"
+    + (math.enough
+      ? "<button class='btn pink' id='btnConfirmBuy'>Buy & Wear it! 🪙 "+it.price+"</button> "
+      : "<span style='color:#c2506e;'>You need "+(it.price-math.have)+" more coins — keep learning, superstar! 💪</span> ")
+    + "<button class='btn grey small' id='btnCancelPreview'>Keep looking</button></div>";
+  var cb = el("btnConfirmBuy");
+  if(cb) cb.addEventListener("click", function(){ buyItem(id); });
+  el("btnCancelPreview").addEventListener("click", function(){ APP.shopPreviewId = ""; APP.shopMsg = ""; renderShop(); });
+}
+function wireShopCards(){
+  [["data-preview", previewItem], ["data-buy-direct", buyItem], ["data-wear", wearItem], ["data-wish", wishItem]].forEach(function(pair){
+    var nodes = document.querySelectorAll("["+pair[0]+"]");
+    for(var i=0;i<nodes.length;i++) (function(node, fn){
+      node.addEventListener("click", function(){ fn(node.getAttribute(pair[0])); });
+    })(nodes[i], pair[1]);
+  });
+}
+function previewItem(id){
+  var p = P(); if(!p) return;
+  var it = boutiqueItem(id); if(!it) return;
+  if(itemOwned(p, it)){ wearItem(id); return; }
+  APP.shopPreviewId = id; APP.shopMsg = "";
+  renderShop();
+  var st = el("scr-shop"); if(st) st.scrollIntoView();
+}
+function wearItem(id){
+  var p = P(); if(!p) return;
+  var it = boutiqueItem(id); if(!it) return;
+  APP.shopPreviewId = "";
+  if(applyOwnedItem(p, id)){ save(); applyThemeOutfit(); renderShop(); toast(it.corner==="mimi"? "🐰 Mimi is wearing her "+it.name+"!" : "✨ Bubbly is wearing her "+it.name+"!"); }
+}
+function wishItem(id){
+  var p = P(); if(!p) return;
+  if(setWishlist(p, id)){ save(); renderShop(); toast(p.wishlist===id? "♡ Added to your wishlist! Bubbly doll dreams of it…" : "Wishlist cleared!"); }
 }
 function buyItem(id){
-  var p = P(), it = SHOP_ITEMS.filter(function(x){ return x.id===id; })[0];
-  if(!it || p.purchases.indexOf(id)>=0 || p.coins<it.price) return;
-  p.coins -= it.price; p.coinsSpentTotal = (p.coinsSpentTotal||0)+it.price;
-  p.purchases.push(id);
-  p.coinLedger.push({ what:"Shop: "+it.name, amt:-it.price, date:todayStr() });
-  if(it.type==="outfit") p.outfit = it.val;
-  if(it.type==="theme") p.theme = it.val;
+  var p = P(); if(!p) return;
+  var it = boutiqueItem(id); if(!it) return;
+  var math = coinMathFor(p, it);
+  if(!math.enough){ toast("🪙 Not enough coins yet — you have "+math.have+", it costs "+it.price+". Keep learning!"); return; }
+  var res = purchaseItem(p, id);
+  if(!res.ok){ toast(res.reason==="owned"? "You already have this one! 🎉" : "Hmm, that one can't be bought."); return; }
+  APP.shopPreviewId = "";
   save(); applyThemeOutfit(); renderShop();
-  toast("🎉 You got: "+it.name+"!"); confetti();
+  var stage = el("shopStageLine");
+  if(res.consumable){ var sm = el("shopMimi"); if(sm){ sm.classList.add("munch"); setTimeout(function(){ sm.classList.remove("munch"); }, 1200); } if(stage) stage.innerHTML = "🥕 Crunch crunch! Mimi munched her <b>Carrot Snack</b> — yum!"; toast("🥕 Mimi munched her Carrot Snack!"); return; }
+  var sd = el("shopDoll"); if(sd && it.corner==="doll"){ sd.classList.add("twirl"); setTimeout(function(){ sd.classList.remove("twirl"); }, 800); }
+  if(stage) stage.innerHTML = it.corner==="mimi"? ("🐰 Mimi is wearing her new <b>"+esc(it.name)+"</b>!") : ("✨ Bubbly is wearing her new <b>"+esc(it.name)+"</b>!");
+  toast("🎉 "+it.name+" — yours! "+math.left+" 🪙 left."); confetti();
 }
-function equipItem(id){
-  var p = P(), it = SHOP_ITEMS.filter(function(x){ return x.id===id; })[0];
-  if(!it) return;
-  if(it.type==="outfit") p.outfit = (p.outfit===it.val)? "" : it.val;
-  if(it.type==="theme") p.theme = (p.theme===it.val)? "" : it.val;
-  save(); applyThemeOutfit(); renderShop();
-}
+/* kept name for older callers: dressing an owned item is wearing it */
+function equipItem(id){ wearItem(id); }
+
 function startBubble(){
   if(APP.bubTimer) clearInterval(APP.bubTimer);
   APP.bubScore = 0;
@@ -4725,7 +5237,19 @@ function renderDashboard(){
   html += "<button class='btn green small' id='btnLadderSave'>💾 Save Ladder</button>"
     + "<p style='margin:10px 0 4px;'><b>Rewards given:</b> "+((p.rewardsGiven||[]).length? p.rewardsGiven.map(function(r){ return "L"+r.level+" "+esc(r.text||"")+" ("+r.date+")"; }).join(" · ") : "none yet")+"</p>"
     + "<p style='margin:6px 0 4px;'><b>Coin ledger (recent):</b> "+(p.coinLedger.slice(-8).reverse().map(function(e){ return (e.amt>0? "+":"")+e.amt+" "+esc(e.what)+" ("+e.date+")"; }).join(" · ")||"—")+"</p>"
-    + "<p style='margin:6px 0 4px;'><b>Shop purchases:</b> "+(p.purchases.map(function(id){ var it=SHOP_ITEMS.filter(function(x){ return x.id===id; })[0]; return it? esc(it.name) : id; }).join(" · ")||"none yet")+"</p></div>";
+    + "<p style='margin:6px 0 4px;'><b>Bubbly's Boutique purchases:</b> "+((p.purchases||[]).length? p.purchases.map(function(id){ var it=boutiqueItem(id); return it? esc(it.name) : id; }).join(" · ") : "none yet")+"</p>"
+    + "<p style='margin:6px 0 4px;'><b>Wardrobe:</b> "+((p.wardrobe||[]).length? p.wardrobe.map(function(id){ var it=boutiqueItem(id); return it? esc(it.name)+" ("+slotLabel(it.slot)+(p.itemSources[id]==="gift"? ", 🎁 gift" : p.itemSources[id]==="treasure"? ", 🏆 treasure" : p.itemSources[id]==="shop (updated)"? ", updated" : "")+")" : id; }).join(" · ") : "starter look only")+"</p>"
+    + "<p style='margin:6px 0 4px;'><b>Wishlist:</b> "+(function(){ var wi = wishlistInfo(p); return wi? esc(wi.item.name)+" — "+wi.item.price+" 🪙 ("+(wi.owned? "owned already" : wi.gap>0? wi.gap+" coins to go" : "affordable now!")+")" : "none"; })()+"</p>"
+    + "<p style='margin:6px 0 4px;'><b>Treasures earned:</b> "+((p.treasures||[]).length? p.treasures.map(function(id){ var it=boutiqueItem(id); return it? it.icon+" "+esc(it.name) : id; }).join(" · ") : "none yet")+"</p></div>";
+  /* Nanna's Corner */
+  ensureLookShape(p);
+  var giftOpts = "<option value=''>— no gift —</option>" + BOUTIQUE_ITEMS.concat(MIMI_ITEMS).filter(function(it){ return !it.treasure; }).map(function(it){ return "<option value='"+it.id+"'>"+it.icon+" "+esc(it.name)+(it.consumable? " (treat — Mimi munches it)" : it.price? " ("+it.price+" 🪙 value)" : " (starter)")+"</option>"; }).join("");
+  html += "<div class='dash-sec'><h3>💌 Nanna's Corner</h3>"
+    + "<p class='mut' style='font-size:14px; margin:4px 0;'>A real message from Nanna — it appears once on her Home, exactly as typed (the dolls never invent messages). An optional gift from the Boutique goes straight into her wardrobe, free, marked 'Gift from Nanna'. Saving again replaces an unopened surprise.</p>"
+    + (p.pendingNanna? "<p style='font-size:14.5px;'><b>Waiting to be opened:</b> &ldquo;"+esc(p.pendingNanna.text||"(gift only)")+"&rdquo;"+(p.pendingNanna.giftItemId? " 🎁 "+esc((boutiqueItem(p.pendingNanna.giftItemId)||{}).name||"") : "")+" · saved "+esc(p.pendingNanna.date||"")+" · status: <b>unread</b></p>" : "<p class='mut' style='font-size:14px;'>No surprise waiting right now.</p>")
+    + "<textarea id='nannaText' maxlength='140' rows='2' style='width:100%; font-size:15px; padding:8px; border-radius:10px; border:2px solid #d9d3f5;' placeholder='A short message from Nanna (max 140 letters)'></textarea>"
+    + "<p style='margin:8px 0;'><b>Gift (optional):</b> <select class='sel' id='nannaGift'>"+giftOpts+"</select> <button class='btn pink small' id='btnNannaSave'>💌 Save for Sreshta</button></p>"
+    + "<p style='margin:6px 0 4px;'><b>Letters history:</b> "+((p.nannaLetters||[]).length? p.nannaLetters.slice().reverse().map(function(L){ return "&ldquo;"+esc(L.text||"(gift only)")+"&rdquo;"+(L.giftName? " 🎁 "+esc(L.giftName) : "")+" · "+esc(L.date||"")+" · "+(L.read? "read ✓" : "unread"); }).join("<br>") : "none yet")+"</p></div>";
   /* Paper bridge + Teach */
   html += "<div class='dash-sec'><h3>✍️ Paper Bridge & 📞 Teach Nanna</h3><p style='font-size:14.5px; margin:4px 0;'>"
     + CHAPTERS.map(function(ch){ var pp = p.paper[ch.id]; return esc(ch.name)+": "+(pp && pp.done? "✅ done "+pp.date : "—"); }).join("<br>")+"</p>"
@@ -4761,6 +5285,12 @@ function wireDashboard(p){
     });
     saveLadder(ladder); toast("💾 Reward ladder saved!");
   });
+  var bns = el("btnNannaSave");
+  if(bns) bns.addEventListener("click", function(){
+    var text = el("nannaText").value, gift = el("nannaGift").value;
+    if(queueNannaLetter(p, text, gift)){ saveProfile(p); renderDashboard(); toast("💌 Saved! It will appear on her Home on her next visit."); }
+    else toast("Type a message or pick a gift first!");
+  });
   var bcs = el("btnClassSet");
   if(bcs) bcs.addEventListener("click", function(){ var v = el("ctlClass").value; if(v) lsSet("nowClass", v); else { try{ localStorage.removeItem(LS_PREFIX+"nowClass"); }catch(e){} } toast("⭐ Now in Class updated!"); });
   var bbr = el("btnBaseReset");
@@ -4794,6 +5324,7 @@ function printMonthlyReport(p){
     + "<h3>Progress</h3><p>Level <b>"+lv.cur.n+" · "+lv.cur.name+"</b> ("+num(p.xp)+" XP) · Grade <b>"+(gr.label||"—")+"</b> · Topics mastered <b>"+topicsDone+" / "+FLAT_TOPICS.length+"</b> · Stars ⭐ "+num(p.stars)+" · Days played: "+p.playDays.length+"</p>"
     + "<h3>Growth vs Baseline</h3><p>Baseline: "+baseLine+"</p>"
     + "<h3>All-Rounder Pillars</h3><p>🧠 Analytical: "+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100) : 0)+"% thinking accuracy, "+(p.trickyCleared||0)+" tricky types cleared · 💪 Confidence: "+topicsDone+" topic exams passed, "+(p.rituals||0)+" rituals · 🌟 Personality: "+p.badges.length+" trait badges ("+p.badges.join(", ")+") · 🗣️ Communication: "+(p.teach.count||0)+" Teach-Nanna questions</p>"
+    + "<h3>Bubbly's Boutique</h3><p>Wardrobe: "+((p.wardrobe||[]).length)+" items owned · Treasures: "+((p.treasures||[]).length)+" earned · Letters from Nanna: "+((p.nannaLetters||[]).length)+" · Coins spent at the Boutique: "+num(p.coinsSpentTotal||0)+"</p>"
     + "<h3>Top 3 Weak Subtopics</h3><p>"+(weak.length? weak.join(" · ") : "Not enough data yet — keep playing!")+"</p>"
     + "<h3>Next Suggestions</h3><p>"+(weak.length? "Revisit the weak subtopics above in Mixed Practice, keep the Tricky Questions mode in the weekly mix, and try one Chapter Test-Out where the baseline was strong." : "Continue the chapter journey in order; take the Baseline Adventure if not done.")+"</p>"
     + "<p class='mut'>Generated on-device. Cloud sync arrives in the next phase.</p></div>";
@@ -4818,7 +5349,7 @@ function initApp(){
   el("btnSreshta").addEventListener("click", function(){ openPin("child"); });
   el("btnGuest").addEventListener("click", function(){ show("guest"); });
   el("btnParents").addEventListener("click", function(){ openPin("parent"); });
-  el("guestGo").addEventListener("click", function(){ var n = el("guestName").value.trim(); if(!n){ toast("Tell Appu your name first! 🐘"); return; } enterGuest(n); });
+  el("guestGo").addEventListener("click", function(){ var n = el("guestName").value.trim(); if(!n){ toast("Tell Bubbly your name first! 🎀"); return; } enterGuest(n); });
   var gotos = document.querySelectorAll("[data-goto]");
   for(var i=0;i<gotos.length;i++) gotos[i].addEventListener("click", function(){
     var t = this.getAttribute("data-goto");
