@@ -830,7 +830,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 /* ================= CONSTANTS ================= */
 var CHILD_PIN = "2017";   /* Sreshta's PIN (her birth year) */
 var PARENT_PIN = "2208";  /* Parent Dashboard PIN */
-var PROFILE_V = 6;
+var PROFILE_V = 7;
 var LEVELS = [
   {n:1,name:"Explorer",xp:0},{n:2,name:"Learner",xp:300},{n:3,name:"Thinker",xp:800},
   {n:4,name:"Problem Solver",xp:1500},{n:5,name:"Star Performer",xp:2500},
@@ -3589,7 +3589,7 @@ var BOUTIQUE_ITEMS = [
 var MIMI_ITEMS = []; /* merged into BOUTIQUE_ITEMS in v5 — Mimi wears everything now */
 function boutiqueItem(id){ var all = BOUTIQUE_ITEMS.concat(MIMI_ITEMS); for(var i=0;i<all.length;i++) if(all[i].id===id) return all[i]; return null; }
 function isWearableItem(it){ return !!(it && (it.slot==="head"||it.slot==="dress"||it.slot==="accessory"||it.slot==="ears"||it.slot==="blanket")); }
-function defaultLook(){ return { head:"acc-bow", dress:"", accessory:"" }; }
+function defaultLook(){ return { head:"", dress:"", accessory:"" }; }
 function defaultMimiLook(){ return { ears:"", blanket:"" }; }
 function starterWardrobe(){ return ["acc-bow","dress-pink"]; }
 function ensureLookShape(p){
@@ -3597,7 +3597,7 @@ function ensureLookShape(p){
   if(p.look.hair!==undefined){ applyArtSwapMigration(p); }
   ["head","dress","accessory"].forEach(function(slot){
     var v = p.look[slot];
-    if(v===""){ return; } /* an empty slot is a real choice now — Mimi starts with NO dress; never refill it */
+    if(v===""){ return; } /* an empty slot is a real choice now — Mimi starts fully NATURAL (v7: no slot is ever refilled) */
     var it = boutiqueItem(v); if(!it || it.slot!==slot) p.look[slot] = defaultLook()[slot];
   });
   delete p.look.hair;
@@ -3773,27 +3773,44 @@ function applyShopMigration(p, legacyPurchases){
   }
 }
 
-/* ============ PROFILE v6 + MIGRATION (v5 = Mimi the star; v6 = she starts NORMAL: the free starter Pink Dress is owned, never auto-worn) ============ */
-var PROFILE_V = 6;
-/* Was the starter Pink Dress ever actually BOUGHT (vs the free default grant)?
+/* ============ PROFILE v7 + MIGRATION (v5 = Mimi the star; v6 = she starts NORMAL: the free starter Pink Dress is owned, never auto-worn; v7 = the WHOLE look starts natural: NO starter item is auto-worn in any slot) ============ */
+var PROFILE_V = 7;
+/* Was a starter-grant item ever actually BOUGHT (vs the free default grant)?
    A buy leaves a record: a purchases[] entry, a non-"starter" item source,
    or a boutique coin-ledger line. The free starter grant leaves none of these. */
-function starterDressPurchaseRecord(p){
-  if(!p) return false;
-  if((p.purchases||[]).indexOf("dress-pink")>=0) return true;
-  var src = p.itemSources && p.itemSources["dress-pink"];
+function starterPurchaseRecord(p, id){
+  if(!p || !id) return false;
+  if((p.purchases||[]).indexOf(id)>=0) return true;
+  var src = p.itemSources && p.itemSources[id];
   if(src && src!=="starter") return true;
-  var led = p.coinLedger||[];
-  for(var i=0;i<led.length;i++){ if(led[i] && led[i].what==="Mimi's Boutique: Pink Dress") return true; }
+  var it = boutiqueItem(id);
+  var want = it? "Mimi's Boutique: " + it.name : null;
+  if(want){
+    var led = p.coinLedger||[];
+    for(var i=0;i<led.length;i++){ if(led[i] && led[i].what===want) return true; }
+  }
   return false;
 }
-/* v6 rule: if she is wearing the starter Pink Dress only because it was the free
-   auto-worn default (no purchase record), take it OFF — the dress stays owned in
-   her wardrobe. Any other worn dress, or a bought Pink Dress, is left untouched. */
-function applyStarterDressFix(p){
-  if(p && p.look && p.look.dress==="dress-pink" && !starterDressPurchaseRecord(p)) p.look.dress = "";
+function starterDressPurchaseRecord(p){ return starterPurchaseRecord(p, "dress-pink"); }
+/* v7 rule (generalises the v6 dress rule to EVERY slot): for each worn slot, if
+   the worn item is with her only because of the free starter grant (its source
+   is "starter" and there is no purchase record for it), take it OFF — the item
+   stays owned in her wardrobe. Anything BOUGHT, GIFTED (source "gift") or
+   EARNED (treasures) stays exactly as worn, as does anything she put on by
+   choice after this migration ran (choices live in v7 profiles, which never
+   pass through here again). */
+function applyStarterLookFix(p){
+  if(!p) return p;
+  [["look","head"],["look","dress"],["look","accessory"],["mimiLook","ears"],["mimiLook","blanket"]].forEach(function(pair){
+    var holder = p[pair[0]]; if(!holder) return;
+    var id = holder[pair[1]]; if(!id) return;
+    var src = p.itemSources && p.itemSources[id];
+    if(src==="starter" && !starterPurchaseRecord(p, id)) holder[pair[1]] = "";
+  });
   return p;
 }
+/* Legacy v6 name — the dress case of the same rule (kept for older callers). */
+function applyStarterDressFix(p){ return applyStarterLookFix(p); }
 function defaultTopicState(){ return { stepsDone:0, stage:0, thinkDone:false, mastered:false, testedOut:false, status:"", fixStep:-1, bestExamPct:0, bestXP:0, exams:0, prac:{a:0,c:0}, think:{a:0,c:0}, examHistory:[] }; }
 function defaultChapterState(){ return { bestPct:0, mastered:false, bonusXP:0, honest:false, attempts:0, history:[] }; }
 function newProfile(name){
@@ -3826,42 +3843,51 @@ function recomputeProfileXP(p){
 }
 function migrateProfile(old){
   if(!old) return null;
-  if(old.v===PROFILE_V && old.topics) { /* already v6 — safe defaults merge */
+  if(old.v===PROFILE_V && old.topics) { /* already v7 — safe defaults merge */
     var base = newProfile(old.name||"Player");
     Object.keys(base).forEach(function(k){ if(old[k]===undefined || old[k]===null) old[k]=base[k]; });
     ensureLookShape(old);
     old.v = PROFILE_V; return old;
   }
-  if(old.v===5 && old.topics) { /* v5 → v6: keep EVERYTHING; only change — the free starter Pink Dress is no longer auto-worn (owned, not worn) unless it was actually bought */
+  if(old.v===6 && old.topics) { /* v6 → v7: keep EVERYTHING; only change — NO free starter item stays auto-worn in ANY slot (owned, not worn) unless it was actually bought */
+    var p6 = old;
+    var base6 = newProfile(old.name||"Player");
+    Object.keys(base6).forEach(function(k){ if(p6[k]===undefined || p6[k]===null) p6[k]=base6[k]; });
+    ensureLookShape(p6);
+    applyStarterLookFix(p6);
+    p6.v = PROFILE_V;
+    return p6;
+  }
+  if(old.v===5 && old.topics) { /* v5 → v7: keep EVERYTHING; only change — free starter items are no longer auto-worn in any slot (owned, not worn) unless actually bought */
     var p5 = old;
     var base5 = newProfile(old.name||"Player");
     Object.keys(base5).forEach(function(k){ if(p5[k]===undefined || p5[k]===null) p5[k]=base5[k]; });
     ensureLookShape(p5);
-    applyStarterDressFix(p5);
+    applyStarterLookFix(p5);
     p5.v = PROFILE_V;
     return p5;
   }
-  if(old.v===4 && old.topics) { /* v4 → v6: keep EVERYTHING — coins, stars, XP, letters, wardrobe and worn state all carry over; Mimi simply becomes the star who wears it all */
+  if(old.v===4 && old.topics) { /* v4 → v7: keep EVERYTHING — coins, stars, XP, letters, wardrobe and worn state all carry over; Mimi simply becomes the star who wears it all (free starter items excepted: owned, not auto-worn) */
     var p4 = old;
     var base4 = newProfile(old.name||"Player");
     Object.keys(base4).forEach(function(k){ if(p4[k]===undefined || p4[k]===null) p4[k]=base4[k]; });
     applyArtSwapMigration(p4);
     ensureLookShape(p4);
-    applyStarterDressFix(p4);
+    applyStarterLookFix(p4);
     p4.v = PROFILE_V;
     return p4;
   }
-  if(old.v===3 && old.topics) { /* v3 → v6: keep EVERYTHING, swap only the doll art (hair → head items) */
+  if(old.v===3 && old.topics) { /* v3 → v7: keep EVERYTHING, swap only the doll art (hair → head items); free starter items are owned, not auto-worn */
     var p3 = old;
     var base3 = newProfile(old.name||"Player");
     Object.keys(base3).forEach(function(k){ if(p3[k]===undefined || p3[k]===null) p3[k]=base3[k]; });
     applyArtSwapMigration(p3);
     ensureLookShape(p3);
-    applyStarterDressFix(p3);
+    applyStarterLookFix(p3);
     p3.v = PROFILE_V;
     return p3;
   }
-  if(old.v===2 && old.topics) { /* v2 → v6: keep EVERYTHING, map the old shop, then the art swap */
+  if(old.v===2 && old.topics) { /* v2 → v7: keep EVERYTHING, map the old shop, then the art swap; free starter items are owned, not auto-worn */
     var p2 = old;
     var base2 = newProfile(old.name||"Player");
     Object.keys(base2).forEach(function(k){ if(p2[k]===undefined || p2[k]===null) p2[k]=base2[k]; });
@@ -3869,7 +3895,7 @@ function migrateProfile(old){
     applyShopMigration(p2, (old.purchases||[]).slice());
     applyArtSwapMigration(p2);
     ensureLookShape(p2);
-    applyStarterDressFix(p2);
+    applyStarterLookFix(p2);
     p2.v = PROFILE_V;
     return p2;
   }
@@ -3907,6 +3933,7 @@ function migrateProfile(old){
   if(old.purchases && old.purchases.length) applyShopMigration(p, old.purchases.slice());
   applyArtSwapMigration(p);
   ensureLookShape(p);
+  applyStarterLookFix(p);
   p.v = PROFILE_V;
   return p;
 }
