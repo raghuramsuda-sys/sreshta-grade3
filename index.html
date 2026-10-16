@@ -830,7 +830,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 /* ================= CONSTANTS ================= */
 var CHILD_PIN = "2017";   /* Sreshta's PIN (her birth year) */
 var PARENT_PIN = "2208";  /* Parent Dashboard PIN */
-var PROFILE_V = 5;
+var PROFILE_V = 6;
 var LEVELS = [
   {n:1,name:"Explorer",xp:0},{n:2,name:"Learner",xp:300},{n:3,name:"Thinker",xp:800},
   {n:4,name:"Problem Solver",xp:1500},{n:5,name:"Star Performer",xp:2500},
@@ -3589,7 +3589,7 @@ var BOUTIQUE_ITEMS = [
 var MIMI_ITEMS = []; /* merged into BOUTIQUE_ITEMS in v5 — Mimi wears everything now */
 function boutiqueItem(id){ var all = BOUTIQUE_ITEMS.concat(MIMI_ITEMS); for(var i=0;i<all.length;i++) if(all[i].id===id) return all[i]; return null; }
 function isWearableItem(it){ return !!(it && (it.slot==="head"||it.slot==="dress"||it.slot==="accessory"||it.slot==="ears"||it.slot==="blanket")); }
-function defaultLook(){ return { head:"acc-bow", dress:"dress-pink", accessory:"" }; }
+function defaultLook(){ return { head:"acc-bow", dress:"", accessory:"" }; }
 function defaultMimiLook(){ return { ears:"", blanket:"" }; }
 function starterWardrobe(){ return ["acc-bow","dress-pink"]; }
 function ensureLookShape(p){
@@ -3597,7 +3597,7 @@ function ensureLookShape(p){
   if(p.look.hair!==undefined){ applyArtSwapMigration(p); }
   ["head","dress","accessory"].forEach(function(slot){
     var v = p.look[slot];
-    if(v===""){ if(slot==="dress") p.look[slot] = defaultLook()[slot]; return; }
+    if(v===""){ return; } /* an empty slot is a real choice now — Mimi starts with NO dress; never refill it */
     var it = boutiqueItem(v); if(!it || it.slot!==slot) p.look[slot] = defaultLook()[slot];
   });
   delete p.look.hair;
@@ -3728,7 +3728,7 @@ function applyArtSwapMigration(p){
     p.itemSources = ns;
   }
   if(p.look){
-    var nl = { head:"", dress:"dress-pink", accessory:"" };
+    var nl = { head:"", dress:"", accessory:"" };
     if(p.look.head) nl.head = mapArtSwapId(p.look.head) || "";
     else if(p.look.hair) nl.head = mapArtSwapId(p.look.hair) || "";
     if(p.look.dress) nl.dress = p.look.dress;
@@ -3773,8 +3773,27 @@ function applyShopMigration(p, legacyPurchases){
   }
 }
 
-/* ============ PROFILE v5 + MIGRATION (v5 = Mimi the bunny is the star; every owned/worn item carries over 1:1) ============ */
-var PROFILE_V = 5;
+/* ============ PROFILE v6 + MIGRATION (v5 = Mimi the star; v6 = she starts NORMAL: the free starter Pink Dress is owned, never auto-worn) ============ */
+var PROFILE_V = 6;
+/* Was the starter Pink Dress ever actually BOUGHT (vs the free default grant)?
+   A buy leaves a record: a purchases[] entry, a non-"starter" item source,
+   or a boutique coin-ledger line. The free starter grant leaves none of these. */
+function starterDressPurchaseRecord(p){
+  if(!p) return false;
+  if((p.purchases||[]).indexOf("dress-pink")>=0) return true;
+  var src = p.itemSources && p.itemSources["dress-pink"];
+  if(src && src!=="starter") return true;
+  var led = p.coinLedger||[];
+  for(var i=0;i<led.length;i++){ if(led[i] && led[i].what==="Mimi's Boutique: Pink Dress") return true; }
+  return false;
+}
+/* v6 rule: if she is wearing the starter Pink Dress only because it was the free
+   auto-worn default (no purchase record), take it OFF — the dress stays owned in
+   her wardrobe. Any other worn dress, or a bought Pink Dress, is left untouched. */
+function applyStarterDressFix(p){
+  if(p && p.look && p.look.dress==="dress-pink" && !starterDressPurchaseRecord(p)) p.look.dress = "";
+  return p;
+}
 function defaultTopicState(){ return { stepsDone:0, stage:0, thinkDone:false, mastered:false, testedOut:false, status:"", fixStep:-1, bestExamPct:0, bestXP:0, exams:0, prac:{a:0,c:0}, think:{a:0,c:0}, examHistory:[] }; }
 function defaultChapterState(){ return { bestPct:0, mastered:false, bonusXP:0, honest:false, attempts:0, history:[] }; }
 function newProfile(name){
@@ -3807,31 +3826,42 @@ function recomputeProfileXP(p){
 }
 function migrateProfile(old){
   if(!old) return null;
-  if(old.v===PROFILE_V && old.topics) { /* already v5 — safe defaults merge */
+  if(old.v===PROFILE_V && old.topics) { /* already v6 — safe defaults merge */
     var base = newProfile(old.name||"Player");
     Object.keys(base).forEach(function(k){ if(old[k]===undefined || old[k]===null) old[k]=base[k]; });
     ensureLookShape(old);
     old.v = PROFILE_V; return old;
   }
-  if(old.v===4 && old.topics) { /* v4 → v5: keep EVERYTHING — coins, stars, XP, letters, wardrobe and worn state all carry over; Mimi simply becomes the star who wears it all */
+  if(old.v===5 && old.topics) { /* v5 → v6: keep EVERYTHING; only change — the free starter Pink Dress is no longer auto-worn (owned, not worn) unless it was actually bought */
+    var p5 = old;
+    var base5 = newProfile(old.name||"Player");
+    Object.keys(base5).forEach(function(k){ if(p5[k]===undefined || p5[k]===null) p5[k]=base5[k]; });
+    ensureLookShape(p5);
+    applyStarterDressFix(p5);
+    p5.v = PROFILE_V;
+    return p5;
+  }
+  if(old.v===4 && old.topics) { /* v4 → v6: keep EVERYTHING — coins, stars, XP, letters, wardrobe and worn state all carry over; Mimi simply becomes the star who wears it all */
     var p4 = old;
     var base4 = newProfile(old.name||"Player");
     Object.keys(base4).forEach(function(k){ if(p4[k]===undefined || p4[k]===null) p4[k]=base4[k]; });
     applyArtSwapMigration(p4);
     ensureLookShape(p4);
+    applyStarterDressFix(p4);
     p4.v = PROFILE_V;
     return p4;
   }
-  if(old.v===3 && old.topics) { /* v3 → v5: keep EVERYTHING, swap only the doll art (hair → head items) */
+  if(old.v===3 && old.topics) { /* v3 → v6: keep EVERYTHING, swap only the doll art (hair → head items) */
     var p3 = old;
     var base3 = newProfile(old.name||"Player");
     Object.keys(base3).forEach(function(k){ if(p3[k]===undefined || p3[k]===null) p3[k]=base3[k]; });
     applyArtSwapMigration(p3);
     ensureLookShape(p3);
+    applyStarterDressFix(p3);
     p3.v = PROFILE_V;
     return p3;
   }
-  if(old.v===2 && old.topics) { /* v2 → v5: keep EVERYTHING, map the old shop, then the art swap */
+  if(old.v===2 && old.topics) { /* v2 → v6: keep EVERYTHING, map the old shop, then the art swap */
     var p2 = old;
     var base2 = newProfile(old.name||"Player");
     Object.keys(base2).forEach(function(k){ if(p2[k]===undefined || p2[k]===null) p2[k]=base2[k]; });
@@ -3839,6 +3869,7 @@ function migrateProfile(old){
     applyShopMigration(p2, (old.purchases||[]).slice());
     applyArtSwapMigration(p2);
     ensureLookShape(p2);
+    applyStarterDressFix(p2);
     p2.v = PROFILE_V;
     return p2;
   }
@@ -4287,18 +4318,43 @@ var STAR_IMG = "data:image/webp;base64,UklGRipKAABXRUJQVlA4WAoAAAAQAAAAGQEABwIAQ
 var STAR_ALT = "Mimi the plush bunny";
 var DRESS_COLORS = { pink:["#ff6b9d","#ff9dbd","#ffe9f3"], school:["#3b6fd4","#2f57a8","#e0ebfd"], dance:["#a55eea","#c99aff","#f0e4ff"], lehenga:["#e23b3b","#f0763d","#ffe7da"], explorer:["#2a9d8f","#63bda9","#ddf5ef"], artist:["#0fb5a6","#7fe8db","#dcfaf5"], pyjamas:["#7db4ff","#b3d4ff","#e4efff"], cape:["#7c4dff","#a78bff","#eae4ff"], brave:["#3aa0ff","#79c2ff","#e1f0ff"] };
 function itemStyleOf(id){ if(!id) return ""; var it = boutiqueItem(id); return it? (it.style||"") : ""; }
+function shadeHex(hex, f){
+  var n = parseInt(String(hex).slice(1), 16);
+  if(isNaN(n)) return hex;
+  var r = Math.max(0, Math.min(255, Math.round(((n>>16)&255)*f)));
+  var g = Math.max(0, Math.min(255, Math.round(((n>>8)&255)*f)));
+  var b = Math.max(0, Math.min(255, Math.round((n&255)*f)));
+  return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+/* A REAL little dress (v6 artwork): scoop neckline, puff sleeves, a fitted bodice,
+   a defined waistband, and an A-line skirt with a wavy scalloped hem, soft fold
+   lines and deeper shading at waist + hem — reads as clothing, never a flat shape. */
 function dressSVG(style){
   var dc = DRESS_COLORS[style] || DRESS_COLORS.pink;
+  var deep = shadeHex(dc[0], .66);
+  var HEM = "Q78.5 86.5 69 80 Q59.5 86.5 50 80 Q40.5 86.5 31 80 Q21.5 86.5 12 80";
+  var SIL = "M33 7 Q50 16.5 67 7 L74.5 9.5 Q80 11 79 16 Q78.2 22 71 20.8 L65.5 18.5 Q63.5 28 62.8 37 L88 80 "+HEM+" L37.2 37 Q36.5 28 34.5 18.5 L29 20.8 Q22 22 21 16 Q20 11 25.5 9.5 Z";
+  var BOD = "M33 7 Q50 16.5 67 7 L65.5 18.5 Q63.5 28 62.8 37 L37.2 37 Q36.5 28 34.5 18.5 Z";
+  var SKIRT = "M37.2 37 L62.8 37 L88 80 "+HEM+" Z";
+  var HEMSHADE = "M21 64 Q50 69.5 79 64 L88 80 "+HEM+" Z";
   var s = '<svg viewBox="0 0 100 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">';
-  s += '<path d="M38 4 L62 4 L68 24 L89 80 Q50 92 11 80 L32 24 Z" fill="'+dc[0]+'"/>';
-  s += '<path d="M38 4 L62 4 L68 24 L32 24 Z" fill="'+dc[1]+'" opacity=".6"/>';
-  if(style==="dance") s += '<ellipse cx="50" cy="79" rx="40" ry="9" fill="'+dc[1]+'"/><circle cx="34" cy="52" r="2.6" fill="#ffd32a"/><circle cx="58" cy="62" r="2.6" fill="#ffd32a"/><circle cx="48" cy="42" r="2.2" fill="#ffffff"/>';
-  if(style==="lehenga") s += '<path d="M36 8 L85 74 L74 81 L27 18 Z" fill="#ffd32a" opacity=".92"/><circle cx="40" cy="66" r="2.4" fill="#ffd32a"/><circle cx="62" cy="56" r="2.4" fill="#ffd32a"/>';
-  if(style==="school") s += '<path d="M42 4 L50 14 L58 4 L54 4 L50 8 L46 4 Z" fill="#ffffff"/><rect x="23" y="57" width="54" height="5.5" rx="2.7" fill="#ffd32a"/>';
-  if(style==="explorer") s += '<rect x="17" y="55" width="66" height="6.5" rx="3" fill="#8a5a2b"/><rect x="45.5" y="54" width="9" height="9" rx="2" fill="#ffd32a"/>';
-  if(style==="artist") s += '<circle cx="38" cy="48" r="3.6" fill="#ff5d8f"/><circle cx="58" cy="58" r="3.6" fill="#ffd32a"/><circle cx="50" cy="38" r="3.2" fill="#3aa0ff"/>';
-  if(style==="pyjamas") s += '<text x="34" y="54" font-size="13" fill="#ffffff">★</text><text x="57" y="44" font-size="11" fill="#ffffff">☾</text>';
-  if(style==="brave") s += '<text x="42" y="54" font-size="18" fill="#ffd32a">★</text>';
+  s += '<path class="dress-sil" d="'+SIL+'" fill="'+dc[0]+'" stroke="'+deep+'" stroke-width="2" stroke-linejoin="round"/>';
+  s += '<path d="'+BOD+'" fill="'+dc[1]+'" opacity=".5"/>';
+  if(style==="dance") s += '<path d="'+SKIRT+'" fill="'+dc[2]+'" opacity=".45"/>';
+  s += '<path d="'+HEMSHADE+'" fill="'+deep+'" opacity=".16"/>';
+  s += '<g stroke="'+deep+'" stroke-width="1.7" stroke-linecap="round" fill="none" opacity=".28"><path d="M43.5 43 Q42 60 39.5 77"/><path d="M50 43.5 Q50 61 50 78.5"/><path d="M56.5 43 Q58 60 60.5 77"/></g>';
+  s += '<path d="M36.8 35.2 L63.2 35.2 L63.8 41 L36.2 41 Z" fill="'+deep+'" opacity=".5"/>';
+  if(style==="dance") s += '<circle cx="34" cy="54" r="2.6" fill="#ffd32a"/><circle cx="58" cy="64" r="2.6" fill="#ffd32a"/><circle cx="48" cy="46" r="2.2" fill="#ffffff"/>';
+  if(style==="lehenga") s += '<path d="M35 8 L86 70 L75.5 79.5 L25.5 17.5 Z" fill="#ffd32a" opacity=".92"/><circle cx="40" cy="64" r="2.4" fill="#ffd32a"/><circle cx="62" cy="54" r="2.4" fill="#ffd32a"/>';
+  if(style==="school") s += '<path d="M36.5 5.8 Q50 14.5 63.5 5.8 L63.5 11 Q50 19.5 36.5 11 Z" fill="#ffffff"/><rect x="45.5" y="34.8" width="9" height="7.5" rx="2" fill="#ffd32a"/>';
+  if(style==="explorer") s += '<path d="M36.4 34.8 L63.6 34.8 L64.2 41.4 L35.8 41.4 Z" fill="#8a5a2b"/><rect x="45.5" y="34.6" width="9" height="8" rx="2" fill="#ffd32a"/>';
+  if(style==="artist") s += '<circle cx="38" cy="54" r="3.6" fill="#ff5d8f"/><circle cx="59" cy="62" r="3.6" fill="#ffd32a"/><circle cx="50" cy="47" r="3.2" fill="#3aa0ff"/>';
+  if(style==="pyjamas") s += '<text x="35" y="60" font-size="12" fill="#ffffff">★</text><text x="57" y="50" font-size="11" fill="#ffffff">☾</text>';
+  if(style==="brave") s += '<text x="41" y="58" font-size="19" fill="#ffd32a">★</text>';
+  if(style==="cape") s += '<circle cx="50" cy="15" r="2.2" fill="#ffd32a"/>';
+  s += '<path d="M34.5 8.4 Q50 17.7 65.5 8.4" stroke="'+dc[2]+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>';
+  s += '<g stroke="'+deep+'" stroke-width="1.6" fill="none" opacity=".35"><path d="M22.8 17.5 Q26 20.5 30.5 19.8"/><path d="M77.2 17.5 Q74 20.5 69.5 19.8"/></g>';
+  s += '<circle cx="50" cy="24" r="1.3" fill="'+deep+'" opacity=".5"/><circle cx="50" cy="30.5" r="1.3" fill="'+deep+'" opacity=".5"/>';
   return s + '</svg>';
 }
 function capeSVG(){
@@ -4339,7 +4395,7 @@ function currentStarLook(){
   var bp = castBaseProfile();
   var bl = bp? (bp.look || defaultLook()) : defaultLook();
   var bm = bp? (bp.mimiLook || defaultMimiLook()) : defaultMimiLook();
-  var look = { head:bl.head||"", dress:bl.dress||"dress-pink", accessory:bl.accessory||"", ears:bm.ears||"", blanket:bm.blanket||"" };
+  var look = { head:bl.head||"", dress:bl.dress||"", accessory:bl.accessory||"", ears:bm.ears||"", blanket:bm.blanket||"" };
   if(APP.shopPreviewId){ var it = boutiqueItem(APP.shopPreviewId); if(it && it.slot) look[it.slot] = it.id; }
   return look;
 }
