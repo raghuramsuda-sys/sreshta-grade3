@@ -163,6 +163,9 @@ h1.title{
 .stage-row{align-items:center;}
 .stage-row .cast{width:118px; min-width:118px; flex-shrink:0;}
 .stage-row .bubble{font-size:17px; padding:22px 26px 26px;}
+.voice-btn{flex-shrink:0; align-self:flex-start; margin-top:12px; width:46px; height:46px; border-radius:50%; border:2.5px solid #4a2b5c; background:#fff; font-size:21px; cursor:pointer; box-shadow:0 3px 8px rgba(74,43,92,.18); padding:0; line-height:1;}
+.voice-btn.off{opacity:.55; filter:grayscale(.7);}
+.voice-btn:active{transform:scale(1.12);}
 .card{
   background:var(--card); border-radius:var(--radius); padding:16px; margin:12px 0;
   box-shadow:0 6px 0 rgba(38,50,94,.13), 0 12px 24px rgba(38,50,94,.10);
@@ -615,6 +618,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
   <div class="mascot-row stage-row">
     <div class="cast" data-cast="mimi" data-grow="1"></div>
     <div class="bubble" id="homeBubble">Welcome!</div>
+    <button class="voice-btn" id="voiceBtn" title="Mimi's voice on or off" aria-label="Turn Mimi's voice on or off">🔊</button>
   </div>
   <div id="nannaHomeBox"></div>
   <div class="home-top">
@@ -3975,7 +3979,7 @@ function newProfile(name){
     purchases:[], theme:"", outfit:"", coinLedger:[], rewardsGiven:[], rituals:0, bestStreak:0,
     look:defaultLook(), mimiLook:defaultMimiLook(), wardrobe:starterWardrobe(),
     itemSources:{ "acc-bow":"starter", "dress-pink":"starter" },
-    treasures:[], wishlist:"", pendingNanna:null, nannaLetters:[], legacyPurchases:[], pendingTreasureAwards:[], reelTalk:{ text:"", date:"" },
+    treasures:[], wishlist:"", pendingNanna:null, nannaLetters:[], legacyPurchases:[], pendingTreasureAwards:[], reelTalk:{ text:"", date:"" }, voiceOn:true,
     lastPlayed:todayStr(), createdAt:todayStr(), coinsSpentTotal:0 };
 }
 function topicState(p, tid){ if(!p.topics[tid]) p.topics[tid]=defaultTopicState(); return p.topics[tid]; }
@@ -4500,14 +4504,88 @@ function navBack(){
   }
 }
 function toast(msg){ var t=el("toast"); if(!t) return; t.textContent=msg; t.classList.add("on"); setTimeout(function(){ t.classList.remove("on"); }, 2600); }
-function speak(text){
+/* ============ MIMI'S VOICE — a fictional young-friend voice ============
+   The DEVICE's built-in text-to-speech (Web Speech API), tuned bright and
+   slightly high-pitched — a storybook friend, never a clone of Sreshta or
+   any real child. No recordings, no audio files, no external service.
+   She speaks only after a tap or an entry (browser gesture rules) and
+   NEVER during an exam. Words stay exact — cleaning removes only emojis
+   and decorative symbols and turns ₹ into "rupees", so Nanna's letters
+   are spoken word-for-word. Per-profile switch: profile.voiceOn. */
+var MIMI_VOICE = { picked:null, hooked:false };
+var MIMI_SAMPLE_LINE = "Hi Sreshta! I'm Mimi. Let's learn and play together!";
+function mimiSynth(){ try{ return ("speechSynthesis" in window)? window.speechSynthesis : null; }catch(e){ return null; } }
+function mimiVoiceScore(v){
+  var lang = String((v && v.lang) || "").toLowerCase();
+  var n = (String((v && v.name) || "") + " " + lang).toLowerCase();
+  var s;
+  if(lang.indexOf("en-in")===0) s = 40;
+  else if(lang.indexOf("en-gb")===0) s = 25;
+  else if(lang.indexOf("en-us")===0) s = 20;
+  else if(lang.indexOf("en")===0) s = 10;
+  else return -1;
+  if(n.indexOf("female")>=0) s += 30;
+  else if(/veena|lekha|aditi|neerja|raveena|heera|priya|zira|samantha|fiona|kate|serena|susan|allison|ava/.test(n)) s += 28;
+  if(/david|daniel|alex|fred|hemant|ravi|rishi|aaron|arthur|brian|christopher|george|ryan|guy/.test(n)) s -= 40;
+  if(n.indexOf(" male")>=0 && n.indexOf("female")<0) s -= 40;
+  if(n.indexOf("google")>=0) s += 4;
+  return s;
+}
+function mimiPickVoice(){
+  var sy = mimiSynth(); if(!sy) return null;
+  var vs = [];
+  try{ vs = sy.getVoices() || []; }catch(e){ vs = []; }
+  if(!vs.length) return null;
+  var best = null, bestScore = -2;
+  for(var i=0;i<vs.length;i++){ var sc = mimiVoiceScore(vs[i]); if(sc > bestScore){ bestScore = sc; best = vs[i]; } }
+  if(best && bestScore >= 0) return best;
+  for(var j=0;j<vs.length;j++){ if(vs[j].default) return vs[j]; }
+  return vs[0];
+}
+function mimiHookVoices(){
+  var sy = mimiSynth(); if(!sy || MIMI_VOICE.hooked) return;
+  MIMI_VOICE.hooked = true;
+  var refresh = function(){ MIMI_VOICE.picked = mimiPickVoice(); };
+  try{ if(sy.addEventListener) sy.addEventListener("voiceschanged", refresh); else sy.onvoiceschanged = refresh; }catch(e){}
+  refresh();
+}
+function mimiCleanSpeech(t){
+  var s = String(t==null? "" : t);
+  s = s.replace(/<[^>]*>/g, "");
+  s = s.replace(/₹/g, " rupees ");
+  s = s.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, " ");
+  s = s.replace(/[\u2600-\u27BF\u2B00-\u2BFF\uFE0F\u200D\u203C\u2049]/g, " ");
+  s = s.replace(/[·•]/g, " ");
+  s = s.replace(/\s+/g, " ").trim();
+  return s;
+}
+function mimiVoiceOn(){
+  var p = null;
+  try{ p = P(); }catch(e){ p = null; }
+  return !(p && p.voiceOn===false);
+}
+function mimiSpeak(text, opts){
   try{
-    if(!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(String(text).replace(/[🐘🎉⭐🪙🔊✨🌈💛🏆📝🚀]/g,""));
-    u.rate = 0.95; u.pitch = 1.05;
-    window.speechSynthesis.speak(u);
-  }catch(e){}
+    var sy = mimiSynth(); if(!sy || typeof SpeechSynthesisUtterance==="undefined") return false;
+    if(!(opts && opts.force) && !mimiVoiceOn()) return false;
+    if(examSessionOn()) return false;
+    var clean = mimiCleanSpeech(text);
+    if(!clean) return false;
+    mimiHookVoices();
+    sy.cancel();
+    var u = new SpeechSynthesisUtterance(clean);
+    var v = MIMI_VOICE.picked || mimiPickVoice();
+    if(v){ u.voice = v; if(v.lang) u.lang = v.lang; }
+    u.pitch = 1.4; u.rate = 1.0;
+    sy.speak(u);
+    return true;
+  }catch(e){ return false; }
+}
+function speak(text){ return mimiSpeak(text); }
+var MIMI_PRAISE = ["Super!", "Well done!", "Great job!", "Brilliant!"];
+function mimiPraiseLine(){
+  var ix = APP.praiseIx || 0; APP.praiseIx = ix + 1;
+  return MIMI_PRAISE[ix % MIMI_PRAISE.length];
 }
 function confetti(){
   celebrateStar();
@@ -4713,7 +4791,8 @@ function celebrateStar(){
    chip) opens Tricky Questions. P4 inside a practice question → the hint.
    P5 otherwise → a reaction + a talk line, never the same twice in a row.
    P2/P3 need an active child session, so a tap can never skip the PIN or
-   abandon a quiz mid-question. Positive only; no audio; no guilt. */
+   abandon a quiz mid-question. Positive only; no guilt. (Her voice is the
+   MIMI'S VOICE engine — mimiSpeak — and it stays silent in exams too.) */
 var TAP = { lastRx:"", lastLine:"", pendingT:null, lastAt:0, lastCast:null, trickyUntil:0 };
 function tapMotionOK(){ return starLifeOn(); }
 function tapHour(){ return new Date().getHours(); }
@@ -4950,6 +5029,7 @@ function resolveTapMimi(castEl){
       playReaction(castEl, "wave");
       TAP.trickyUntil = Date.now()+9000;
       sayLine("I saved a tricky one for you! 🍀", { id:"tricky", label:"Let's practise! 🍀" });
+      mimiSpeak("I saved a tricky one for you! 🍀");
       return;
     }
   }
@@ -4958,8 +5038,10 @@ function resolveTapMimi(castEl){
     var hint = hintForQuestion(curQ());
     var ex = el("qExplain");
     if(ex){
+      var htext = hint || TAP_COACH_LINES[Math.floor(Math.random()*TAP_COACH_LINES.length)];
       ex.style.display = "block";
-      ex.innerHTML = "💡 <b>Mimi's hint:</b> " + esc(hint || TAP_COACH_LINES[Math.floor(Math.random()*TAP_COACH_LINES.length)]);
+      ex.innerHTML = "💡 <b>Mimi's hint:</b> " + esc(htext);
+      mimiSpeak(htext);
     }
     playReaction(castEl, "wave");
     return;
@@ -4976,7 +5058,7 @@ function resolveTapMimi(castEl){
   } else {
     line = pickTalkLine(prof);
   }
-  if(line) sayLine(line);
+  if(line){ sayLine(line); mimiSpeak(line); }
 }
 function handleCastTap(castEl){
   var now = Date.now();
@@ -5080,6 +5162,7 @@ function enterChild(){
   notePlayDay(); save(); applyThemeOutfit();
   renderHome(); show("home");
   toast("Welcome, Sreshta! 🌈");
+  var hb = el("homeBubble"); if(hb) mimiSpeak(hb.textContent);
 }
 function enterGuest(name){
   var slug = "guest-"+slugify(name);
@@ -5089,6 +5172,7 @@ function enterGuest(name){
   notePlayDay(); save(); applyThemeOutfit();
   renderHome(); show("home");
   toast("Hi "+name+"! Your stars are saved just for you ⭐");
+  var hb = el("homeBubble"); if(hb) mimiSpeak(hb.textContent);
 }
 
 /* ============ CHILD HOME ============ */
@@ -5142,6 +5226,8 @@ function openNannaMoment(){
   var res = deliverNannaLetter(p);
   if(!res.delivered){ renderHome(); return; }
   save(); applyThemeOutfit(); confetti();
+  var ltxt = (res.letter && res.letter.text)? res.letter.text : "";
+  mimiSpeak("A letter from Nanna! 💌" + (ltxt? " " + ltxt : ""));
   toast(res.giftItem? ("🎁 Gift from Nanna: "+res.giftItem.name+(res.worn? " — Mimi is wearing it now!" : " — it's yours!")) : "💌 Nanna's letter is saved in your Letters!");
   renderHome();
 }
@@ -5188,6 +5274,19 @@ function renderHome(){
   if(!APP.isGuest){
     var due = rewardDue(p);
     if(due.length) el("homeBubble").innerHTML += "<br>🎁 <b>Reward time!</b> Show Amma or Nanna — a reward is DUE!";
+  }
+  /* Mimi's voice switch — lives on her profile, sits beside her at home */
+  var vb = el("voiceBtn");
+  if(vb){
+    var von = p.voiceOn!==false;
+    vb.textContent = von? "🔊" : "🔇";
+    vb.classList.toggle("off", !von);
+    vb.onclick = function(){
+      var pp = P(); if(!pp) return;
+      pp.voiceOn = !(pp.voiceOn!==false);
+      save(); renderHome();
+      toast(pp.voiceOn? "🔊 Mimi's voice is ON — tap her and listen!" : "🔇 Mimi's voice is OFF");
+    };
   }
   renderNannaHome();
   renderWishHome();
@@ -5484,6 +5583,7 @@ function answerQ(chosen, btn){
     var ex = el("qExplain");
     ex.style.display = "block";
     ex.innerHTML = (correct? "✅ <b>Super!</b> " : "💪 <b>Good try!</b> ") + esc(q.explain||"");
+    if(correct) mimiSpeak(mimiPraiseLine());
     el("qNext").style.display = "block";
     el("qNext").textContent = s.ix>=s.cfg.list.length-1? "Finish 🎉" : "Next ➜";
     save();
@@ -5653,6 +5753,7 @@ function examIntro(kind, id, testOut){
     el("examIntroText").innerHTML = "<b>Chapter Exam — "+esc(ch.name)+"</b><br>15 questions from the whole chapter · Right <b>+10</b> · Wrong <b>−2</b> · Skip <b>0</b>.<br>Score <b>70%</b> or more to earn the chapter badge! No timer. 💪";
   }
   show("examintro");
+  mimiSpeak(el("examIntroBubble").textContent);
 }
 function startExam(){
   var ctx = APP.examCtx; if(!ctx) return;
@@ -5731,6 +5832,7 @@ function finishTopicExam(ctx, s){
   APP.lastExam = { kind:"topic", id:tid, session:s, passed:passed };
   renderExamReview(s);
   show("examresult");
+  mimiSpeak(el("examTitle").textContent);
   if(passed) confetti();
 }
 function finishChapterExam(ctx, s){
@@ -5771,6 +5873,7 @@ function finishChapterExam(ctx, s){
   APP.lastExam = { kind:"chapter", id:cid, session:s, passed:ev.passed };
   renderExamReview(s);
   show("examresult");
+  mimiSpeak(el("examTitle").textContent);
   if(ev.passed) confetti();
 }
 function startTopicExam(tid, testOut){ examIntro("topic", tid, testOut); }
@@ -5891,6 +5994,8 @@ function showRitual(){
   var wrongQ = le.session.results.filter(function(r){ return r.res==="w"; })[0];
   el("ritualTricky").textContent = wrongQ? ("My tricky question was: "+wrongQ.q.q) : "No tricky questions this time — all clear! 🌟";
   show("ritual");
+  var rb = document.querySelector("#scr-ritual .bubble");
+  if(rb) mimiSpeak(rb.textContent);
 }
 </script>
 
@@ -6830,6 +6935,9 @@ function openDashControls(){
       ? "<p style='font-size:14.5px; margin:4px 0;'><b>Taken "+esc(base.date)+":</b> "+base.lines.map(function(s){ return esc(s); }).join(" · ")+"<br>Suggested Test-Out: <b>"+esc(base.suggested)+"</b></p>"
       : "<p class='mut' style='font-size:14px;'>Baseline Adventure not taken yet — it appears on her Maths screen.</p>")
     + "<p style='margin:8px 0;'><button class='btn blue small' id='btnBaseReset'>🗺️ Reset Baseline (allow a retake)</button></p></div>";
+  html += "<div class='dash-sec'><h3>🔊 Mimi's Voice</h3>"
+    + "<p style='font-size:14.5px; margin:4px 0;'>Mimi speaks with a bright young-friend voice — the device's own speech, nothing recorded. <b>Voice for Sreshta: "+(p.voiceOn===false? "OFF 🔇" : "ON 🔊")+"</b></p>"
+    + "<p style='margin:8px 0;'><button class='btn teal small' id='btnVoiceToggle'>"+(p.voiceOn===false? "🔊 Turn Voice ON" : "🔇 Turn Voice OFF")+"</button> <button class='btn pink small' id='btnVoicePreview'>▶️ Hear Mimi</button> <span class='mut' style='font-size:13.5px;'>Hear her voice here before Sreshta does.</span></p></div>";
   html += "<div class='dash-sec'><h3>👧 Guests</h3>"
     + dashRow("guests", "👧 Guests on this device", "Guest list & remove — guests never affect Sreshta's progress")
     + "</div>";
@@ -6840,6 +6948,10 @@ function openDashControls(){
   if(bcs) bcs.addEventListener("click", function(){ var v = el("ctlClass").value; if(v) lsSet("nowClass", v); else { try{ localStorage.removeItem(LS_PREFIX+"nowClass"); }catch(e){} } toast("⭐ Now in Class updated!"); });
   var bbr = el("btnBaseReset");
   if(bbr) bbr.addEventListener("click", function(){ p.baseline = null; saveProfile(p); openDashControls(); toast("🗺️ Baseline cleared — she can take the Adventure again."); });
+  var bvt = el("btnVoiceToggle");
+  if(bvt) bvt.addEventListener("click", function(){ p.voiceOn = !(p.voiceOn!==false); saveProfile(p); openDashControls(); toast(p.voiceOn? "🔊 Mimi's voice is ON for Sreshta." : "🔇 Mimi's voice is OFF for Sreshta."); });
+  var bvp = el("btnVoicePreview");
+  if(bvp) bvp.addEventListener("click", function(){ mimiSpeak(MIMI_SAMPLE_LINE, { force:true }); });
   var brs = el("btnResetS");
   if(brs) brs.addEventListener("click", function(){
     if(!APP.resetArm){ APP.resetArm = true; el("resetHint").textContent = "Tap once more to ERASE all of Sreshta's progress on this device."; return; }
