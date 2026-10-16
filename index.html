@@ -96,6 +96,31 @@ h1.title{
 @keyframes twirl{0%{transform:rotate(0) scale(1)}35%{transform:rotate(-7deg) scale(1.08)}70%{transform:rotate(7deg) scale(1.08)}100%{transform:rotate(0) scale(1)}}
 .munch .doll-move{animation:munch .35s ease-in-out 3;}
 @keyframes munch{0%,100%{transform:translateY(0)}50%{transform:translateY(4px) scale(.97)}}
+/* ---- TAP-MIMI: reactions when she is tapped (classes land on the .cast wrap) ---- */
+.cast{cursor:pointer;}
+.rx-hop .doll-move{animation:rxhop .55s ease;}
+@keyframes rxhop{0%,100%{transform:translateY(0)}35%{transform:translateY(-13px)}70%{transform:translateY(2px)}}
+.rx-spin .doll-move{animation:rxspin .8s ease-in-out;}
+@keyframes rxspin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.06)}100%{transform:rotate(360deg) scale(1)}}
+.rx-wave .doll-move{animation:rxwave .75s ease-in-out;transform-origin:50% 92%;}
+@keyframes rxwave{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}60%{transform:rotate(6deg)}}
+.rx-giggle .doll-breath{animation:rxgiggle .5s ease-in-out;}
+@keyframes rxgiggle{0%,100%{transform:scale(1)}30%{transform:scale(1.07,.93)}60%{transform:scale(.96,1.05)}}
+.rx-wiggle .doll-move{animation:rxwiggle .6s ease-in-out;}
+@keyframes rxwiggle{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-2deg)}70%{transform:translateX(5px) rotate(2deg)}}
+.rx-quiet .doll-move{animation:rxquiet .5s ease-in-out;}
+@keyframes rxquiet{0%,100%{transform:translateY(0)}50%{transform:translateY(2.5px)}}
+.rx-dance .doll-move{animation:rxdance 3s ease-in-out;}
+@keyframes rxdance{0%,100%{transform:none}10%{transform:translateX(-6px) rotate(-3deg)}20%{transform:translateX(6px) rotate(3deg)}30%{transform:translateX(-6px) rotate(-3deg)}40%{transform:translateX(6px) rotate(3deg)}52%{transform:rotate(180deg) scale(1.07)}64%{transform:rotate(360deg)}76%{transform:translateY(-13px)}86%{transform:translateY(2px)}}
+.fx-float{position:absolute;z-index:6;pointer-events:none;line-height:1;animation:fxfloat 1.15s ease-out forwards;}
+@keyframes fxfloat{0%{opacity:0;transform:translateY(4px) scale(.6)}18%{opacity:1}100%{opacity:0;transform:translateY(-46px) scale(1.15)}}
+.fx-blush{position:absolute;z-index:5;width:17%;height:9%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,110,150,.75),rgba(255,110,150,0));pointer-events:none;animation:fxblush 1.1s ease-in-out forwards;}
+@keyframes fxblush{0%,100%{opacity:0}30%,70%{opacity:1}}
+.bubble.say-pop{animation:pop .3s ease;}
+.ava-bounce{animation:avabounce .55s ease;}
+@keyframes avabounce{0%,100%{transform:scale(1)}35%{transform:scale(1.18) rotate(-3deg)}70%{transform:scale(.96)}}
+.bubble-act{display:inline-block;margin-top:8px;background:#ff5d8f;color:#fff;border:none;border-radius:999px;padding:7px 14px;font-weight:800;font-size:14.5px;cursor:pointer;box-shadow:0 3px 0 rgba(38,50,94,.18);}
+@media (prefers-reduced-motion: reduce){ .rx-hop .doll-move,.rx-spin .doll-move,.rx-wave .doll-move,.rx-giggle .doll-breath,.rx-wiggle .doll-move,.rx-quiet .doll-move,.rx-dance .doll-move,.ava-bounce,.bubble.say-pop{animation:none !important} .fx-float,.fx-blush{display:none !important} }
 @media (prefers-reduced-motion: reduce){ .doll-breath{animation:none !important} .doll-move{transition:none !important} }
 .family-line{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff8fb;border:2.5px dashed #ffb3cd;border-radius:18px;padding:8px 10px;margin:10px 0;font-weight:700;}
 .nanna-moment{border:3.5px solid #ffd32a;background:linear-gradient(140deg,#fffbe9,#ffe9f3);}
@@ -680,6 +705,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ LEARN ============ -->
 <section class="screen" id="scr-learn">
   <div class="qz-head">
+    <span class="cast cast-mini" data-cast="mimi"></span>
     <span class="qz-phase" id="learnPhase">📖 Learn</span>
     <button class="listen" id="learnListen">🔊 Listen</button>
   </div>
@@ -696,6 +722,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <!-- ============ QUIZ RUNNER ============ -->
 <section class="screen" id="scr-quiz">
   <div class="qz-head">
+    <span class="cast cast-mini" data-cast="mimi"></span>
     <span class="qz-phase" id="qzPhase">✏️ Try 3</span>
     <span class="qz-count" id="qzCount">1 / 3</span>
   </div>
@@ -716,6 +743,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <section class="screen" id="scr-phase">
   <div class="card center">
     <div class="big-emoji" id="phaseEmoji">🌟</div>
+    <span class="cast cast-mini" data-cast="mimi" style="margin:2px auto;"></span>
     <div style="font-size:23px; font-weight:700;" id="phaseTitle">Super!</div>
     <p class="bubble tc" style="font-weight:600; font-size:16.5px; margin:12px 0;" id="phaseText"></p>
     <button class="btn pink" id="phaseNext">Continue ➜</button>
@@ -902,6 +930,11 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <section class="screen dash" id="scr-dashnanna">
   <h1 class="title" style="font-size:29px;"><span class="icon-tile sm t-pink">💌</span> Nanna's Corner</h1>
   <div id="dashNannaBody"></div>
+</section>
+
+<section class="screen dash" id="scr-dashreel">
+  <h1 class="title" style="font-size:29px;"><span class="icon-tile sm t-pink">💃</span> Reel Talk</h1>
+  <div id="dashReelBody"></div>
 </section>
 
 <section class="screen dash" id="scr-dashcontrols">
@@ -3942,7 +3975,7 @@ function newProfile(name){
     purchases:[], theme:"", outfit:"", coinLedger:[], rewardsGiven:[], rituals:0, bestStreak:0,
     look:defaultLook(), mimiLook:defaultMimiLook(), wardrobe:starterWardrobe(),
     itemSources:{ "acc-bow":"starter", "dress-pink":"starter" },
-    treasures:[], wishlist:"", pendingNanna:null, nannaLetters:[], legacyPurchases:[], pendingTreasureAwards:[],
+    treasures:[], wishlist:"", pendingNanna:null, nannaLetters:[], legacyPurchases:[], pendingTreasureAwards:[], reelTalk:{ text:"", date:"" },
     lastPlayed:todayStr(), createdAt:todayStr(), coinsSpentTotal:0 };
 }
 function topicState(p, tid){ if(!p.topics[tid]) p.topics[tid]=defaultTopicState(); return p.topics[tid]; }
@@ -4359,6 +4392,7 @@ function navCrumbFor(scr){
     case "dashpurch": return "Parents › Rewards › Purchases";
     case "dashledger": return "Parents › Rewards › Coin Ledger";
     case "dashnanna": return "Parents › Nanna's Corner";
+    case "dashreel": return "Parents › Reel Talk";
     case "dashcontrols": return "Parents › Controls";
     case "dashreport": return "Parents › Monthly Report";
     case "dashguests": return "Parents › Guests";
@@ -4452,7 +4486,7 @@ function navBack(){
     case "ritual": goHomeNav(); return;
     case "shop": goHomeNav(); return;
     case "bubble": renderShop(); show("shop"); return;
-    case "dashsubjects": case "dashperf": case "dashpillars": case "dashrewards": case "dashnanna": case "dashcontrols": case "dashreport": case "dashguests": renderDashboard(); show("dash"); return;
+    case "dashsubjects": case "dashperf": case "dashpillars": case "dashrewards": case "dashnanna": case "dashreel": case "dashcontrols": case "dashreport": case "dashguests": renderDashboard(); show("dash"); return;
     case "dashsubject": openDashSubjects(); return;
     case "dashunit": openDashSubject(DASH().subj); return;
     case "dashlesson": openDashUnit(DASH().subj, DASH().unit); return;
@@ -4670,6 +4704,316 @@ function celebrateStar(){
   var stages = document.querySelectorAll('.doll-stage[data-kind="mimi"]');
   for(var i=0;i<stages.length;i++){ if(stages[i].getClientRects().length) growStage(stages[i], 1.1); }
 }
+
+/* ============ TAP-MIMI ENGINE ============
+   One rule everywhere: tapping Mimi makes her answer WHAT IS TRUE RIGHT NOW.
+   Priority: P1 exam in progress → tiny quiet wiggle only, never speech/hints.
+   P2 unread Nanna letter → she presents it (Ram's exact words, unchanged).
+   P3 a tricky question is due → she offers it; a second tap (or the bubble
+   chip) opens Tricky Questions. P4 inside a practice question → the hint.
+   P5 otherwise → a reaction + a talk line, never the same twice in a row.
+   P2/P3 need an active child session, so a tap can never skip the PIN or
+   abandon a quiz mid-question. Positive only; no audio; no guilt. */
+var TAP = { lastRx:"", lastLine:"", pendingT:null, lastAt:0, lastCast:null, trickyUntil:0 };
+function tapMotionOK(){ return starLifeOn(); }
+function tapHour(){ return new Date().getHours(); }
+function dateDiffDays(a, b){
+  if(!a || !b) return 9999;
+  var pa = String(a).split("-"), pb = String(b).split("-");
+  if(pa.length<3 || pb.length<3) return 9999;
+  var da = Date.UTC(+pa[0], +pa[1]-1, +pa[2]), db = Date.UTC(+pb[0], +pb[1]-1, +pb[2]);
+  return Math.round((db-da)/86400000);
+}
+function examSessionOn(){ var s = APP.session; return !!(s && (s.cfg.mode==="exam" || s.cfg.mode==="chExam")); }
+function practiceSessionOn(){
+  var s = APP.session; if(!s || s.locked) return false;
+  var m = s.cfg.mode;
+  return m==="try"||m==="tryx"||m==="quick"||m==="mixed"||m==="think"||m==="fixit"||m==="fixcheck"||m==="homework"||m==="tricky";
+}
+/* a tricky question is "due" once it has waited at least a day in the bank */
+function trickyDueEntries(p){
+  if(!p || !p.trickyBank) return [];
+  var t = todayStr();
+  return p.trickyBank.filter(function(e){ return dateDiffDays(e.at, t) >= 1; });
+}
+function everBoughtCarrot(p){
+  if(!p) return false;
+  if((p.legacyPurchases||[]).indexOf("mimi-carrot-snack")>=0) return true;
+  return (p.coinLedger||[]).some(function(e){ return e.what==="Mimi's Boutique: Carrot Snack"; });
+}
+/* ---- Reel Talk: parent-fed reel line (Mimi never invents reel facts) ---- */
+function reelTalkState(p){
+  var rt = (p && p.reelTalk) || { text:"", date:"" };
+  if(!rt.text) return { state:"none", text:"", date:"", days:0 };
+  var d = dateDiffDays(rt.date, todayStr());
+  return { state: d<=3? "active" : "expired", text:rt.text, date:rt.date, days:d };
+}
+function reelTalkForChild(p){
+  if(!p || APP.isGuest || p.slug!=="sreshta") return "";
+  var st = reelTalkState(p);
+  return st.state==="active"? st.text : "";
+}
+/* ---- reactions ---- */
+var TAP_REACTIONS = ["hop","spin","blush","wave","kiss","giggle","wiggle","grow"];
+function pickReaction(p){
+  var pool = TAP_REACTIONS.slice();
+  if(everBoughtCarrot(p)) pool.push("munch");
+  if(tapHour()>=18){ pool.push("sleepy","sleepy"); }
+  var rx = pool[Math.floor(Math.random()*pool.length)], guard = 0;
+  while(rx===TAP.lastRx && guard<10){ rx = pool[Math.floor(Math.random()*pool.length)]; guard++; }
+  TAP.lastRx = rx;
+  return rx;
+}
+function fxSpan(stage, txt, left, top, size){
+  var s = document.createElement("span");
+  s.className = "fx-float"; s.textContent = txt;
+  s.style.left = left; s.style.top = top; s.style.fontSize = size || "20px";
+  stage.appendChild(s);
+  setTimeout(function(){ if(s.parentNode) s.parentNode.removeChild(s); }, 1250);
+}
+function rxClass(castEl, name, ms){
+  castEl.classList.remove(name); void castEl.offsetWidth; castEl.classList.add(name);
+  setTimeout(function(){ castEl.classList.remove(name); }, ms);
+}
+function playReaction(castEl, rx){
+  var stage = castEl.querySelector(".doll-stage"); if(!stage) return;
+  if(!tapMotionOK()) return;
+  if(rx==="hop") rxClass(castEl, "rx-hop", 600);
+  else if(rx==="spin") rxClass(castEl, "rx-spin", 850);
+  else if(rx==="wave") rxClass(castEl, "rx-wave", 800);
+  else if(rx==="giggle") rxClass(castEl, "rx-giggle", 550);
+  else if(rx==="wiggle") rxClass(castEl, "rx-wiggle", 650);
+  else if(rx==="quiet") rxClass(castEl, "rx-quiet", 550);
+  else if(rx==="munch") rxClass(castEl, "munch", 1200);
+  else if(rx==="grow") growStage(stage, 1.18);
+  else if(rx==="blush"){
+    rxClass(castEl, "rx-hop", 600);
+    [23,60].forEach(function(L){ var b = document.createElement("span"); b.className = "fx-blush"; b.style.left = L+"%"; b.style.top = "46%"; stage.appendChild(b); setTimeout(function(){ if(b.parentNode) b.parentNode.removeChild(b); }, 1200); });
+    fxSpan(stage, "💗", "63%", "30%");
+  }
+  else if(rx==="kiss"){
+    fxSpan(stage, "💋", "50%", "38%", "22px");
+    fxSpan(stage, "💗", "59%", "33%", "15px");
+  }
+  else if(rx==="sleepy"){
+    stage.classList.add("sleepy"); blinkStage(stage);
+    setTimeout(function(){ stage.classList.remove("sleepy"); }, 1000);
+    fxSpan(stage, "💤", "61%", "15%", "18px");
+  }
+}
+function startDance(castEl){
+  var stage = castEl.querySelector(".doll-stage"); if(!stage) return;
+  TAP.trickyUntil = 0;
+  if(!tapMotionOK()) return;
+  rxClass(castEl, "rx-dance", 3050);
+  fxSpan(stage, "🎵", "16%", "10%");
+  fxSpan(stage, "🎶", "70%", "6%", "18px");
+  setTimeout(function(){ fxSpan(stage, "🎵", "44%", "3%", "17px"); }, 900);
+}
+/* ---- speech surfaces: her own bubble on each screen (result texts are never overwritten) ---- */
+function screenBubbleEl(scr){
+  switch(scr){
+    case "access": return document.querySelector("#scr-access .bubble");
+    case "pin": return el("pinBubble");
+    case "guest": return document.querySelector("#scr-guest .bubble");
+    case "home": return el("homeBubble");
+    case "topic": return el("topicBubble");
+    case "examintro": return el("examIntroBubble");
+    case "ritual": return document.querySelector("#scr-ritual .bubble");
+    case "shop": return el("shopStageLine");
+    default: return null;
+  }
+}
+function sayLine(html, act){
+  var b = screenBubbleEl(currentScreenId()); if(!b) return false;
+  b.innerHTML = html + (act? " <button type='button' class='bubble-act' data-tapact='"+act.id+"'>"+act.label+"</button>" : "");
+  b.classList.remove("say-pop"); void b.offsetWidth; b.classList.add("say-pop");
+  return true;
+}
+/* ---- talk line pools (name = the current player's name) ---- */
+function tapGreetingLines(name){
+  var h = tapHour(), day = h<12? "morning" : h<17? "afternoon" : "evening";
+  var sun = day==="morning"? "🌞" : day==="afternoon"? "🌤️" : "🌙";
+  var n = esc(name);
+  return [
+    "Hi, "+n+"! 🎀",
+    "Good "+day+", "+n+"! "+sun,
+    "Hello hello, "+n+"! ✨",
+    "Hi hi! Mimi is so happy you are here, "+n+"! 💗",
+    "Good "+day+"! Ready to shine, "+n+"? 🌈"
+  ];
+}
+function playStreak(p){
+  var days = (p.playDays||[]).slice().sort(); if(!days.length) return 0;
+  var last = days[days.length-1];
+  if(dateDiffDays(last, todayStr())>1) return 0;
+  var n = 1, cur = last;
+  for(var i=days.length-2;i>=0;i--){ if(dateDiffDays(days[i], cur)===1){ n++; cur = days[i]; } else break; }
+  return n;
+}
+/* MEMORY lines: generated ONLY from facts that are true in her profile */
+function tapMemoryLines(p){
+  var out = [], n = esc(p.name||"friend");
+  var bestTid = null, bestDate = "";
+  Object.keys(p.topics||{}).forEach(function(tid){
+    var t = p.topics[tid]; if(!t || !t.mastered) return;
+    var d = (t.examHistory && t.examHistory.length)? (t.examHistory[t.examHistory.length-1].date||"") : "";
+    if(!bestTid || d>=bestDate){ bestTid = tid; bestDate = d; }
+  });
+  if(bestTid && TOP[bestTid]) out.push("You finished <b>"+esc(TOP[bestTid].name)+"</b>! 🎉");
+  var chDone = null;
+  CHAPTERS.forEach(function(ch){ var cs = p.chapters[ch.id]; if(cs && cs.mastered) chDone = ch; });
+  if(chDone) out.push("You finished the whole <b>"+esc(chDone.name)+"</b> chapter! 🏆");
+  var streak = playStreak(p);
+  if(streak>=2) out.push(streak+" days in a row — super streak, "+n+"! 🔥");
+  var wi = wishlistInfo(p);
+  if(wi && !wi.owned && wi.gap>0) out.push("Only <b>"+wi.gap+" more coins</b> to your "+esc(wi.item.name)+"! 🪙");
+  if(wi && !wi.owned && wi.affordable) out.push("You have enough coins for your "+esc(wi.item.name)+" — visit my Boutique! 🎉");
+  var lv = levelOf(p.xp||0);
+  if(lv.next) out.push("<b>"+(lv.next.xp-(p.xp||0))+" XP</b> to Level "+lv.next.n+" — nearly there! ⭐");
+  var masteredCount = Object.keys(p.topics||{}).filter(function(tid){ return p.topics[tid] && p.topics[tid].mastered; }).length;
+  if(masteredCount>=2) out.push("You have mastered <b>"+masteredCount+" topics</b> already! 🌟");
+  return out;
+}
+var TAP_REEL_LINES = [
+  "Did you dance today, {n}? 💃",
+  "Your dances make everyone smile, {n}! 💃",
+  "Dancer + maths star — that's you, {n}! 🌟",
+  "Show Mimi your favourite dance step sometime, {n}! 🎀",
+  "Twirl practice later, {n}? Mimi loves watching you dance! 💗"
+];
+var TAP_FUN_LINES = [
+  "Why did the bunny bring a pencil? To draw a hoppy picture! ✏️🐰",
+  "You are braver than you think, {n}! 💪",
+  "Mimi's favourite subject is… YOU! 💗",
+  "Hop hop hooray for {n}! 🎉",
+  "Learning with you is my favourite adventure! 🌈",
+  "A carrot a day keeps the giggles coming! 🥕",
+  "You make maths sparkle, {n}! ✨",
+  "Big dreams start with small hops! 🐰"
+];
+var TAP_SLEEPY_LINES = [
+  "Getting sleepy… what a big day, {n}! 💤",
+  "Mimi yawns… time to rest soon, {n}! 🌙"
+];
+function tapTalkPool(p){
+  var name = esc((p && p.name) || "friend"), raw = (p && p.name) || "friend";
+  var pool = [];
+  var rt = reelTalkForChild(p);
+  if(rt){ pool.push(rt+" 💃", rt+" 💃", rt+" 💃"); }
+  tapGreetingLines(raw).forEach(function(s){ pool.push(s); });
+  if(p) tapMemoryLines(p).forEach(function(s){ pool.push(s); });
+  TAP_REEL_LINES.forEach(function(s){ pool.push(s.replace("{n}", name)); });
+  TAP_FUN_LINES.forEach(function(s){ pool.push(s.replace("{n}", name)); });
+  if(tapHour()>=18) TAP_SLEEPY_LINES.forEach(function(s){ pool.push(s.replace("{n}", name)); });
+  return pool;
+}
+function pickTalkLine(p){
+  var pool = tapTalkPool(p); if(!pool.length) return "";
+  var line = pool[Math.floor(Math.random()*pool.length)], guard = 0;
+  while(line===TAP.lastLine && pool.length>1 && guard<10){ line = pool[Math.floor(Math.random()*pool.length)]; guard++; }
+  TAP.lastLine = line;
+  return line;
+}
+/* ---- the existing hint system: a question's own (Hint:) text, else its step's rule ---- */
+function hintForQuestion(q){
+  if(!q) return "";
+  if(q.hint) return String(q.hint);
+  var m = /\((?:Hint|hint):\s*([^)]+)\)/.exec(q.q || "");
+  if(m) return m[1].trim();
+  var tids = [APP.tid, (APP.session && APP.session.cfg)? APP.session.cfg.tid : null];
+  for(var i=0;i<tids.length;i++){
+    var td = tids[i]? TOP[tids[i]] : null;
+    if(td && q.sub){ var st = td.steps.filter(function(s){ return s.sub===q.sub; })[0]; if(st && st.rule) return st.rule; }
+  }
+  return "";
+}
+var TAP_COACH_LINES = [
+  "Take it slowly, one small hop at a time! 🐰",
+  "Read the question once more — the clue is hiding inside! 🔍",
+  "Try saying the numbers out loud — Mimi is listening! 👂",
+  "Which part feels easy? Start there! 🌟"
+];
+/* ---- resolution (single tap, after the double-tap window) ---- */
+function resolveTapMimi(castEl){
+  var p = P(), inQuiz = !!APP.session;
+  if(p && !inQuiz){
+    /* P2 — unread Nanna letter: she presents it */
+    if(p.pendingNanna){
+      playReaction(castEl, "hop");
+      if(currentScreenId()!=="home"){ renderHome(); show("home"); }
+      openNannaMoment();
+      return;
+    }
+    /* P3 — a tricky question is due */
+    if(trickyDueEntries(p).length){
+      playReaction(castEl, "wave");
+      TAP.trickyUntil = Date.now()+9000;
+      sayLine("I saved a tricky one for you! 🍀", { id:"tricky", label:"Let's practise! 🍀" });
+      return;
+    }
+  }
+  /* P4 — inside a practice question: she speaks the hint */
+  if(practiceSessionOn() && currentScreenId()==="quiz"){
+    var hint = hintForQuestion(curQ());
+    var ex = el("qExplain");
+    if(ex){
+      ex.style.display = "block";
+      ex.innerHTML = "💡 <b>Mimi's hint:</b> " + esc(hint || TAP_COACH_LINES[Math.floor(Math.random()*TAP_COACH_LINES.length)]);
+    }
+    playReaction(castEl, "wave");
+    return;
+  }
+  /* P5 — reaction + talk line */
+  var prof = p || castBaseProfile();
+  var rx = pickReaction(prof);
+  playReaction(castEl, rx);
+  var line;
+  if(rx==="sleepy" && Math.random()<0.6){
+    var sl = TAP_SLEEPY_LINES[Math.floor(Math.random()*TAP_SLEEPY_LINES.length)];
+    line = sl.replace("{n}", esc((prof && prof.name) || "friend"));
+    TAP.lastLine = line;
+  } else {
+    line = pickTalkLine(prof);
+  }
+  if(line) sayLine(line);
+}
+function handleCastTap(castEl){
+  var now = Date.now();
+  /* P1 — an exam is running: only a tiny quiet wiggle, never speech or hints */
+  if(examSessionOn()){ playReaction(castEl, "quiet"); TAP.lastAt = now; TAP.lastCast = castEl; return; }
+  if(TAP.pendingT && TAP.lastCast===castEl && now-TAP.lastAt<=350){
+    clearTimeout(TAP.pendingT); TAP.pendingT = null; TAP.lastAt = now;
+    startDance(castEl);
+    return;
+  }
+  if(TAP.pendingT){ clearTimeout(TAP.pendingT); TAP.pendingT = null; }
+  TAP.lastAt = now; TAP.lastCast = castEl;
+  /* a second tap while her tricky offer is showing opens Tricky Questions */
+  if(TAP.trickyUntil && now<TAP.trickyUntil && P() && !APP.session && trickyDueEntries(P()).length){
+    TAP.trickyUntil = 0;
+    startTricky();
+    return;
+  }
+  TAP.pendingT = setTimeout(function(){ TAP.pendingT = null; resolveTapMimi(castEl); }, 270);
+}
+function avaTapBounce(ava){
+  if(!tapMotionOK()) return;
+  ava.classList.remove("ava-bounce"); void ava.offsetWidth; ava.classList.add("ava-bounce");
+  setTimeout(function(){ ava.classList.remove("ava-bounce"); }, 600);
+}
+document.addEventListener("click", function(e){
+  var t = e.target; if(!t || !t.closest) return;
+  var chip = t.closest("[data-tapact]");
+  if(chip){
+    if(chip.getAttribute("data-tapact")==="tricky"){ TAP.trickyUntil = 0; startTricky(); }
+    return;
+  }
+  var ava = t.closest('[data-ava="mimi"], .doll-ava.mimi');
+  if(ava){ avaTapBounce(ava); return; }
+  var cast = t.closest(".cast");
+  if(cast && cast.querySelector(".doll-stage")) handleCastTap(cast);
+});
 
 function P(){ return APP.profile; }
 function save(){ if(APP.profile) saveProfile(APP.profile); }
@@ -6015,6 +6359,7 @@ function renderDashboard(){
     + dashAreaCard("🌟", "", "All-Rounder", "🧠 "+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"%" : "—")+" thinking · 💪 "+examsPassed+" exams passed · 🌟 "+(p.badges||[]).length+" badges · 🗣️ "+(p.teach.count||0)+" Teach-Nanna", "pillars")
     + dashAreaCard("🎁", "", "Rewards Centre", "Mimi's Boutique purchases: "+(p.purchases||[]).length+" · Ladder set "+ladderSet+"/"+loadLadder().length+(due.length? " · 🎁 REWARD DUE" : ""), "rewards")
     + dashAreaCard("✉️", "", "Nanna's Corner", p.pendingNanna? "💌 A letter is waiting to be opened" : "💌 "+(p.nannaLetters||[]).length+" letters sent · none waiting", "nanna")
+    + dashAreaCard("💃", "", "Reel Talk", reelTalkState(p).state==="active"? "💃 Mimi is saying: “"+esc(reelTalkState(p).text.slice(0,42))+(reelTalkState(p).text.length>42? "…" : "")+"”" : reelTalkState(p).state==="expired"? "💃 Her reel line has expired — add a fresh one" : "💃 Tell Mimi what to say about her latest reel", "reel")
     + dashAreaCard("⚙️", "", "Controls", nc? ("Now in Class: "+(TOP[nc]? TOP[nc].name : nc)) : "Now in Class, baseline & resets", "controls")
     + dashAreaCard("🖨️", "", "Monthly Report", "View & print this month's report", "report")
     + dashAreaCard("🧸", "", "Guests on this device", guestCount? (guestCount+" guest"+(guestCount>1? "s" : "")+" on this device") : "No guests yet", "guests")
@@ -6437,6 +6782,42 @@ function openDashNanna(){
   show("dashnanna");
 }
 
+/* ================= STEP 1 — REEL TALK (parent-fed line for Mimi) =================
+   Honesty rule: Mimi never invents reel facts. A parent types ONE line about
+   her latest reel; Mimi rotates it in her tap-talk for 3 days, then it quietly
+   retires (shown here as "expired") until replaced. Stored on Sreshta's
+   profile only — guests never hear it. */
+function openDashReel(){
+  var p = dashProfile();
+  var st = reelTalkState(p);
+  var stateHtml = st.state==="active"
+    ? "<p style='font-size:14.5px;'><b>Now saying:</b> &ldquo;"+esc(st.text)+"&rdquo; 💃<br><span class='mut' style='font-size:13.5px;'>Saved "+esc(st.date)+" · active — Mimi will keep saying it for "+(3-st.days)+" more day"+((3-st.days)===1? "" : "s")+".</span></p>"
+    : st.state==="expired"
+    ? "<p style='font-size:14.5px;'><b>Expired:</b> &ldquo;"+esc(st.text)+"&rdquo;<br><span class='mut' style='font-size:13.5px;'>Saved "+esc(st.date)+" — older than 3 days, so Mimi has stopped saying it. Type a fresh line below to replace it.</span></p>"
+    : "<p class='mut' style='font-size:14px;'>No reel line right now — Mimi only chats about dancing in general.</p>";
+  var html = "<div class='dash-sec'><h3><span class='icon-tile sm t-pink'>💃</span> Reel Talk</h3>"
+    + "<p class='mut' style='font-size:14px; margin:4px 0;'>Mimi will say this about her latest reel. Tip: a ready line is prepared in your chat whenever a new reel posts — just paste it here.</p>"
+    + stateHtml
+    + "<textarea id='reelText' maxlength='140' rows='2' style='width:100%; font-size:15px; padding:8px; border-radius:10px; border:2px solid #d9d3f5;' placeholder='One line about her latest reel (max 140 letters)'>"+esc(st.state==="active"? st.text : "")+"</textarea>"
+    + "<p style='margin:8px 0;'><button class='btn pink small' id='btnReelSave'>💃 Save line for Mimi</button>"
+    + (st.text? " <button class='btn grey small' id='btnReelClear'>Clear</button>" : "")
+    + "</p></div>";
+  el("dashReelBody").innerHTML = html;
+  var bs = el("btnReelSave");
+  if(bs) bs.addEventListener("click", function(){
+    var text = el("reelText").value.trim().slice(0,140);
+    if(!text){ toast("Type a line about her latest reel first!"); return; }
+    p.reelTalk = { text:text, date:todayStr() };
+    saveProfile(p); openDashReel(); toast("💃 Saved! Mimi will say it when Sreshta taps her.");
+  });
+  var bc = el("btnReelClear");
+  if(bc) bc.addEventListener("click", function(){
+    p.reelTalk = { text:"", date:"" };
+    saveProfile(p); openDashReel(); toast("💃 Reel line cleared.");
+  });
+  show("dashreel");
+}
+
 /* ================= STEP 1 — CONTROLS ================= */
 function openDashControls(){
   var p = dashProfile();
@@ -6537,6 +6918,7 @@ function dashNavAction(nav){
   else if(kind==="purchases") openDashPurchases();
   else if(kind==="ledger") openDashLedger();
   else if(kind==="nanna") openDashNanna();
+  else if(kind==="reel") openDashReel();
   else if(kind==="controls") openDashControls();
   else if(kind==="report") openDashReport();
   else if(kind==="guests") openDashGuests();
