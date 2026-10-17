@@ -3696,10 +3696,11 @@ function chapterById(cid){ return CHAPTERS.filter(function(c){return c.id===cid;
 var SUBJECTS = [
   { id:"maths", name:"Maths", icon:"🔢", live:true, tag:"Numbers, sums & super thinking!" },
   { id:"english", name:"English", icon:"📖", live:false, tag:"Stories, words & talking", chapters:["Reading & Comprehension","Grammar Fun","Vocabulary","Writing Practice"] },
+  { id:"kannada", name:"Kannada", icon:"ಅ", live:false, tag:"Letters, words & rhymes", chapters:["Letters & Sounds","First Words","Rhymes & Songs","Small Sentences"] },
+  { id:"hindi", name:"Hindi", icon:"अ", live:false, tag:"Letters, words & rhymes", chapters:["Letters & Sounds","First Words","Rhymes & Songs","Small Sentences"] },
   { id:"science", name:"Science (EVS)", icon:"🔬", live:false, tag:"Plants, animals & our world", chapters:["Living & Non-Living","Plants Around Us","Animals & Birds","Our Body","Food & Water","Weather & Seasons"] },
   { id:"social", name:"Social Studies", icon:"🌍", live:false, tag:"Family, school & neighbourhood", chapters:["My Family","My School","Our Neighbourhood","Festivals We Celebrate","Transport & Helpers"] },
-  { id:"computer", name:"Computer", icon:"💻", live:false, tag:"Parts, paint & typing", chapters:["Parts of a Computer","Using the Mouse & Keyboard","Paint & Drawing","Staying Safe Online"] },
-  { id:"language", name:"2nd Language", icon:"🗣️", live:false, tag:"Letters, words & rhymes", chapters:["Letters & Sounds","First Words","Rhymes & Songs","Small Sentences"] }
+  { id:"computer", name:"Computer", icon:"💻", live:false, tag:"Parts, paint & typing", chapters:["Parts of a Computer","Using the Mouse & Keyboard","Paint & Drawing","Staying Safe Online"] }
 ];
 
 /* ============ STORAGE ============ */
@@ -3979,7 +3980,7 @@ function newProfile(name){
     purchases:[], theme:"", outfit:"", coinLedger:[], rewardsGiven:[], rituals:0, bestStreak:0,
     look:defaultLook(), mimiLook:defaultMimiLook(), wardrobe:starterWardrobe(),
     itemSources:{ "acc-bow":"starter", "dress-pink":"starter" },
-    treasures:[], wishlist:"", pendingNanna:null, nannaLetters:[], legacyPurchases:[], pendingTreasureAwards:[], reelTalk:{ text:"", date:"" }, voiceOn:true,
+    treasures:[], wishlist:"", pendingNanna:null, nannaLetters:[], legacyPurchases:[], pendingTreasureAwards:[], reelTalk:{ text:"", date:"" }, voiceOn:true, voiceStyle:"child",
     lastPlayed:todayStr(), createdAt:todayStr(), coinsSpentTotal:0 };
 }
 function topicState(p, tid){ if(!p.topics[tid]) p.topics[tid]=defaultTopicState(); return p.topics[tid]; }
@@ -4504,26 +4505,36 @@ function navBack(){
   }
 }
 function toast(msg){ var t=el("toast"); if(!t) return; t.textContent=msg; t.classList.add("on"); setTimeout(function(){ t.classList.remove("on"); }, 2600); }
-/* ============ MIMI'S VOICE — a fictional young-friend voice ============
-   The DEVICE's built-in text-to-speech (Web Speech API), tuned bright and
-   slightly high-pitched — a storybook friend, never a clone of Sreshta or
-   any real child. No recordings, no audio files, no external service.
+/* ============ MIMI'S VOICE — a fictional child voice ============
+   The DEVICE's built-in text-to-speech (Web Speech API), tuned to sound
+   like a young child friend — never a clone of Sreshta or any real child.
+   No recordings, no audio files, no external service.
    She speaks only after a tap or an entry (browser gesture rules) and
    NEVER during an exam. Words stay exact — cleaning removes only emojis
    and decorative symbols and turns ₹ into "rupees", so Nanna's letters
-   are spoken word-for-word. Per-profile switch: profile.voiceOn. */
+   are spoken word-for-word. Per-profile settings: profile.voiceOn and
+   profile.voiceStyle ("child" is the default for every profile). */
 var MIMI_VOICE = { picked:null, hooked:false };
+var MIMI_VOICE_STYLES = {
+  child:{ label:"Child", pitch:1.9, rate:1.05 },
+  young:{ label:"Young Friend", pitch:1.55, rate:1.0 },
+  story:{ label:"Storyteller", pitch:1.3, rate:0.97 }
+};
 var MIMI_SAMPLE_LINE = "Hi Sreshta! I'm Mimi. Let's learn and play together!";
 function mimiSynth(){ try{ return ("speechSynthesis" in window)? window.speechSynthesis : null; }catch(e){ return null; } }
 function mimiVoiceScore(v){
   var lang = String((v && v.lang) || "").toLowerCase();
-  var n = (String((v && v.name) || "") + " " + lang).toLowerCase();
+  var n = (String((v && v.name) || "") + " " + String((v && v.voiceURI) || "") + " " + lang).toLowerCase();
   var s;
   if(lang.indexOf("en-in")===0) s = 40;
   else if(lang.indexOf("en-gb")===0) s = 25;
   else if(lang.indexOf("en-us")===0) s = 20;
   else if(lang.indexOf("en")===0) s = 10;
   else return -1;
+  /* A genuinely young/child voice outranks every adult voice, however local
+     or feminine it sounds: "ana" catches Microsoft Ana, a young voice. */
+  if(n.indexOf("ana")>=0) s += 120;
+  if(/child|kid|junior|young|girl/.test(n)) s += 110;
   if(n.indexOf("female")>=0) s += 30;
   else if(/veena|lekha|aditi|neerja|raveena|heera|priya|zira|samantha|fiona|kate|serena|susan|allison|ava/.test(n)) s += 28;
   if(/david|daniel|alex|fred|hemant|ravi|rishi|aaron|arthur|brian|christopher|george|ryan|guy/.test(n)) s -= 40;
@@ -4564,6 +4575,12 @@ function mimiVoiceOn(){
   try{ p = P(); }catch(e){ p = null; }
   return !(p && p.voiceOn===false);
 }
+function mimiResolveVoiceStyle(opts){
+  if(opts && MIMI_VOICE_STYLES[opts.style]) return opts.style;
+  var p = null;
+  try{ p = P(); }catch(e){ p = null; }
+  return (p && MIMI_VOICE_STYLES[p.voiceStyle])? p.voiceStyle : "child";
+}
 function mimiSpeak(text, opts){
   try{
     var sy = mimiSynth(); if(!sy || typeof SpeechSynthesisUtterance==="undefined") return false;
@@ -4576,7 +4593,8 @@ function mimiSpeak(text, opts){
     var u = new SpeechSynthesisUtterance(clean);
     var v = MIMI_VOICE.picked || mimiPickVoice();
     if(v){ u.voice = v; if(v.lang) u.lang = v.lang; }
-    u.pitch = 1.4; u.rate = 1.0;
+    var style = MIMI_VOICE_STYLES[mimiResolveVoiceStyle(opts)];
+    u.pitch = style.pitch; u.rate = style.rate;
     sy.speak(u);
     return true;
   }catch(e){ return false; }
@@ -6767,7 +6785,7 @@ function openDashPillars(){
     analytical: [(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100)+"% thinking accuracy" : "—"), "Tricky cleared: "+(p.trickyCleared||0)+" · Mistake-finds: "+(p.mistakeFinderCount||0)],
     confidence: [examsPassed+" exams passed", "Test-outs: "+testOuts+" · Rituals shown: "+(p.rituals||0)],
     personality: [(p.badges||[]).length+" trait badges", (p.badges||[]).length? p.badges.map(function(bid){ var b=TRAIT_BADGES.filter(function(x){ return x.id===bid; })[0]; return b? esc(b.name)+" ("+(p.badgeDates[bid]||"")+")" : bid; }).join(" · ") : "none yet"],
-    communication: [(p.teach.count||0)+" Teach-Nanna questions", "Closing rituals shown to Amma: "+(p.rituals||0)]
+    communication: [(p.teach.count||0)+" Teach-Nanna questions", "English, Kannada & Hindi · Closing rituals shown to Amma: "+(p.rituals||0)]
   };
   var html = "<div class='dash-sec'><h3>🌈 All-Rounder Pillars</h3><div class='pillars'>"
     + DASH_PILLARS.map(function(pl){
@@ -6935,9 +6953,14 @@ function openDashControls(){
       ? "<p style='font-size:14.5px; margin:4px 0;'><b>Taken "+esc(base.date)+":</b> "+base.lines.map(function(s){ return esc(s); }).join(" · ")+"<br>Suggested Test-Out: <b>"+esc(base.suggested)+"</b></p>"
       : "<p class='mut' style='font-size:14px;'>Baseline Adventure not taken yet — it appears on her Maths screen.</p>")
     + "<p style='margin:8px 0;'><button class='btn blue small' id='btnBaseReset'>🗺️ Reset Baseline (allow a retake)</button></p></div>";
+  var voiceStyle = MIMI_VOICE_STYLES[p.voiceStyle]? p.voiceStyle : "child";
   html += "<div class='dash-sec'><h3>🔊 Mimi's Voice</h3>"
-    + "<p style='font-size:14.5px; margin:4px 0;'>Mimi speaks with a bright young-friend voice — the device's own speech, nothing recorded. <b>Voice for Sreshta: "+(p.voiceOn===false? "OFF 🔇" : "ON 🔊")+"</b></p>"
-    + "<p style='margin:8px 0;'><button class='btn teal small' id='btnVoiceToggle'>"+(p.voiceOn===false? "🔊 Turn Voice ON" : "🔇 Turn Voice OFF")+"</button> <button class='btn pink small' id='btnVoicePreview'>▶️ Hear Mimi</button> <span class='mut' style='font-size:13.5px;'>Hear her voice here before Sreshta does.</span></p></div>";
+    + "<p style='font-size:14.5px; margin:4px 0;'>Mimi speaks with a child voice — the device's own speech, nothing recorded. <b>Voice for Sreshta: "+(p.voiceOn===false? "OFF 🔇" : "ON 🔊")+"</b></p>"
+    + "<p style='font-size:14.5px; margin:8px 0 4px;'><b>Voice style:</b></p><p class='chips' style='margin-top:0;'>"
+    + "<button class='chip"+(voiceStyle==="child"? " on" : "")+"' data-voice-style='child'>👧 Child</button> "
+    + "<button class='chip"+(voiceStyle==="young"? " on" : "")+"' data-voice-style='young'>🧒 Young Friend</button> "
+    + "<button class='chip"+(voiceStyle==="story"? " on" : "")+"' data-voice-style='story'>📖 Storyteller</button></p>"
+    + "<p style='margin:8px 0;'><button class='btn teal small' id='btnVoiceToggle'>"+(p.voiceOn===false? "🔊 Turn Voice ON" : "🔇 Turn Voice OFF")+"</button> <button class='btn pink small' id='btnVoicePreview'>▶️ Hear Mimi</button> <span class='mut' style='font-size:13.5px;'>Hear her child voice here, in the selected style, before Sreshta does.</span></p></div>";
   html += "<div class='dash-sec'><h3>👧 Guests</h3>"
     + dashRow("guests", "👧 Guests on this device", "Guest list & remove — guests never affect Sreshta's progress")
     + "</div>";
@@ -6950,8 +6973,14 @@ function openDashControls(){
   if(bbr) bbr.addEventListener("click", function(){ p.baseline = null; saveProfile(p); openDashControls(); toast("🗺️ Baseline cleared — she can take the Adventure again."); });
   var bvt = el("btnVoiceToggle");
   if(bvt) bvt.addEventListener("click", function(){ p.voiceOn = !(p.voiceOn!==false); saveProfile(p); openDashControls(); toast(p.voiceOn? "🔊 Mimi's voice is ON for Sreshta." : "🔇 Mimi's voice is OFF for Sreshta."); });
+  var bvs = el("dashControlsBody").querySelectorAll("[data-voice-style]");
+  for(var vsi=0; vsi<bvs.length; vsi++) bvs[vsi].addEventListener("click", function(){
+    p.voiceStyle = this.getAttribute("data-voice-style");
+    saveProfile(p); openDashControls();
+    toast("🔊 Mimi's voice style: "+MIMI_VOICE_STYLES[p.voiceStyle].label);
+  });
   var bvp = el("btnVoicePreview");
-  if(bvp) bvp.addEventListener("click", function(){ mimiSpeak(MIMI_SAMPLE_LINE, { force:true }); });
+  if(bvp) bvp.addEventListener("click", function(){ mimiSpeak(MIMI_SAMPLE_LINE, { force:true, style:(MIMI_VOICE_STYLES[p.voiceStyle]? p.voiceStyle : "child") }); });
   var brs = el("btnResetS");
   if(brs) brs.addEventListener("click", function(){
     if(!APP.resetArm){ APP.resetArm = true; el("resetHint").textContent = "Tap once more to ERASE all of Sreshta's progress on this device."; return; }
@@ -6974,7 +7003,7 @@ function monthlyReportHTML(p){
   return "<div class='report'><h1>🌈 Sreshta — Monthly Learning Report</h1><p class='mut'>"+todayStr()+" · Grade 3 Maths · Sreshta's Learning World</p>"
     + "<h3>Progress</h3><p>Level <b>"+lv.cur.n+" · "+lv.cur.name+"</b> ("+num(p.xp)+" XP) · Grade <b>"+(gr.label||"—")+"</b> · Topics mastered <b>"+topicsDone+" / "+FLAT_TOPICS.length+"</b> · Stars ⭐ "+num(p.stars)+" · Days played: "+p.playDays.length+"</p>"
     + "<h3>Growth vs Baseline</h3><p>Baseline: "+baseLine+"</p>"
-    + "<h3>All-Rounder Pillars</h3><p>🧠 Analytical: "+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100) : 0)+"% thinking accuracy, "+(p.trickyCleared||0)+" tricky types cleared · 💪 Confidence: "+topicsDone+" topic exams passed, "+(p.rituals||0)+" rituals · 🌟 Personality: "+p.badges.length+" trait badges ("+p.badges.join(", ")+") · 🗣️ Communication: "+(p.teach.count||0)+" Teach-Nanna questions</p>"
+    + "<h3>All-Rounder Pillars</h3><p>🧠 Analytical: "+(p.thinkStats.a? Math.round(p.thinkStats.c/p.thinkStats.a*100) : 0)+"% thinking accuracy, "+(p.trickyCleared||0)+" tricky types cleared · 💪 Confidence: "+topicsDone+" topic exams passed, "+(p.rituals||0)+" rituals · 🌟 Personality: "+p.badges.length+" trait badges ("+p.badges.join(", ")+") · 🗣️ Communication: "+(p.teach.count||0)+" Teach-Nanna questions · Languages: English, Kannada & Hindi</p>"
     + "<h3>Mimi's Boutique</h3><p>Wardrobe: "+((p.wardrobe||[]).length)+" items owned · Treasures: "+((p.treasures||[]).length)+" earned · Letters from Nanna: "+((p.nannaLetters||[]).length)+" · Coins spent at the Boutique: "+num(p.coinsSpentTotal||0)+"</p>"
     + "<h3>Top 3 Weak Subtopics</h3><p>"+(weak.length? weak.join(" · ") : "Not enough data yet — keep playing!")+"</p>"
     + "<h3>Next Suggestions</h3><p>"+(weak.length? "Revisit the weak subtopics above in Mixed Practice, keep the Tricky Questions mode in the weekly mix, and try one Chapter Test-Out where the baseline was strong." : "Continue the chapter journey in order; take the Baseline Adventure if not done.")+"</p>"
