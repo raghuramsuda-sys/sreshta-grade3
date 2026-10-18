@@ -499,7 +499,6 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 .dcard-t{font-weight:800; font-size:15.5px; color:#22315e;}
 .dcard-s{font-size:12.5px; font-weight:600; color:#5a68a0; line-height:1.35;}
 .dcard-go{font-size:22px; color:#b9a8e8; font-weight:800; flex:none;}
-a.dcard{text-decoration:none; color:inherit;}
 .drow{display:flex; align-items:center; gap:10px; width:100%; background:#fff; border:none; border-radius:14px; padding:11px 13px; margin:6px 0; text-align:left; box-shadow:0 3px 0 rgba(38,50,94,.07); font-family:inherit; cursor:pointer;}
 .drow-main{flex:1; display:flex; flex-direction:column; gap:1px; min-width:0;}
 .drow-t{font-weight:700; font-size:15px; color:#22315e;}
@@ -6420,9 +6419,6 @@ function dashRow(nav, titleHtml, subHtml){
 function dashAreaCard(icon, tint, title, summary, nav){
   return "<button class='dcard' data-dnav='"+nav+"'><span class='icon-tile "+tint+"'>"+icon+"</span><span class='dcard-tx'><span class='dcard-t'>"+title+"</span><span class='dcard-s'>"+esc(summary)+"</span></span><span class='dcard-go'>›</span></button>";
 }
-function dashLinkCard(icon, tint, title, summary, url){
-  return "<a class='dcard' href='"+url+"'><span class='icon-tile "+tint+"'>"+icon+"</span><span class='dcard-tx'><span class='dcard-t'>"+title+"</span><span class='dcard-s'>"+esc(summary)+"</span></span><span class='dcard-go'>›</span></a>";
-}
 function dashTag(entry){ return "<span class='tag'>"+entry.icon+" "+esc(entry.name)+"</span>"; }
 function dashExamGrade(pct){
   for(var i=0;i<GRADES.length;i++) if(pct>=GRADES[i].min) return GRADES[i].label;
@@ -6671,7 +6667,6 @@ function renderDashboard(){
     + dashAreaCard("⚙️", "", "Controls", nc? ("Now in Class: "+(TOP[nc]? TOP[nc].name : nc)) : "Now in Class, baseline & resets", "controls")
     + dashAreaCard("🖨️", "", "Monthly Report", "View & print this month's report", "report")
     + dashAreaCard("🧸", "", "Guests on this device", guestCount? (guestCount+" guest"+(guestCount>1? "s" : "")+" on this device") : "No guests yet", "guests")
-    + dashLinkCard("📝", "", "Exam Practice", "Practise for her real school exams — papers, drills & tracker", "https://raghuramsuda-sys.github.io/sreshta-exam-practice/")
     + "</div>";
   el("dashBody").innerHTML = html;
   wireGivenButtons(el("dashBody"), p);
