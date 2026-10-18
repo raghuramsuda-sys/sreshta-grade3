@@ -188,25 +188,33 @@ h1.title{
 .btn.small{min-height:46px; font-size:16px; border-radius:16px; width:auto; padding:8px 18px;}
 .btn:disabled{opacity:.55; cursor:default;}
 .btnrow{display:flex; gap:10px;} .btnrow .btn{flex:1;}
-.who-grid{display:grid; gap:12px;}
+.who-grid{display:grid; gap:14px;}
 .who-card{
-  display:flex; align-items:center; gap:14px; background:#fff; border-radius:24px; padding:14px 16px;
-  border:3px solid #eef2ff; box-shadow:0 6px 0 rgba(38,50,94,.13); cursor:pointer; text-align:left; width:100%;
+  display:flex; align-items:center; gap:16px; background:#fff; border-radius:26px; padding:18px;
+  min-height:98px; border:3px solid #eef2ff; box-shadow:0 6px 0 rgba(38,50,94,.13); cursor:pointer; text-align:left; width:100%;
   font-family:inherit; color:var(--ink);
 }
 .who-card:active{transform:scale(.98);}
 .who-card .ava{font-size:46px;}
-.who-card .t1{font-size:21px; font-weight:700;}
-.who-card .t2{font-size:14.5px; font-weight:600; color:#5a68a0;}
-.pin-dots{display:flex; justify-content:center; gap:14px; margin:16px 0;}
-.pin-dots span{width:22px; height:22px; border-radius:50%; background:#e3e9ff; border:3px solid #b9c6f5; transition:.15s;}
-.pin-dots span.f{background:var(--yellow); border-color:#f7b731; transform:scale(1.15);}
-.pad{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; max-width:300px; margin:0 auto;}
+.who-card .t1{font-size:24px; font-weight:700; line-height:1.15;}
+.who-card .t2{font-size:15px; font-weight:600; color:#5a68a0;}
+/* ACCESS RESTYLE (Oct 2026): entry cards follow the shared portal pattern —
+   big tappable cards, one per entry, each with its own identity accent. */
+.who-card.c-sreshta{background:linear-gradient(180deg,#ffffff,#fff5f9); border-color:#ffb3cd;}
+.who-card.c-guest{background:linear-gradient(180deg,#ffffff,#f0fdfa); border-color:#8fe3dd;}
+.who-card.c-parents{background:linear-gradient(180deg,#ffffff,#f7f0ff); border-color:#d3aef5;}
+.who-card .icon-tile.lg{width:66px; height:66px; font-size:36px;}
+#scr-access{padding-bottom:72px;}
+.pin-dots{display:flex; justify-content:center; gap:14px; margin:16px 0 8px;}
+.pin-dots span{width:20px; height:20px; border-radius:50%; background:#e9e2f7; border:3px solid #cdbcf0; transition:.15s;}
+.pin-dots span.f,.pin-dots span.on{background:linear-gradient(180deg,#ff7eb3,#a55eea); border-color:#8e44ad; transform:scale(1.18);}
+.pad{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; max-width:330px; margin:6px auto 0;}
 .pad button{
-  height:62px; border-radius:50%; border:none; font-family:inherit; font-size:26px; font-weight:700;
-  background:#fff; color:var(--ink); box-shadow:0 4px 0 rgba(38,50,94,.2); cursor:pointer;
+  height:60px; border-radius:18px; border:2.5px solid #e3c6f7; font-family:inherit; font-size:27px; font-weight:800;
+  background:linear-gradient(180deg,#fffefe,#fdf3ff); color:#5b2a86; box-shadow:0 4px 0 rgba(91,42,134,.18); cursor:pointer;
 }
-.pad button:active{transform:translateY(3px); box-shadow:none; background:#fff3c9;}
+.pad button:active{transform:translateY(3px); box-shadow:none; background:#ffe3f0;}
+.pad button:empty{visibility:hidden;}
 .shake{animation:shake .45s ease;}
 @keyframes shake{0%,100%{transform:none}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 input.namein, select.namein, textarea.namein{
@@ -554,8 +562,11 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 .subj-card:active .icon-tile,.topic-row:active .icon-tile{animation:none;transform:scale(1.12);}
 @media (prefers-reduced-motion: reduce){ .icon-tile,.chap-ic{animation:none !important;} .icon-tile.spark::after{animation:none !important;opacity:.55;} }
 </style>
+<style>#islandBackBtn{position:fixed;bottom:calc(env(safe-area-inset-bottom, 0px) + 10px);left:10px;z-index:2147483000;background:#3B1163;border:1.5px solid rgba(255,201,77,.85);color:#F3DFA7;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px;line-height:1;text-decoration:none;box-shadow:0 4px 14px rgba(10,2,28,.45);min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}</style>
 </head>
 <body>
+<a id="islandBackBtn" href="https://raghuramsuda-sys.github.io/sreshta-universe/" aria-label="Back to Starlight Island dashboard">&#8592; Island</a>
+<script>(function(){var b=document.getElementById("islandBackBtn");if(!b)return;function upd(){var on=document.querySelector(".screen.on,.scr.on");var show=!on||on.id==="scr-access"||on.id==="scr-home";b.style.display=show?"inline-flex":"none";}upd();new MutationObserver(upd).observe(document.documentElement,{attributes:true,attributeFilter:["class"],subtree:true});})();</script>
 <div id="fx"></div>
 <div id="app">
 
@@ -569,15 +580,15 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
   </div>
   <div id="continueBox"></div>
   <div class="who-grid">
-    <button class="who-card" id="btnSreshta">
-      <span class="ava doll-ava mimi" data-ava="mimi" style="width:54px;height:54px"></span>
+    <button class="who-card c-sreshta" id="btnSreshta">
+      <span class="ava doll-ava mimi" data-ava="mimi" style="width:66px;height:66px"></span>
       <span><span class="t1">Sreshta</span><br><span class="t2">That's me! Tap and enter my PIN 🔐</span></span>
     </button>
-    <button class="who-card" id="btnGuest">
+    <button class="who-card c-guest" id="btnGuest">
       <span class="ava icon-tile lg t-teal">🧸</span>
       <span><span class="t1">I am a Guest</span><br><span class="t2">Friends &amp; family — play with your own stars ⭐</span></span>
     </button>
-    <button class="who-card" id="btnParents">
+    <button class="who-card c-parents" id="btnParents">
       <span class="ava icon-tile lg t-purple">🔑</span>
       <span><span class="t1">Parents</span><br><span class="t2">Amma &amp; Nanna — see the Dashboard 📊</span></span>
     </button>
@@ -593,8 +604,8 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
   </div>
   <div class="card" id="pinCard">
     <div class="pin-dots" id="pinDots"><span></span><span></span><span></span><span></span></div>
-    <div class="pad" id="pinPad"></div>
     <p class="center mut" id="pinMsg" style="min-height:22px;"></p>
+    <div class="pad" id="pinPad"></div>
   </div>
 </section>
 
