@@ -499,6 +499,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 .dcard-t{font-weight:800; font-size:15.5px; color:#22315e;}
 .dcard-s{font-size:12.5px; font-weight:600; color:#5a68a0; line-height:1.35;}
 .dcard-go{font-size:22px; color:#b9a8e8; font-weight:800; flex:none;}
+a.dcard{text-decoration:none; color:inherit;}
 .drow{display:flex; align-items:center; gap:10px; width:100%; background:#fff; border:none; border-radius:14px; padding:11px 13px; margin:6px 0; text-align:left; box-shadow:0 3px 0 rgba(38,50,94,.07); font-family:inherit; cursor:pointer;}
 .drow-main{flex:1; display:flex; flex-direction:column; gap:1px; min-width:0;}
 .drow-t{font-weight:700; font-size:15px; color:#22315e;}
@@ -1647,9 +1648,9 @@ TOP['digit-numbers'] = T("digit-numbers","Digit Numbers","🔟",[
     function(){ var mode=ri(0,1);
       if(mode===0){ var n=ri(1000,9999); return mkQ("How many DIGITS does the number "+num(n)+" have?", "", 4, [3,5,2], "dig-read","sums",
         num(n)+" is written with 4 digits: "+(""+n).split("").join(", ")+".", "How many digits does "+n+" have?"); }
-      var a=ri(101,999), b=ri(1000,9999), c=ri(11,99), d=ri(1000,9999); if(d===b) d=b+7;
-      return mkQ("Which of these numbers has exactly 4 digits?", "", b, [a,c,d===b?b+13:d], "dig-read","sums",
-        num(b)+" has 4 digits. "+num(a)+" has 3, "+num(c)+" has 2.", "Which number has exactly 4 digits?"); }),
+      var a=ri(101,999), b=ri(1000,9999), c=ri(11,99), d=ri(10000,99999);
+      return mkQ("Which of these numbers has exactly 4 digits?", "", b, [a,c,d], "dig-read","sums",
+        num(b)+" has 4 digits. "+num(a)+" has "+(""+a).length+", "+num(c)+" has "+(""+c).length+", "+num(d)+" has "+(""+d).length+".", "Which number has exactly 4 digits?"); }),
   S("Number Names","dig-names","Number names write a number in WORDS. 2,340 = two thousand three hundred forty.",
     "Number names. Two thousand three hundred forty is the name of 2340.",
     vTxt("<div style='font-size:22px; font-weight:800;'>2,340</div><div>🗣️ <b>two thousand, three hundred forty</b></div>"),
@@ -1939,7 +1940,9 @@ function colMissingAdd(sub){
     if(hideA) shownA[col]="□"; else shownB[col]="□";
     var ans = hideA? da[col] : db[col];
     var txt="Column Puzzle! "+shownA.join("")+" + "+shownB.join("")+" = "+num(s)+". What digit is □?";
-    return mkQ(txt, "", ans, [(ans+3)%10, (ans+5)%10, ds[col]], sub, "sums",
+    var dcands=[(ans+3)%10, (ans+5)%10, ds[col], (ans+7)%10, (ans+1)%10, (ans+9)%10, (ans+2)%10, (ans+4)%10], dc=[], dseen={};
+    for(var di2=0; di2<dcands.length && dc.length<3; di2++){ if(dcands[di2]!==ans && !dseen[dcands[di2]]){ dseen[dcands[di2]]=1; dc.push(dcands[di2]); } }
+    return mkQ(txt, "", ans, dc, sub, "sums",
       "Look at that column: the digits there must add up (with the sum's digit "+ds[col]+"). □ = "+ans+".", txt);
   };
 }
@@ -2231,9 +2234,9 @@ TOP['mul-tables-2-10'] = T("mul-tables-2-10","Multiplication Tables 2 to 10","�
   thinkMistakeTable("mt-facts"),
   thinkMissingBoxMul([2,10],[3,12],"mt-missing"),
   thinkOddNumeric("mt-facts"),
-  function(){ var t=ri(3,9);
+  function(){ var t=ri(3,9); var ms={}, keys=[]; while(keys.length<3){ var m=ri(3,12); if(!ms[m]){ ms[m]=1; keys.push(m); } }
     return mkQ("Odd One Out! Three are in the table of "+t+". One is NOT. Which one?", "", (function(){ var n=t*ri(3,12)+1; return n%t===0? n+1 : n; })(),
-      [t*ri(3,12), t*ri(4,11), t*ri(5,10)], "mt-facts","thinking",
+      [t*keys[0], t*keys[1], t*keys[2]], "mt-facts","thinking",
       "Multiples of "+t+" divide exactly by "+t+". The odd one leaves a remainder!", "Odd one out! Which is not in the table of "+t+"?", {thinkType:"odd"}); }
 ]);
 TOP['mul-1digit-p1'] = T("mul-1digit-p1","Multiplying by a 1-Digit Number — Part 1","✖️",[
@@ -2386,9 +2389,9 @@ TOP['mul-tables-11-20'] = T("mul-tables-11-20","Multiplication Tables 11 to 20",
 ],[
   thinkMistakeTable("mt11-a"),
   thinkMissingBoxMul([11,20],[3,12],"mt11-b"),
-  function(){ var t=ri(11,20);
+  function(){ var t=ri(11,20); var ms={}, keys=[]; while(keys.length<3){ var m=ri(3,11); if(!ms[m]){ ms[m]=1; keys.push(m); } }
     return mkQ("Odd One Out! Three are in the table of "+t+". One is NOT. Which one?", "", (function(){ var n=t*ri(3,11)+2; return n%t===0? n+1 : n; })(),
-      [t*ri(3,11), t*ri(4,10), t*ri(5,9)], "mt11-a","thinking",
+      [t*keys[0], t*keys[1], t*keys[2]], "mt11-a","thinking",
       "Multiples of "+t+" divide exactly by "+t+". The odd one does not!", "Odd one out! Which is not in the table of "+t+"?", {thinkType:"odd"}); },
   thinkOddNumeric("mt11-story")
 ]);
@@ -2767,11 +2770,13 @@ TOP['frac-compare'] = T("frac-compare","Comparison of Fractions","⚖️",[
       ["True — 8 beats 4","True — bigger bottom always wins","False — they are equal"], "fcomp-num",
       "Same top (1 part taken). Cut into 8 → tiny parts. Cut into 4 → bigger parts. So 1/4 is bigger!", "True or false? 1 by 8 is bigger than 1 by 4.", "tf"); },
   thinkOddNumeric("fcomp-den"),
-  function(){ var b=pick([5,6,8]), arr=[1,2,3].map(function(i){return ri(1,b-1);});
+  function(){ var b=pick([5,6,8]), seen={}, arr=[]; while(arr.length<3){ var nn=ri(1,b-1); if(!seen[nn]){ seen[nn]=1; arr.push(nn); } }
     var sorted=arr.slice().sort(function(x,y){return x-y;});
     var correct=sorted.map(function(x){return x+"/"+b;}).join(", ");
-    var wrong=arr.map(function(x){return x+"/"+b;}).join(", "); if(wrong===correct) wrong=sorted.slice().reverse().map(function(x){return x+"/"+b;}).join(", ");
-    return mkQ("Odd One Out — no wait, ORDER them! Put from SMALLEST to BIGGEST: "+arr.map(function(x){return x+"/"+b;}).join(", "), "", correct, [wrong, sorted.slice().reverse().map(function(x){return x+"/"+b;}).join(", ")], "fcomp-den","thinking",
+    var given=arr.map(function(x){return x+"/"+b;}).join(", ");
+    var desc=sorted.slice().reverse().map(function(x){return x+"/"+b;}).join(", ");
+    var wrong=(given!==correct)? given : desc;
+    return mkQ("Odd One Out — no wait, ORDER them! Put from SMALLEST to BIGGEST: "+given, "", correct, [wrong, desc], "fcomp-den","thinking",
       "Same bottom ("+b+"): order by the tops: "+correct+".", "Put the fractions from smallest to biggest.", {thinkType:"odd"}); },
   function(){ var b=pick([6,8,10]), a=b/2+1;
     return mkQ("What If? "+a+"/"+b+" is more than 1/2. What if ONE more part is shaded — the new fraction is?", "", (a+1)+"/"+b, [a+"/"+b, (a+2)+"/"+b, (a+1)+"/"+(b+1)], "fcomp-half","thinking",
@@ -3385,7 +3390,8 @@ TOP['time-calendar'] = T("time-calendar","The Calendar","📅",[
   thinkOddNumeric("tcal-read"),
   function(){ var d=new Date(2026, 9, 16); var plus=ri(3,10); var nd=new Date(2026, 9, 16+plus);
     var wdNames=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    return mkQ("What If? Today is Friday, 16 October 2026. What day will it be after "+plus+" days?", calendarVisual(2026, 9, 16), wdNames[nd.getDay()], wdNames.filter(function(x,ix){return ix!==(nd.getDay()) && ix%2===0;}).slice(0,3).concat([wdNames[(nd.getDay()+3)%7]]).slice(0,3), "tcal-read","thinking",
+    var dopts=wdNames.filter(function(x,ix){return ix!==(nd.getDay()) && ix%2===0;}); if(dopts.indexOf(wdNames[(nd.getDay()+3)%7])<0) dopts.push(wdNames[(nd.getDay()+3)%7]);
+    return mkQ("What If? Today is Friday, 16 October 2026. What day will it be after "+plus+" days?", calendarVisual(2026, 9, 16), wdNames[nd.getDay()], dopts.slice(0,3), "tcal-read","thinking",
       "Count "+plus+" days forward from Friday on the calendar: we land on "+wdNames[nd.getDay()]+", "+nd.getDate()+" October.", "What day will it be after "+plus+" days?", {thinkType:"whatif"}); }
 ]);
 TOP['time-convert'] = T("time-convert","Conversion of Time","⏳",[
@@ -3611,8 +3617,8 @@ TOP['geo-faces'] = T("geo-faces","Faces, Edges and Corners","🧊",[
 /* ============ CH 12 · PICTOGRAPHS ============ */
 function pictoData(scale, cats){
   var names=cats||["🍎 Apples","🍌 Bananas","🍊 Oranges","🍇 Grapes"];
-  var rows=[];
-  for(var i=0;i<names.length;i++) rows.push([names[i], ri(1,6)*scale]);
+  var rows=[]; var usedK={};
+  for(var i=0;i<names.length;i++){ var k=ri(1,8); while(usedK[k]) k=ri(1,8); usedK[k]=1; rows.push([names[i], k*scale]); } /* distinct rows: MOST/FEWEST/MORE questions always have exactly one right answer */
   return rows;
 }
 TOP['picto-read'] = T("picto-read","Reading Pictographs","📊",[
@@ -6414,6 +6420,9 @@ function dashRow(nav, titleHtml, subHtml){
 function dashAreaCard(icon, tint, title, summary, nav){
   return "<button class='dcard' data-dnav='"+nav+"'><span class='icon-tile "+tint+"'>"+icon+"</span><span class='dcard-tx'><span class='dcard-t'>"+title+"</span><span class='dcard-s'>"+esc(summary)+"</span></span><span class='dcard-go'>›</span></button>";
 }
+function dashLinkCard(icon, tint, title, summary, url){
+  return "<a class='dcard' href='"+url+"'><span class='icon-tile "+tint+"'>"+icon+"</span><span class='dcard-tx'><span class='dcard-t'>"+title+"</span><span class='dcard-s'>"+esc(summary)+"</span></span><span class='dcard-go'>›</span></a>";
+}
 function dashTag(entry){ return "<span class='tag'>"+entry.icon+" "+esc(entry.name)+"</span>"; }
 function dashExamGrade(pct){
   for(var i=0;i<GRADES.length;i++) if(pct>=GRADES[i].min) return GRADES[i].label;
@@ -6662,6 +6671,7 @@ function renderDashboard(){
     + dashAreaCard("⚙️", "", "Controls", nc? ("Now in Class: "+(TOP[nc]? TOP[nc].name : nc)) : "Now in Class, baseline & resets", "controls")
     + dashAreaCard("🖨️", "", "Monthly Report", "View & print this month's report", "report")
     + dashAreaCard("🧸", "", "Guests on this device", guestCount? (guestCount+" guest"+(guestCount>1? "s" : "")+" on this device") : "No guests yet", "guests")
+    + dashLinkCard("📝", "", "Exam Practice", "Practise for her real school exams — papers, drills & tracker", "https://raghuramsuda-sys.github.io/sreshta-exam-practice/")
     + "</div>";
   el("dashBody").innerHTML = html;
   wireGivenButtons(el("dashBody"), p);
