@@ -772,6 +772,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
   <div class="card center">
     <div class="big-emoji" id="examIntroEmoji">📝🏆</div>
     <p style="font-weight:600; font-size:16.5px;" id="examIntroText"></p>
+    <button class="btn green" id="btnContinueExam" style="display:none; margin-bottom:10px;">▶ Continue My Exam</button>
     <button class="btn purple" id="btnStartExam">Start My Exam 🚀</button>
   </div>
 </section>
@@ -971,7 +972,7 @@ footer.note{text-align:center; font-size:12.5px; color:#5a68a0; font-weight:600;
 <div class="modal" id="leaveExamModal">
   <div class="sheet" style="text-align:center;">
     <div style="font-size:22px; font-weight:700;">Leave the exam? 📝</div>
-    <p class="mut" style="font-size:15px;">Your answers so far are saved as practice.<br>The exam will not get a score — you can start it again any time! 💛</p>
+    <p class="mut" style="font-size:15px;">Don't worry — your exam is <b>saved</b> right where you are! 📝<br>Leave now if you like, then tap <b>Continue My Exam</b> later to pick up at the very same question.<br>Your exam gets a score only when you finish it! 💛</p>
     <button class="btn orange" id="btnLeaveExam">Leave exam</button>
     <div style="height:8px"></div>
     <button class="btn green" id="btnStayExam">Keep going! 💪</button>
@@ -5635,12 +5636,14 @@ function renderQ(){
     b.addEventListener("click", function(){ answerQ(opt, b); });
     box.appendChild(b);
   });
+  persistRun();
 }
 function answerQ(chosen, btn){
   var s = APP.session; if(!s || s.locked) return;
   var q = curQ(); s.locked = true;
   var correct = String(chosen)===String(q.answer);
   s.results.push({ q:q, res: correct? "c":"w", chosen:String(chosen) });
+  persistRun();
   var p = P();
   if(correct && s.cfg.stars!==false && p){ p.stars++; s.stars++; }
   var opts = el("qOpts").children;
@@ -5677,8 +5680,99 @@ function skipQ(){
 }
 function finishQuiz(){
   var s = APP.session; APP.session = null;
+  if(s) clearSavedRun(s.cfg.mode);
   save();
   if(s && s.cfg.onDone) s.cfg.onDone(s);
+}
+/* ============ AUTO-SAVE: resumable quiz runs (Ram, Oct 18) ============
+   Work saves AS SHE GOES: leaving mid-activity (Back, Home, Island button,
+   closing the tab) must never lose work or force repetition. A saved RUN is
+   NOT a result: exam history is still written ONLY when an exam is finished,
+   and leaving still records no score — the run simply waits to be continued. */
+function runCategory(mode){
+  if(mode==="exam" || mode==="chExam") return "examrun";
+  if(mode==="mixed" || mode==="think") return "pracrun";
+  if(mode==="baseline") return "baserun";
+  return null;
+}
+function persistRun(){
+  var s = APP.session, p = P(); if(!s || !p || !s.cfg) return;
+  var cat = runCategory(s.cfg.mode); if(!cat) return;
+  try{
+    var run = { mode:s.cfg.mode, phase:s.cfg.phase||"", tid:s.cfg.tid||APP.tid||null,
+      list:s.cfg.list,
+      results:s.results.map(function(r){ return { res:r.res, chosen:r.chosen||"" }; }) };
+    if(cat==="examrun"){
+      var ctx = APP.examCtx||{};
+      run.kind = ctx.kind || (s.cfg.mode==="exam"? "topic" : "chapter");
+      run.id = ctx.id || s.cfg.tid || null;
+      run.testOut = !!ctx.testOut;
+    }
+    lsSet(cat+"_"+p.slug, run);
+  }catch(e){}
+}
+function savedRun(cat){
+  var p = P(); if(!p) return null;
+  var r = lsGet(cat+"_"+p.slug);
+  if(!r || !r.list || !r.results) return null;
+  if(r.results.length<1 || r.results.length>=r.list.length) return null;
+  return r;
+}
+function clearSavedRun(mode){
+  var cat = runCategory(mode), p = P(); if(!cat || !p) return;
+  try{ localStorage.removeItem(LS_PREFIX+cat+"_"+p.slug); }catch(e){}
+}
+function clearAllSavedRuns(slug){
+  ["examrun","pracrun","baserun"].forEach(function(cat){ try{ localStorage.removeItem(LS_PREFIX+cat+"_"+slug); }catch(e){} });
+}
+function savedExamRunFor(kind, id){
+  var r = savedRun("examrun");
+  return (r && r.kind===kind && r.id===id)? r : null;
+}
+function restoredResults(run){
+  return run.results.map(function(r, i){ return { q:run.list[i], res:r.res, chosen:r.chosen||"" }; });
+}
+function resumeExamRun(){
+  var ctx0 = APP.examCtx; if(!ctx0) return;
+  var run = savedExamRunFor(ctx0.kind, ctx0.id); if(!run) return;
+  var p = P(); if(!p) return;
+  var ctx = { kind:run.kind, id:run.id, testOut:!!run.testOut };
+  APP.examCtx = ctx;
+  APP.snap = { stars:p.stars, coins:p.coins };
+  if(run.kind==="topic"){ APP.tid = run.id; APP.cid = CHAPTER_OF[run.id]; }
+  else { APP.cid = run.id; }
+  var cfg = { phase:run.phase, list:run.list, mode: run.kind==="topic"? "exam" : "chExam", record:"attempts",
+    tid: run.kind==="topic"? run.id : null, allowSkip:true, explainAfter:false, stars:false,
+    onDone:function(s){ if(run.kind==="topic") finishTopicExam(ctx, s); else finishChapterExam(ctx, s); } };
+  APP.session = { cfg:cfg, ix:run.results.length, results:restoredResults(run), locked:false, stars:0 };
+  el("qzPhase").textContent = cfg.phase;
+  show("quiz");
+  renderQ();
+  toast("📝 Welcome back! Your exam carried on right where you left it! 💛");
+}
+function resumePracRun(run){
+  APP.tid = run.tid; APP.cid = CHAPTER_OF[run.tid];
+  var cfg;
+  if(run.mode==="mixed"){
+    var tally = {};
+    run.results.forEach(function(r, i){ var q = run.list[i]; if(q && q._confirmTid){ if(!tally[q._confirmTid]) tally[q._confirmTid] = { c:0, w:0 }; if(r.res==="c") tally[q._confirmTid].c++; else if(r.res==="w") tally[q._confirmTid].w++; } });
+    cfg = mixedCfg(run.list, tally);
+  } else {
+    cfg = thinkCfg(run.list);
+  }
+  APP.session = { cfg:cfg, ix:run.results.length, results:restoredResults(run), locked:false, stars:0 };
+  el("qzPhase").textContent = cfg.phase||"✏️ Practice";
+  show("quiz");
+  renderQ();
+  toast("🎀 Welcome back! Mimi saved your place — let's carry on! 💛");
+}
+function resumeBaseRun(run){
+  var cfg = baselineCfg(run.list);
+  APP.session = { cfg:cfg, ix:run.results.length, results:restoredResults(run), locked:false, stars:0 };
+  el("qzPhase").textContent = cfg.phase;
+  show("quiz");
+  renderQ();
+  toast("🗺️ Welcome back, explorer! Your adventure carried on! 💛");
 }
 function showPhase(emoji, title, text, nextFn, backScr){
   el("phaseEmoji").textContent = emoji;
@@ -5769,11 +5863,9 @@ function buildMixedList(){
   }
   return list;
 }
-function startMixed(){
+function mixedCfg(list, confirmTally){
   var td = TOP[APP.tid];
-  var list = buildMixedList();
-  var confirmTally = {};
-  runQuiz({ phase:"🎯 Mixed Practice · "+td.name, list:list, mode:"mixed", record:"full", tid:APP.tid, explainAfter:true,
+  return { phase:"🎯 Mixed Practice · "+td.name, list:list, mode:"mixed", record:"full", tid:APP.tid, explainAfter:true,
     onAnswer:function(q, correct){
       if(q._confirmTid){
         if(!confirmTally[q._confirmTid]) confirmTally[q._confirmTid] = { c:0, w:0 };
@@ -5797,13 +5889,16 @@ function startMixed(){
       var right = s.results.filter(function(r){return r.res==="c";}).length;
       var extra = reopened.length? "<br>↺ One earlier topic ("+esc(reopened.join(", "))+") wants a little Revise — find it in its chapter. Your XP is safe! 💛" : "";
       showPhase("🎯","Mixed Practice Done!","You got <b>"+right+" of "+s.results.length+"</b>! Now let's THINK in new ways — Mimi's favourite part! 💡"+extra, function(){ startThink(); });
-    } });
+    } };
 }
-function startThink(){
+function startMixed(){
+  var saved = savedRun("pracrun");
+  if(saved && saved.mode==="mixed" && saved.tid===APP.tid){ resumePracRun(saved); return; }
+  runQuiz(mixedCfg(buildMixedList(), {}));
+}
+function thinkCfg(list){
   var td = TOP[APP.tid];
-  var list = [], seen = {}, ti = 0, guard = 0;
-  while(list.length<4 && guard<60){ guard++; var q = tryGen(td.think[ti % td.think.length]); ti++; if(q && !seen[q.q]){ seen[q.q]=1; q._tid = APP.tid; list.push(q); } }
-  runQuiz({ phase:"💡 Think! · "+td.name, list:list, mode:"think", record:"full", tid:APP.tid, explainAfter:true,
+  return { phase:"💡 Think! · "+td.name, list:list, mode:"think", record:"full", tid:APP.tid, explainAfter:true,
     onDone:function(s){
       var p = P(), t = topicState(p, APP.tid);
       var first = !t.thinkDone;
@@ -5813,7 +5908,15 @@ function startThink(){
       recomputeProfileXP(p); save();
       var right = s.results.filter(function(r){return r.res==="c";}).length;
       showPhase("💡","Thinking Star!","You solved <b>"+right+" of "+s.results.length+"</b> thinking questions! Ready for the Topic Exam? It's your time to shine! 📝", function(){ examIntro("topic", APP.tid, false); });
-    } });
+    } };
+}
+function startThink(){
+  var saved = savedRun("pracrun");
+  if(saved && saved.mode==="think" && saved.tid===APP.tid){ resumePracRun(saved); return; }
+  var td = TOP[APP.tid];
+  var list = [], seen = {}, ti = 0, guard = 0;
+  while(list.length<4 && guard<60){ guard++; var q = tryGen(td.think[ti % td.think.length]); ti++; if(q && !seen[q.q]){ seen[q.q]=1; q._tid = APP.tid; list.push(q); } }
+  runQuiz(thinkCfg(list));
 }
 
 /* ============ EXAMS ============ */
@@ -5828,6 +5931,16 @@ function examIntro(kind, id, testOut){
     var ch = chapterById(id);
     el("examIntroEmoji").textContent = "🏆📝";
     el("examIntroText").innerHTML = "<b>Chapter Exam — "+esc(ch.name)+"</b><br>15 questions from the whole chapter · Right <b>+10</b> · Wrong <b>−2</b> · Skip <b>0</b>.<br>Score <b>70%</b> or more to earn the chapter badge! No timer. 💪";
+  }
+  var savedExam = savedExamRunFor(kind, id);
+  var cb = el("btnContinueExam"), sb = el("btnStartExam");
+  if(savedExam){
+    cb.style.display = "block";
+    cb.textContent = "▶ Continue My Exam — Question " + (savedExam.results.length+1) + " of " + savedExam.list.length;
+    sb.textContent = "Start Again (New Questions) ↺";
+  } else {
+    cb.style.display = "none";
+    sb.textContent = "Start My Exam 🚀";
   }
   show("examintro");
   mimiSpeak(null, { clip:"exam_courage" });
@@ -5989,11 +6102,10 @@ function startFixIt(){
 }
 
 /* ============ BASELINE ADVENTURE ============ */
-function startBaseline(){
+function baselineCfg(list){
   var p = P();
-  var list = buildBaseline();
   var perCid = {};
-  runQuiz({ phase:"🗺️ Baseline Adventure", list:list, mode:"baseline", record:"none", allowSkip:true, explainAfter:true,
+  return { phase:"🗺️ Baseline Adventure", list:list, mode:"baseline", record:"none", allowSkip:true, explainAfter:true,
     onAnswer:function(q){ if(q._cid){ if(!perCid[q._cid]) perCid[q._cid]={a:0,c:0}; } },
     onDone:function(s){
       s.results.forEach(function(r){ var cid = r.q._cid; if(cid){ if(!perCid[cid]) perCid[cid]={a:0,c:0}; perCid[cid].a++; if(r.res==="c") perCid[cid].c++; } });
@@ -6003,7 +6115,12 @@ function startBaseline(){
       save();
       var names = suggested.map(function(cid){ return chapterById(cid).name; });
       showPhase("🗺️","Adventure Complete!","What a trip! Mimi now knows your starting map. 🎀"+(names.length? "<br>You look STRONG in: <b>"+esc(names.join(", "))+"</b> — you can try a Test-Out in those chapters! 💪" : "<br>Every chapter is a fresh adventure waiting for you!"), function(){ renderMaths(); show("maths"); }, "maths");
-    } });
+    } };
+}
+function startBaseline(){
+  var saved = savedRun("baserun");
+  if(saved){ resumeBaseRun(saved); return; }
+  runQuiz(baselineCfg(buildBaseline()));
 }
 
 /* ============ TRICKY QUESTIONS MODE ============ */
@@ -7034,6 +7151,7 @@ function openDashControls(){
     if(!APP.resetArm){ APP.resetArm = true; el("resetHint").textContent = "Tap once more to ERASE all of Sreshta's progress on this device."; return; }
     APP.resetArm = false;
     try{ localStorage.removeItem(LS_PREFIX+"profile_sreshta"); }catch(e){}
+    clearAllSavedRuns("sreshta");
     var pl = (lsGet("players")||[]).filter(function(s){ return s!=="sreshta"; }); lsSet("players", pl);
     if(P() && P().slug==="sreshta") APP.profile = newProfile("Sreshta");
     renderDashboard(); toast("Progress reset.");
@@ -7081,6 +7199,7 @@ function openDashGuests(){
   for(var k=0;k<dg.length;k++) dg[k].addEventListener("click", function(){
     var g = this.getAttribute("data-delguest");
     try{ localStorage.removeItem(LS_PREFIX+"profile_"+g); }catch(e){}
+    clearAllSavedRuns(g);
     lsSet("players", (lsGet("players")||[]).filter(function(s){ return s!==g; }));
     openDashGuests();
   });
@@ -7186,6 +7305,7 @@ function initApp(){
   el("qSkip").addEventListener("click", skipQ);
   el("phaseNext").addEventListener("click", function(){ if(APP.phaseNext) APP.phaseNext(); });
   el("btnStartExam").addEventListener("click", startExam);
+  el("btnContinueExam").addEventListener("click", resumeExamRun);
   el("btnToRitual").addEventListener("click", showRitual);
   el("btnRetryExam").addEventListener("click", function(){ var le = APP.lastExam; if(!le) return; if(le.kind==="topic") startTopicExam(le.id, false); else startChapterExam(le.id); });
   el("btnAmma").addEventListener("click", function(){ var c = el("ritualCard"); APP.ammaBig = !APP.ammaBig; c.classList.toggle("big", APP.ammaBig); this.textContent = APP.ammaBig? "📣 Make it small again" : "📣 Show Amma (Big)"; });
